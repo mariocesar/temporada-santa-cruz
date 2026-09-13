@@ -58,11 +58,12 @@ points the session at `docs/PLAN.md` and `PROJECT.md`, so these stay short.
 ## Phase 3 — Polish
 
 > Continue Temporada Santa Cruz: execute Phase 3 of docs/PLAN.md (polish).
-> Before any design work, ask me for the reference screenshots of designs I
-> like (noted in PLAN.md Phase 3) and derive the design system from them
-> within the PROJECT.md §9 direction (editorial, agricultural, warm — not
-> SaaS). Then: typography and design system, full WCAG AA pass, reduced
-> motion, touch-friendly
+> Before any design work, read docs/design-references/NOTES.md (owner-vetted
+> references: ridgeline month layout, produce-derived palette, botanical
+> illustration language) and ask me for any additional screenshots; derive
+> the design system from those notes within the PROJECT.md §9 direction
+> (editorial, agricultural, warm — not SaaS, not a clone). Then: typography
+> and design system, full WCAG AA pass, reduced motion, touch-friendly
 > tooltip equivalents, empty states, and complete the documentation set:
 > README, CONTRIBUTING, docs/METHODOLOGY.md, docs/DATA_SOURCES.md,
 > docs/DATA_CONTRIBUTION.md. Run the audit as a multi-agent workflow — one
