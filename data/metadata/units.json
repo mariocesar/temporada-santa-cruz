@@ -1,0 +1,70 @@
+[
+  {
+    "id": "kg",
+    "canonical": "kg",
+    "aliases": ["kg", "kilo", "kilogramo", "kgs"],
+    "knownWeightKg": 1,
+    "conversionConfidence": 1
+  },
+  {
+    "id": "lb",
+    "canonical": "lb",
+    "aliases": ["lb", "libra", "libras"],
+    "knownWeightKg": 0.4536,
+    "conversionConfidence": 1
+  },
+  {
+    "id": "arroba",
+    "canonical": "arroba",
+    "aliases": ["arroba", "@", "arrobas"],
+    "knownWeightKg": 11.34,
+    "conversionConfidence": 0.9
+  },
+  {
+    "id": "quintal",
+    "canonical": "quintal",
+    "aliases": ["quintal", "qq", "quintales"],
+    "knownWeightKg": 45.36,
+    "conversionConfidence": 0.9
+  },
+  {
+    "id": "caja",
+    "canonical": "caja",
+    "aliases": ["caja", "cajas", "cajón", "cajon"]
+  },
+  {
+    "id": "bolsa",
+    "canonical": "bolsa",
+    "aliases": ["bolsa", "bolsas", "saco", "sacos"]
+  },
+  {
+    "id": "docena",
+    "canonical": "docena",
+    "aliases": ["docena", "doc", "docenas"]
+  },
+  {
+    "id": "unidad",
+    "canonical": "unidad",
+    "aliases": ["unidad", "und", "u", "unidades", "por unidad"]
+  },
+  {
+    "id": "ciento",
+    "canonical": "100 unidades",
+    "aliases": ["ciento", "100 unidades", "cien unidades", "100 u"]
+  },
+  {
+    "id": "veinticinco-unidades",
+    "canonical": "25 unidades",
+    "aliases": ["25 unidades", "25 u"]
+  },
+  {
+    "id": "racimo",
+    "canonical": "racimo",
+    "aliases": ["racimo", "racimos", "chipa"]
+  },
+  {
+    "id": "amarro",
+    "canonical": "amarro",
+    "aliases": ["amarro", "amarros", "atado", "atados"]
+  }
+]

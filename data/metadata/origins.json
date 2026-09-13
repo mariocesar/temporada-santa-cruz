@@ -1,0 +1,111 @@
+[
+  {
+    "id": "bo-santa-cruz",
+    "label": "Santa Cruz",
+    "country": "Bolivia",
+    "department": "Santa Cruz",
+    "level": "department",
+    "aliases": ["santa cruz", "sta. cruz", "sta cruz", "scz", "dpto. santa cruz"]
+  },
+  {
+    "id": "bo-sc-valles",
+    "label": "Valles Cruceños",
+    "country": "Bolivia",
+    "department": "Santa Cruz",
+    "region": "Valles Cruceños",
+    "level": "region",
+    "aliases": ["valles cruceños", "valles crucenos", "valles"]
+  },
+  {
+    "id": "bo-sc-norte",
+    "label": "Norte Integrado",
+    "country": "Bolivia",
+    "department": "Santa Cruz",
+    "region": "Norte Integrado",
+    "level": "region",
+    "aliases": ["norte integrado", "norte cruceño"]
+  },
+  {
+    "id": "bo-sc-comarapa",
+    "label": "Comarapa",
+    "country": "Bolivia",
+    "department": "Santa Cruz",
+    "province": "Manuel María Caballero",
+    "municipality": "Comarapa",
+    "region": "Valles Cruceños",
+    "level": "municipality",
+    "aliases": ["comarapa"]
+  },
+  {
+    "id": "bo-sc-mairana",
+    "label": "Mairana",
+    "country": "Bolivia",
+    "department": "Santa Cruz",
+    "province": "Florida",
+    "municipality": "Mairana",
+    "region": "Valles Cruceños",
+    "level": "municipality",
+    "aliases": ["mairana"]
+  },
+  {
+    "id": "bo-cochabamba",
+    "label": "Cochabamba",
+    "country": "Bolivia",
+    "department": "Cochabamba",
+    "level": "department",
+    "aliases": ["cochabamba", "cbba", "cbba."]
+  },
+  {
+    "id": "bo-tarija",
+    "label": "Tarija",
+    "country": "Bolivia",
+    "department": "Tarija",
+    "level": "department",
+    "aliases": ["tarija"]
+  },
+  {
+    "id": "bo-la-paz",
+    "label": "La Paz",
+    "country": "Bolivia",
+    "department": "La Paz",
+    "level": "department",
+    "aliases": ["la paz"]
+  },
+  {
+    "id": "bo-beni",
+    "label": "Beni",
+    "country": "Bolivia",
+    "department": "Beni",
+    "level": "department",
+    "aliases": ["beni"]
+  },
+  {
+    "id": "bo-chuquisaca",
+    "label": "Chuquisaca",
+    "country": "Bolivia",
+    "department": "Chuquisaca",
+    "level": "department",
+    "aliases": ["chuquisaca", "sucre"]
+  },
+  {
+    "id": "ar",
+    "label": "Argentina",
+    "country": "Argentina",
+    "level": "country",
+    "aliases": ["argentina"]
+  },
+  {
+    "id": "pe",
+    "label": "Perú",
+    "country": "Perú",
+    "level": "country",
+    "aliases": ["perú", "peru"]
+  },
+  {
+    "id": "cl",
+    "label": "Chile",
+    "country": "Chile",
+    "level": "country",
+    "aliases": ["chile"]
+  }
+]
