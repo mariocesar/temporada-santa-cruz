@@ -1,6 +1,7 @@
 <script lang="ts">
   import { loadDataset, type Dataset } from './lib/data/loader'
-  import { buildProductViews, type ProductView } from './lib/data/views'
+  import { buildProductViews, stateAt, type ProductView } from './lib/data/views'
+  import { MONTH_NAMES_ES, monthOfWeekBin } from './lib/domain/months'
   import { DashboardState, todayWeekBin } from './lib/stores/dashboard.svelte'
   import { parseParams } from './lib/stores/urlState'
   import AhoraSection from './lib/components/dashboard/AhoraSection.svelte'
@@ -59,6 +60,29 @@
       : null,
   )
 
+  /**
+   * Cover art for the masthead: the products at their peak in the reference
+   * week, falling back to those simply in season. This restates the "Ahora"
+   * section rather than adding a claim, and products below the evidence
+   * thresholds are never eligible (stateAt keeps them at `sin_datos`).
+   */
+  const featured = $derived.by(() => {
+    if (!dash) return []
+    const at = (state: string) =>
+      views.filter((v) => stateAt(v, dash!.mode, dash!.referenceWeek) === state)
+    const peak = at('pico')
+    return peak.length > 0 ? peak : at('en_temporada')
+  })
+
+  const featuredCaption = $derived.by(() => {
+    if (!dash || featured.length === 0) return ''
+    const peak = stateAt(featured[0]!, dash.mode, dash.referenceWeek) === 'pico'
+    const when = dash.isToday
+      ? 'esta semana'
+      : `en ${MONTH_NAMES_ES[monthOfWeekBin(dash.referenceWeek) - 1]}`
+    return peak ? `En su pico ${when}` : `En temporada ${when}`
+  })
+
   const dataUpdatedAt = $derived(
     dataset?.index.dataUpdatedAt
       ? new Intl.DateTimeFormat('es-BO', { dateStyle: 'long', timeZone: 'UTC' }).format(
@@ -87,7 +111,7 @@
     <DemoBanner />
   {/if}
 
-  <SiteHeader {dataUpdatedAt} />
+  <SiteHeader {dataUpdatedAt} {featured} {featuredCaption} />
 
   {#if error}
     <section class="state-box" aria-live="assertive">

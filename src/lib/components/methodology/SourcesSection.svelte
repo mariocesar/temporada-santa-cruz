@@ -1,11 +1,17 @@
 <script lang="ts">
   import type { DataSource } from '../../data/types'
+  import { artCredits, renderableIllustrations } from '../../ui/illustrations/registry'
 
   interface Props {
     sources: ReadonlyArray<DataSource>
   }
 
   let { sources }: Props = $props()
+
+  // Artwork gets the same provenance treatment as data
+  // (docs/design-references/NOTES.md, illustration policy §4).
+  const credits = artCredits()
+  const artCount = renderableIllustrations().length
 
   function originalName(source: DataSource): string | null {
     if (source.kind !== 'mirror' || !source.mirrorOf) return null
@@ -58,6 +64,31 @@
       </li>
     {/each}
   </ul>
+
+  {#if credits.length > 0}
+    <div class="art-credits">
+      <h3 class="art-title">Ilustraciones</h3>
+      <p>
+        Las {artCount} ilustraciones botánicas del panel son dibujos vectoriales
+        originales, no láminas históricas. Son decorativas: no codifican
+        temporada, confianza ni evidencia.
+      </p>
+      <ul>
+        {#each credits as credit (credit.artist + credit.year)}
+          <li>
+            {credit.artist}, {credit.year} — {credit.license} ({credit.count}
+            {credit.count === 1 ? 'lámina' : 'láminas'})
+            {#if credit.sourceUrl}
+              ·
+              <a href={credit.sourceUrl} target="_blank" rel="noopener noreferrer">
+                Original
+              </a>
+            {/if}
+          </li>
+        {/each}
+      </ul>
+    </div>
+  {/if}
 </section>
 
 <style>
@@ -135,6 +166,34 @@
   }
 
   .link a {
+    color: var(--color-accent);
+  }
+
+  .art-credits {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    max-width: 44rem;
+  }
+
+  .art-title {
+    font-size: 1rem;
+    color: var(--color-text);
+    margin: 0 0 var(--space-2);
+  }
+
+  .art-credits p {
+    margin: 0 0 var(--space-2);
+  }
+
+  .art-credits ul {
+    margin: 0;
+    padding-left: var(--space-4);
+  }
+
+  .art-credits a {
     color: var(--color-accent);
   }
 </style>

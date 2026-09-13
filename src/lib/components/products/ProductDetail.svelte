@@ -11,6 +11,7 @@
   import { CATEGORY_LABEL, CONFIDENCE_TEXT, SEASON_STATE_LABEL } from '../../i18n/labels'
   import { productHue } from '../../ui/palette'
   import ConfidenceChip from '../ui/ConfidenceChip.svelte'
+  import ProductGlyph from '../ui/ProductGlyph.svelte'
   import ReferenceSeasonBadge from '../ui/ReferenceSeasonBadge.svelte'
   import MonthAxis from '../charts/MonthAxis.svelte'
   import SeasonStrip from '../charts/SeasonStrip.svelte'
@@ -149,20 +150,31 @@
   aria-labelledby="detail-title"
 >
   <header class="panel-head">
-    <div>
-      <h2 id="detail-title">{product.nameEs}</h2>
-      {#if product.scientificName}
-        <p class="scientific">{product.scientificName}</p>
-      {/if}
-      <p class="identity">
-        {CATEGORY_LABEL[product.category]}
-        {#if product.varieties && product.varieties.length > 0}
-          · Variedades: {product.varieties.join(', ')}
+    <div class="panel-identity">
+      <span class="panel-art" aria-hidden="true">
+        <ProductGlyph
+          productId={product.id}
+          hue={productHue(product)}
+          size={56}
+          stroke={1.35}
+          wash={0.12}
+        />
+      </span>
+      <div class="panel-identity-text">
+        <h2 id="detail-title">{product.nameEs}</h2>
+        {#if product.scientificName}
+          <p class="scientific">{product.scientificName}</p>
         {/if}
-      </p>
-      {#if product.aliases.length > 1}
-        <p class="identity">También: {product.aliases.join(', ')}</p>
-      {/if}
+        <p class="identity">
+          {CATEGORY_LABEL[product.category]}
+          {#if product.varieties && product.varieties.length > 0}
+            · Variedades: {product.varieties.join(', ')}
+          {/if}
+        </p>
+        {#if product.aliases.length > 1}
+          <p class="identity">También: {product.aliases.join(', ')}</p>
+        {/if}
+      </div>
     </div>
     <button
       type="button"
@@ -395,6 +407,30 @@
     border-top: 4px solid var(--hue);
     padding: var(--space-6) var(--space-4) var(--space-8);
     box-shadow: -8px 0 32px rgb(0 0 0 / 0.12);
+    animation: panel-in 260ms cubic-bezier(0.22, 0.7, 0.28, 1) both;
+  }
+
+  @keyframes panel-in {
+    from {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+  }
+
+  .panel-identity {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-width: 0;
+  }
+
+  .panel-art {
+    flex: none;
+    opacity: 0.9;
+  }
+
+  .panel-identity-text {
+    min-width: 0;
   }
 
   .panel-head {

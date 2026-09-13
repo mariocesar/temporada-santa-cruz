@@ -6,6 +6,7 @@
   import type { SeasonState } from '../../data/types'
   import { productHue } from '../../ui/palette'
   import ConfidenceChip from '../ui/ConfidenceChip.svelte'
+  import ProductGlyph from '../ui/ProductGlyph.svelte'
   import SegmentedControl from '../ui/SegmentedControl.svelte'
 
   interface Props {
@@ -126,16 +127,27 @@
     {#if group.items.length > 0}
       <h3>{group.title} <span class="count">({group.items.length})</span></h3>
       <ul class="cards">
-        {#each group.items as view (view.product.id)}
+        {#each group.items as view, i (view.product.id)}
           <li>
             <button
               type="button"
               class="card"
-              style="--hue: {productHue(view.product)}"
+              style="--hue: {productHue(view.product)}; --i: {i}"
               onclick={() => onselect(view.product.slug)}
             >
               <span class="card-head">
-                <span class="card-name">{view.product.nameEs}</span>
+                <span class="card-title">
+                  <span class="card-art" aria-hidden="true">
+                    <ProductGlyph
+                      productId={view.product.id}
+                      hue={productHue(view.product)}
+                      size={34}
+                      stroke={1.25}
+                      wash={0.12}
+                    />
+                  </span>
+                  <span class="card-name">{view.product.nameEs}</span>
+                </span>
                 <span class="card-category">{CATEGORY_LABEL[view.product.category]}</span>
               </span>
               {#if seasonMonths(view) !== ''}
@@ -265,11 +277,26 @@
     padding: var(--space-3);
     cursor: pointer;
     color: var(--color-text);
+    transition: border-color 160ms ease, transform 160ms ease;
+    animation: card-in 380ms cubic-bezier(0.22, 0.7, 0.28, 1) both;
+    animation-delay: calc(var(--i, 0) * 45ms);
+  }
+
+  @keyframes card-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
   }
 
   .card:hover {
     border-color: var(--hue);
     border-left-color: var(--hue);
+    transform: translateY(-2px);
+  }
+
+  .card:hover .card-art {
+    opacity: 1;
   }
 
   .card-head {
@@ -278,6 +305,19 @@
     justify-content: space-between;
     gap: var(--space-2);
     width: 100%;
+  }
+
+  .card-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 0;
+  }
+
+  .card-art {
+    flex: none;
+    opacity: 0.8;
+    transition: opacity 160ms ease;
   }
 
   .card-name {
