@@ -33,7 +33,7 @@
         <h3>
           {source.name}
           {#if source.synthetic}
-            <span class="synthetic-tag">SINTÉTICA (DEMO)</span>
+            <span class="synthetic-tag">DE EJEMPLO (DEMO)</span>
           {/if}
         </h3>
         <p class="publisher">{source.publisher}</p>

@@ -150,9 +150,9 @@
                   </span>
                   <span class="card-name">{view.product.nameEs}</span>
                   {#if markSynthetic && view.summary.containsSyntheticData}
-                    <span class="synthetic-tag" title="Incluye datos sintéticos de demostración"
-                      >SINTÉTICA<span class="visually-hidden">
-                        — incluye datos sintéticos de demostración</span
+                    <span class="synthetic-tag" title="Incluye datos de ejemplo, sin observaciones reales detrás"
+                      >DE EJEMPLO<span class="visually-hidden">
+                        — incluye datos de ejemplo, sin observaciones reales detrás</span
                       ></span
                     >
                   {/if}

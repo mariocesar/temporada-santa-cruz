@@ -337,7 +337,7 @@ export interface DatasetIndex {
    * True when EVERY published observation is synthetic (§45). Combined with
    * `containsDemoData` this distinguishes the all-demo state (the banner
    * speaks for the whole dataset) from the mixed real+demo state, where the
-   * banner switches to partial copy and per-product SINTÉTICA markers
+   * banner switches to partial copy and per-product DE EJEMPLO markers
    * become load-bearing. False when there are no observations at all.
    */
   allDataSynthetic: boolean

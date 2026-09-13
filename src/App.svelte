@@ -83,7 +83,7 @@
   )
 
   /**
-   * Per-product SINTÉTICA markers activate only in the mixed real+demo
+   * Per-product DE EJEMPLO markers activate only in the mixed real+demo
    * state: while EVERYTHING is synthetic the banner already declares it for
    * the whole dataset, and per-card repetition would add noise, not honesty.
    */

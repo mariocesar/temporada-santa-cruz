@@ -2766,6 +2766,14 @@ Decisions confirmed with the project owner while planning the reference-season f
 - **Display-only**: reference seasons are rendered as "Temporada estimada (bibliografía)" and are NEVER blended into market/local scores, `harvestScore` (reserved for the INE census prior, §34), confidence, evidence, or `insufficientEvidence`.
 - **Data acquisition expanded**: in addition to CAO/SIPREM, SIIP, and INE (above), the agent may research and fetch legitimately accessible public agronomy literature (MDRyT / Gobernación de Santa Cruz harvest calendars, INIAF, FAO, academic publications) to build phenology entries, recording each item as a cited source with publisher, URL, and access date. Citations must never be fabricated; a product without a verifiable source simply stays at "Datos insuficientes".
 
+## Demo-data display wording (confirmed 2026-09-13)
+
+The owner reported that non-technical viewers misread the on-screen word "SINTÉTICA" — next to a product name it reads as artificial/GMO produce, and for older viewers "sintético" means synthetic fabric. Confirmed decision:
+
+- All **user-facing Spanish** for demo/placeholder data says **"de ejemplo"**: per-product tag `DE EJEMPLO`, source tag `DE EJEMPLO (DEMO)`, banner `DATOS DE EJEMPLO` (all-demo state) / `ALGUNOS DATOS SON DE EJEMPLO` (mixed state), glosses "Incluye datos de ejemplo…". The word "sintético" must not appear in UI copy or be spoken in the pitch.
+- **Internal identifiers are unchanged**: `synthetic`, `allDataSynthetic`, `containsSyntheticData`, CSS class `synthetic-tag`, and the §45 raw-data marking rule (`demo` / `synthetic` / `placeholder`) all stay as they are. §45's hard constraint (demo data unmistakably marked, gated behind `ALLOW_DEMO_DATA`) is unaffected — this is a display-vocabulary decision only.
+- The pitch (`docs/PITCH.es.md`) opens with the owner's personal framing — recovering a generation's lost seasonal knowledge (his mother and grandmother know it instantly; he grew up with everything available year-round) — and its purpose statement is community participation, not only cheaper groceries.
+
 ---
 
 # 104. Reference seasons (estimación bibliográfica)

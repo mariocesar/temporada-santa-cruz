@@ -120,7 +120,8 @@ published. All other listed material remains un-imported; nothing outside
 
 Real (non-synthetic) coverage after this import — 544 observations, 16
 survey dates, 5 years; the demo seed still fills UI gaps and every product
-mixing demo records is marked (banner + per-product SINTÉTICA):
+mixing demo records is marked (banner + per-product DE EJEMPLO tag —
+formerly SINTÉTICA, relabeled to plain Spanish per §103):
 
 | Product | Real rows | Survey dates | Years |
 |---|---|---|---|

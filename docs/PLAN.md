@@ -337,6 +337,14 @@ accessible CAO/SIPREM, SIIP, and INE materials directly:
       PARCIALMENTE SINTÉTICOS" in the mixed state, per-product SINTÉTICA
       markers on Ahora cards and timeline rows + §11 text equivalents;
       re-applied onto the poster-first lámina by the parallel UI session.
+- [x] Demo-data display copy relabeled to plain Spanish (2026-09-13):
+      tag SINTÉTICA → DE EJEMPLO, banner → "ALGUNOS DATOS SON DE EJEMPLO"
+      / "DATOS DE EJEMPLO" — owner reported non-technical viewers read
+      "sintética" as artificial produce. Internal field names (`synthetic`,
+      `allDataSynthetic`) unchanged. Decision recorded in PROJECT.md §103.
+      Pitch rewritten the same day (docs/PITCH.es.md): personal-story
+      opening, factual fixes from a five-angle adversarial review, close
+      updated to the 544 real CAO observations.
 
 Remaining for Phase 6 exit: retire demo records product-by-product as real
 weekly coverage grows (Wayback CDX over cao.org.bo / IBCE's folder, the

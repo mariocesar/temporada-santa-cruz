@@ -213,7 +213,7 @@
 
   {#if summary.containsSyntheticData}
     <p class="synthetic-chip" role="status">
-      Incluye datos sintéticos de demostración — no describe un mercado real.
+      Incluye datos de ejemplo — no describen un mercado real.
     </p>
   {/if}
 
@@ -385,7 +385,7 @@
               {source.name}
             {/if}
             {#if source.synthetic}
-              <span class="synthetic-tag">SINTÉTICA</span>
+              <span class="synthetic-tag">DE EJEMPLO</span>
             {/if}
           </li>
         {/each}

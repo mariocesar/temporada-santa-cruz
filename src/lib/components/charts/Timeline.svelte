@@ -113,7 +113,7 @@
       : ''
     const synthetic =
       markSynthetic && s.containsSyntheticData
-        ? ' Incluye datos sintéticos de demostración.'
+        ? ' Incluye datos de ejemplo, sin observaciones reales detrás.'
         : ''
     if (s.insufficientEvidence) {
       return `${view.product.nameEs}: datos insuficientes para clasificar la temporada.${estimate}${synthetic}`
@@ -210,8 +210,8 @@
               {view.product.nameEs}
             </span>
             {#if markSynthetic && view.summary.containsSyntheticData}
-              <span class="synthetic-tag" title="Incluye datos sintéticos de demostración"
-                >SINTÉTICA</span
+              <span class="synthetic-tag" title="Incluye datos de ejemplo, sin observaciones reales detrás"
+                >DE EJEMPLO</span
               >
             {/if}
             {#if view.summary.insufficientEvidence}
@@ -253,7 +253,7 @@
         </p>
       {/if}
       {#if markSynthetic && hover.view.summary.containsSyntheticData}
-        <p class="tooltip-row muted">Incluye datos sintéticos de demostración</p>
+        <p class="tooltip-row muted">Incluye datos de ejemplo</p>
       {/if}
       {#if hoverWeekly && hoverWeekly.observations > 0}
         <p class="tooltip-row muted">
