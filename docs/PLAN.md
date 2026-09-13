@@ -4,11 +4,11 @@ This is the working plan for building Temporada Santa Cruz. The full product
 specification lives in [PROJECT.md](../PROJECT.md); this document sequences it
 into executable phases with exit criteria. Update it as phases complete.
 
-**Status: Phases 0–3 complete (2026-09-13). Phase 3's reference-season
-integration (timeline hatched band, detail-panel citation, "Ahora"
-exclusion and default sorting) landed and was re-verified at all four
-breakpoints. Next: Phase 4 (polish) — read
-`docs/design-references/NOTES.md` before starting.**
+**Status: Phases 0–3 complete (2026-09-13). Phase 4's brand/design-system
+layer landed the same day (owner directive: demo state first) — see the
+Phase 4 checklist for what visual work is done and what polish remains
+(WCAG audit, reduced-motion/touch review, documentation set,
+illustrations).**
 
 Note: the dashboard was built by a session already in flight when the
 2026-09-13 renumbering inserted Phase 2; its checkboxes below reflect that.
@@ -186,7 +186,7 @@ re-verified after the reference-season integration in a real browser at
 and limón; palta stays estimate-free), plus a two-verifier adversarial pass
 over the band geometry and the exclusion/sorting invariants.
 
-## Phase 4 — Polish (§86)
+## Phase 4 — Polish (§86) — brand/design-system layer done 2026-09-13
 
 Typography and design system, spacing, responsive charts, accessibility pass
 (WCAG AA, §11), reduced motion, touch equivalents for tooltips (§72–73),
@@ -200,6 +200,34 @@ is, why it is not evidence, and how market observations supersede it (§104).
 work, and ask the owner for any additional screenshots they want to add.
 References refine, not override, the §9 direction (editorial, agricultural,
 warm; not SaaS), and the §1 "not a clone" constraint stands.
+
+Done (demo-state directive, 2026-09-13):
+
+- [x] Design tokens + editorial typography: Alegreya / Alegreya Sans
+      (self-hosted via Fontsource), warm paper/ink palette, deep leaf-green
+      display voice, place kicker, serif display headings.
+- [x] Produce-derived per-product palette (`src/lib/ui/palette.ts`),
+      validated (lightness band, chroma floor, ≥3:1 vs chart track;
+      adjacency relieved by name-chip direct labels — documented).
+- [x] Ridgeline timeline per NOTES: volume-shaped Catmull-Rom curves from
+      the smoothed weekly scores with cyclic Dec→Jan continuation, filled
+      curve = active concept, light silhouette = the other concept, tinted
+      name chips, month gridlines + axis top and bottom, reworked legend.
+      Honesty devices preserved: dashed no-data baseline, §104 hatch band,
+      "Datos insuficientes" chips.
+- [x] Cascade default sort "Inicio de temporada" (longest-range start
+      week anchors; estimates never supply an anchor; insufficient last).
+- [x] Ahora cards (hue selvage, serif names), detail panel (hue top bar,
+      hue-tinted origin bars and price line), sections restyled.
+- [x] Verified in a real browser at 390 / 768 / 1280 px (+1600 px layout
+      unchanged from 1280), both modes; `check`, `test`, `build` green.
+
+Remaining for Phase 4 exit: full WCAG AA audit (multi-agent, per
+dimension), reduced-motion & touch-tooltip review, README/CONTRIBUTING/
+METHODOLOGY/DATA_SOURCES/DATA_CONTRIBUTION docs, and the illustration
+track (Tier 1 public-domain sourcing fan-out for owner picks; registry).
+The owner still owes the reference screenshot drop
+(`sf-farmers-market-seasons.png`).
 
 ## Phase 5 — Productionize and deploy (§87)
 

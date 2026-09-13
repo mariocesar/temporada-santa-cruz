@@ -141,7 +141,13 @@
 
 <button class="backdrop" aria-label="Cerrar panel de producto" onclick={onclose}></button>
 
-<div class="panel" role="dialog" aria-modal="false" aria-labelledby="detail-title">
+<div
+  class="panel"
+  style="--hue: {productHue(product)}"
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="detail-title"
+>
   <header class="panel-head">
     <div>
       <h2 id="detail-title">{product.nameEs}</h2>
@@ -386,6 +392,7 @@
     overflow-y: auto;
     background: var(--color-bg);
     border-left: 1px solid var(--color-border);
+    border-top: 4px solid var(--hue);
     padding: var(--space-6) var(--space-4) var(--space-8);
     box-shadow: -8px 0 32px rgb(0 0 0 / 0.12);
   }
@@ -542,7 +549,7 @@
   .origin-fill {
     display: block;
     height: 100%;
-    background: var(--color-accent);
+    background: var(--hue);
     border-radius: 999px;
   }
 
@@ -561,7 +568,7 @@
 
   .price-chart path {
     fill: none;
-    stroke: var(--color-accent);
+    stroke: var(--hue);
     stroke-width: 1.5;
     vector-effect: non-scaling-stroke;
   }

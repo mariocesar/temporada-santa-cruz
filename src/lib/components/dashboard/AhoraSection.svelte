@@ -4,6 +4,7 @@
   import type { DashboardState } from '../../stores/dashboard.svelte'
   import { CATEGORY_LABEL, MODE_LABEL, type ViewMode } from '../../i18n/labels'
   import type { SeasonState } from '../../data/types'
+  import { productHue } from '../../ui/palette'
   import ConfidenceChip from '../ui/ConfidenceChip.svelte'
   import SegmentedControl from '../ui/SegmentedControl.svelte'
 
@@ -127,7 +128,12 @@
       <ul class="cards">
         {#each group.items as view (view.product.id)}
           <li>
-            <button type="button" class="card" onclick={() => onselect(view.product.slug)}>
+            <button
+              type="button"
+              class="card"
+              style="--hue: {productHue(view.product)}"
+              onclick={() => onselect(view.product.slug)}
+            >
               <span class="card-head">
                 <span class="card-name">{view.product.nameEs}</span>
                 <span class="card-category">{CATEGORY_LABEL[view.product.category]}</span>
@@ -241,6 +247,8 @@
     gap: var(--space-3);
   }
 
+  /* The produce hue enters as a woven left selvage — cards stay paper,
+     the accent identifies, nothing floats on shadows. */
   .card {
     appearance: none;
     font: inherit;
@@ -252,14 +260,16 @@
     gap: var(--space-1);
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: 0.5rem;
+    border-left: 4px solid color-mix(in oklab, var(--hue) 75%, var(--color-bg));
+    border-radius: var(--radius);
     padding: var(--space-3);
     cursor: pointer;
     color: var(--color-text);
   }
 
   .card:hover {
-    border-color: var(--color-accent);
+    border-color: var(--hue);
+    border-left-color: var(--hue);
   }
 
   .card-head {
@@ -271,8 +281,10 @@
   }
 
   .card-name {
+    font-family: var(--font-display);
     font-weight: 700;
-    font-size: 1.0625rem;
+    font-size: 1.1875rem;
+    line-height: 1.2;
   }
 
   .card-category {
