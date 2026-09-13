@@ -74,6 +74,17 @@ describe('formatRangeAsMonths', () => {
     expect(formatRangeAsMonths({ startWeek: 30, endWeek: 29 })).toBe('todo el año')
   })
 
+  it('labels a wrapping range with same-month endpoints as casi todo el año', () => {
+    // 51 weeks starting and ending in noviembre must never read as "noviembre".
+    expect(formatRangeAsMonths({ startWeek: 46, endWeek: 44 })).toBe('casi todo el año')
+    expect(formatRangeAsMonths({ startWeek: 52, endWeek: 50 })).toBe('casi todo el año')
+  })
+
+  it('still labels short same-month and ordinary wrapping ranges normally', () => {
+    expect(formatRangeAsMonths({ startWeek: 2, endWeek: 4 })).toBe('enero')
+    expect(formatRangeAsMonths({ startWeek: 49, endWeek: 6 })).toBe('diciembre – febrero')
+  })
+
   it('joins multiple ranges with a separator', () => {
     expect(
       formatRangesAsMonths([

@@ -33,13 +33,24 @@
   })
 
   // Shareable state ↔ URL (§74). replaceState keeps the history clean; a
-  // reload or shared link restores the exact dashboard state.
+  // reload or shared link restores the exact dashboard state. The write is
+  // trailing-debounced (typing in search would otherwise hit Safari's
+  // history-API rate limit, which THROWS) and guarded: app state must never
+  // depend on the URL write succeeding.
+  const URL_SYNC_DEBOUNCE_MS = 250
   $effect(() => {
     if (!dash) return
     const search = dash.searchString
-    if (search !== location.search) {
-      history.replaceState(null, '', `${location.pathname}${search}${location.hash}`)
-    }
+    const timer = setTimeout(() => {
+      if (search !== location.search) {
+        try {
+          history.replaceState(null, '', `${location.pathname}${search}${location.hash}`)
+        } catch {
+          // Rate-limited history write: skipping one URL update is harmless.
+        }
+      }
+    }, URL_SYNC_DEBOUNCE_MS)
+    return () => clearTimeout(timer)
   })
 
   const selectedView = $derived(

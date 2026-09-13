@@ -48,6 +48,7 @@ function summary(
       weekCoverage: 0.75,
     },
     primaryOrigins: [],
+    localShareOfKnown: null,
     priceComparable: false,
     containsSyntheticData: true,
     sourceIds: [],
@@ -228,20 +229,26 @@ describe('sortViews', () => {
 })
 
 describe('localShareOfKnown', () => {
-  it('sums only local origin shares', () => {
+  it('reads the pipeline aggregate, never a sum over the truncated origin list', () => {
+    // primaryOrigins is a display-truncated top-3 list: summing its local
+    // shares (here 0.58) would understate the true aggregate (0.7).
     const s = summary({
       productId: 'a',
+      localShareOfKnown: 0.7,
       primaryOrigins: [
-        { originId: 'sc', label: 'Santa Cruz', share: 0.6, observations: 6, isLocal: true },
-        { originId: 'cbba', label: 'Cochabamba', share: 0.4, observations: 4, isLocal: false },
+        { originId: 'sc-valles', label: 'Valles', share: 0.34, observations: 17, isLocal: true },
+        { originId: 'sc-comarapa', label: 'Comarapa', share: 0.24, observations: 12, isLocal: true },
+        { originId: 'ar', label: 'Argentina', share: 0.22, observations: 11, isLocal: false },
       ],
     })
-    expect(localShareOfKnown(s)).toBeCloseTo(0.6)
+    expect(localShareOfKnown(s)).toBe(0.7)
   })
 
-  it('returns null when no origins are known', () => {
-    const s = summary({ productId: 'a' })
-    s.evidence.originKnownRatio = null
+  it('returns null when no observation has a known origin (never 0 %)', () => {
+    // Pipeline emits originKnownRatio 0 (not null) when observations exist
+    // but none carry an origin; the aggregate itself must be null.
+    const s = summary({ productId: 'a', localShareOfKnown: null })
+    s.evidence.originKnownRatio = 0
     expect(localShareOfKnown(s)).toBeNull()
   })
 })

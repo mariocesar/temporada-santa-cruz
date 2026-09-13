@@ -172,10 +172,14 @@ export function sortViews(
 // Evidence-derived display helpers (§17, §35, §55)
 // ---------------------------------------------------------------------------
 
-/** Total share of local (Santa Cruz) origins among known-origin observations. */
+/**
+ * Share of local (Santa Cruz) origins among known-origin observations.
+ * Read from the pipeline-computed aggregate — NEVER summed from the
+ * display-truncated primaryOrigins list. Null (no known origins) must
+ * render as "sin datos", not as 0 %.
+ */
 export function localShareOfKnown(summary: ProductSeasonSummary): number | null {
-  if (summary.evidence.originKnownRatio === null) return null
-  return summary.primaryOrigins.filter((o) => o.isLocal).reduce((acc, o) => acc + o.share, 0)
+  return summary.localShareOfKnown
 }
 
 export interface SignalContribution {

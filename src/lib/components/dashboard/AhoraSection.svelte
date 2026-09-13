@@ -134,7 +134,10 @@
                 </span>
               {/if}
               {#if dash.mode === 'local' && localPercent(view) !== null}
-                <span class="card-season">Origen cruceño: {localPercent(view)} % de lo observado</span>
+                <span class="card-season">
+                  Origen cruceño: {localPercent(view)} % de las observaciones con
+                  procedencia conocida (todo el año)
+                </span>
               {/if}
               <ConfidenceChip summary={view.summary} />
             </button>

@@ -92,13 +92,18 @@ export function monthAxisTicks(): Array<{ month: number; x: number }> {
 
 /**
  * Human label for a cyclic week range, in months: "diciembre – febrero",
- * a single month when both ends fall in it, or "todo el año" for a
- * full-year range. Ranges wrap the year.
+ * a single month when both ends fall in it, "todo el año" for a full-year
+ * range, or "casi todo el año" for a wrapping range whose endpoints
+ * collapse into the same month — a bare month name there would invert the
+ * meaning (a 51-week season is not "noviembre"). Ranges wrap the year.
  */
 export function formatRangeAsMonths(range: SeasonRange): string {
   if (rangeLength(range) === WEEK_BINS) return 'todo el año'
-  const start = MONTH_NAMES_ES[monthOfWeekBin(range.startWeek) - 1]!
-  const end = MONTH_NAMES_ES[monthOfWeekBin(range.endWeek) - 1]!
+  const startMonth = monthOfWeekBin(range.startWeek)
+  const endMonth = monthOfWeekBin(range.endWeek)
+  if (range.startWeek > range.endWeek && startMonth === endMonth) return 'casi todo el año'
+  const start = MONTH_NAMES_ES[startMonth - 1]!
+  const end = MONTH_NAMES_ES[endMonth - 1]!
   if (start === end) return start
   return `${start} – ${end}`
 }

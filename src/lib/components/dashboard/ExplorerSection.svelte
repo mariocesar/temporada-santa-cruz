@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { filterViews, sortViews, SORT_OPTIONS, type ProductView, type SortKey } from '../../data/views'
+  import { filterViews, sortViews, SORT_OPTIONS, type ProductView } from '../../data/views'
   import type { DashboardState } from '../../stores/dashboard.svelte'
-  import { CATEGORY_FILTERS } from '../../i18n/labels'
+  import { CATEGORY_FILTERS, MODE_LABEL, type ViewMode } from '../../i18n/labels'
   import SegmentedControl from '../ui/SegmentedControl.svelte'
   import Timeline from '../charts/Timeline.svelte'
 
@@ -12,6 +12,14 @@
   }
 
   let { views, dash, onselect }: Props = $props()
+
+  // The mode toggle repeats here (shared state with "Ahora") so the active
+  // concept — mercado vs producción cruceña — is explicit where the
+  // timeline is actually read (§13: the state must be obvious).
+  const MODE_OPTIONS: ReadonlyArray<{ value: ViewMode; label: string }> = [
+    { value: 'mercado', label: MODE_LABEL.mercado },
+    { value: 'local', label: MODE_LABEL.local },
+  ]
 
   const filtered = $derived(filterViews(views, dash.query, dash.category))
   const visible = $derived(sortViews(filtered, dash.sort, dash.mode, dash.referenceWeek))
@@ -36,6 +44,13 @@
         bind:value={dash.query}
       />
     </p>
+
+    <SegmentedControl
+      options={MODE_OPTIONS}
+      value={dash.mode}
+      label="Tipo de temporada"
+      onChange={(mode) => (dash.mode = mode)}
+    />
 
     <SegmentedControl
       options={CATEGORY_FILTERS}

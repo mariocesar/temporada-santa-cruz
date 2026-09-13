@@ -355,6 +355,16 @@ export function deriveDataset(
         }
       })
 
+    // Aggregate local share over ALL known-origin observations. It must be
+    // computed here: primaryOrigins is a display-truncated top list whose
+    // shares cannot be summed to reconstruct this (a 4th-ranked local
+    // municipality would silently vanish from the public claim).
+    const localKnownCount = knownOriginObs.filter((o) =>
+      isLocalOrigin(originById.get(o.originId!)!),
+    ).length
+    const localShareOfKnown =
+      knownOriginObs.length > 0 ? round(localKnownCount / knownOriginObs.length) : null
+
     const dates = productObs.map((o) => o.observedAt).sort()
 
     summaries.push({
@@ -375,6 +385,7 @@ export function deriveDataset(
         weekCoverage: round(evidence.weekCoverage),
       },
       primaryOrigins,
+      localShareOfKnown,
       priceComparable: relativePrices(comparable).length > 0,
       containsSyntheticData: productObs.some((o) => o.synthetic),
       sourceIds: productSourceIds,

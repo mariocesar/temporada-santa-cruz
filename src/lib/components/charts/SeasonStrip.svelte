@@ -49,6 +49,27 @@
           .filter((c) => c.cls === 'occasional' || c.cls === 'in_season' || c.cls === 'peak'),
   )
 
+  // Weeks with NO evidence (null score) get an explicit dashed mark — a
+  // blank cell would read as "fuera de temporada", and missing data is not
+  // absence. An insufficient product is the degenerate all-weeks case of the
+  // same encoding: its scores are suppressed entirely (§36).
+  const noDataRuns = $derived.by(() => {
+    const n = primary.length
+    if (insufficient) return n > 0 ? [{ start: 0, end: n }] : []
+    const runs: Array<{ start: number; end: number }> = []
+    let start: number | null = null
+    for (let i = 0; i < n; i++) {
+      if (primary[i] === null || primary[i] === undefined) {
+        if (start === null) start = i
+      } else if (start !== null) {
+        runs.push({ start, end: i })
+        start = null
+      }
+    }
+    if (start !== null) runs.push({ start, end: n })
+    return runs
+  })
+
   const underlines = $derived(
     insufficient || !secondary
       ? []
@@ -87,15 +108,17 @@
     <line class="month-line" x1={day} y1="0" x2={day} y2={height} />
   {/each}
 
-  {#if insufficient}
+  {#each noDataRuns as run (run.start)}
     <line
-      class="insufficient-line"
-      x1="2"
+      class="no-data-line"
+      x1={run.start * 7 + 2}
       y1={height / 2}
-      x2={WIDTH - 2}
+      x2={run.end * 7 - 2}
       y2={height / 2}
     />
-  {:else}
+  {/each}
+
+  {#if !insufficient}
     {#each cells as cell (cell.week)}
       <rect
         class="cell {cell.cls}"
@@ -160,7 +183,7 @@
     fill: var(--season-secondary);
   }
 
-  .insufficient-line {
+  .no-data-line {
     stroke: var(--color-border);
     stroke-width: 2;
     stroke-dasharray: 4 5;

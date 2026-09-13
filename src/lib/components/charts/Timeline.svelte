@@ -58,7 +58,11 @@
       parts.push(`producción cruceña: ${formatRangesAsMonths(s.localSeasonRanges)}`)
     }
     const peaks = peakRangesLabel(view)
-    if (peaks !== '') parts.push(`pico: ${peaks}`)
+    if (peaks !== '') parts.push(`pico de mercado: ${peaks}`)
+    const noDataWeeks = primarySeries(view).filter((v) => v === null).length
+    if (noDataWeeks > 0) {
+      parts.push(`sin datos en ${noDataWeeks} ${noDataWeeks === 1 ? 'semana' : 'semanas'}`)
+    }
     parts.push(`confianza ${CONFIDENCE_TEXT[s.confidenceLabel].toLowerCase()}`)
     return `${view.product.nameEs} — ${parts.join('; ')}.`
   }
@@ -183,7 +187,7 @@
           <line x1="2" y1="6" x2="40" y2="6" class="lg-insufficient" />
         </svg>
       </dt>
-      <dd>Datos insuficientes: sin clasificación</dd>
+      <dd>Sin datos esa semana (los productos con evidencia insuficiente no se clasifican)</dd>
     </div>
   </dl>
 </div>

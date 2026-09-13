@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { CATEGORY_FILTERS } from '../../src/lib/i18n/labels'
 import {
   DEFAULT_PARAMS,
   parseParams,
@@ -37,15 +38,25 @@ describe('parseParams', () => {
 
   it('rejects non-numeric and out-of-range weeks', () => {
     expect(parseParams('?week=0', SLUGS).week).toBeNull()
-    expect(parseParams('?week=53', SLUGS).week).toBeNull()
+    expect(parseParams('?week=54', SLUGS).week).toBeNull()
     expect(parseParams('?week=abc', SLUGS).week).toBeNull()
     expect(parseParams('?week=1', SLUGS).week).toBe(1)
     expect(parseParams('?week=52', SLUGS).week).toBe(52)
   })
 
+  it('folds ISO week 53 into bin 52 instead of discarding it', () => {
+    expect(parseParams('?week=53', SLUGS).week).toBe(52)
+  })
+
   it('caps absurdly long queries', () => {
     const q = 'a'.repeat(500)
     expect(parseParams(`?q=${q}`, SLUGS).query).toHaveLength(100)
+  })
+
+  it('accepts every category filter value from the registry', () => {
+    for (const f of CATEGORY_FILTERS) {
+      expect(parseParams(`?category=${f.value}`, SLUGS).category).toBe(f.value)
+    }
   })
 })
 
@@ -78,5 +89,13 @@ describe('serializeParams', () => {
 
   it('does not emit a query param for whitespace-only queries', () => {
     expect(serializeParams({ ...DEFAULT_PARAMS, query: '   ' })).toBe('')
+  })
+
+  it('caps over-long queries symmetrically so round-trips are stable', () => {
+    const p: DashboardParams = { ...DEFAULT_PARAMS, query: 'a'.repeat(500) }
+    const once = serializeParams(p)
+    const roundTripped = parseParams(once, SLUGS)
+    expect(roundTripped.query).toHaveLength(100)
+    expect(serializeParams(roundTripped)).toBe(once)
   })
 })

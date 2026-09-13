@@ -161,4 +161,51 @@ describe('deriveDataset', () => {
     })
     expect(rangesFromMask(mask)).toEqual(papaya.marketSeasonRanges)
   })
+
+  it('aggregates localShareOfKnown over ALL known origins, beyond the top-3 list', () => {
+    const manyOrigins: Origin[] = [
+      ...origins,
+      { id: 'bo-sc-warnes', label: 'Warnes', country: 'Bolivia', department: 'Santa Cruz', level: 'municipality' },
+      { id: 'bo-sc-portachuelo', label: 'Portachuelo', country: 'Bolivia', department: 'Santa Cruz', level: 'municipality' },
+      { id: 'bo-cbba', label: 'Cochabamba', country: 'Bolivia', department: 'Cochabamba', level: 'department' },
+    ]
+    const localRegistries = buildRegistries(products, manyOrigins, units, sources)
+    // Known-origin distribution: Cochabamba 4 (not local), Santa Cruz 3,
+    // Warnes 3, Portachuelo 2 (all local). Top-3 truncation drops
+    // Portachuelo, but the aggregate must still count it: 8/12 local.
+    const spec: Array<[string, number]> = [
+      ['Cochabamba', 4],
+      ['Santa Cruz', 3],
+      ['Warnes', 3],
+      ['Portachuelo', 2],
+    ]
+    const rows: RawCsvRow[] = []
+    let day = 1
+    for (const [originRaw, count] of spec) {
+      for (let i = 0; i < count; i++) {
+        const date = `2024-03-${String(day++).padStart(2, '0')}`
+        rows.push(row({ observed_at: date, report_id: `r-${date}`, origin_raw: originRaw }))
+      }
+    }
+    // And a product observed WITHOUT any origin: aggregate must be null, not 0.
+    const uvaDate = '2024-03-20'
+    rows.push(row({ observed_at: uvaDate, report_id: `r-${uvaDate}`, product_raw: 'Uva', origin_raw: '' }))
+
+    const located: LocatedRow[] = rows.map((r, i) => ({ row: r, location: `fixture:${i + 2}` }))
+    const { observations, errors } = normalizeObservations(located, localRegistries)
+    expect(errors).toEqual([])
+    const { summaries } = deriveDataset(observations, localRegistries)
+    const papaya = summaries.find((s) => s.productId === 'papaya')!
+    expect(papaya.primaryOrigins).toHaveLength(3)
+    expect(papaya.localShareOfKnown).toBeCloseTo(8 / 12, 3)
+    // Summing the truncated list would give 0.5 — the bug this guards against.
+    const truncatedSum = papaya.primaryOrigins
+      .filter((o) => o.isLocal)
+      .reduce((acc, o) => acc + o.share, 0)
+    expect(truncatedSum).toBeLessThan(papaya.localShareOfKnown!)
+
+    const uva = summaries.find((s) => s.productId === 'uva')!
+    expect(uva.evidence.originKnownRatio).toBe(0)
+    expect(uva.localShareOfKnown).toBeNull()
+  })
 })

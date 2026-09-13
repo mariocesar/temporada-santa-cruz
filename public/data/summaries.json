@@ -54,6 +54,7 @@
         "isLocal": true
       }
     ],
+    "localShareOfKnown": 1,
     "priceComparable": false,
     "containsSyntheticData": true,
     "sourceIds": [
@@ -156,6 +157,7 @@
         "isLocal": false
       }
     ],
+    "localShareOfKnown": 0.8523,
     "priceComparable": true,
     "containsSyntheticData": true,
     "sourceIds": [
@@ -245,6 +247,7 @@
         "isLocal": false
       }
     ],
+    "localShareOfKnown": 0.8584,
     "priceComparable": false,
     "containsSyntheticData": true,
     "sourceIds": [
@@ -333,6 +336,7 @@
         "isLocal": true
       }
     ],
+    "localShareOfKnown": 0.5806,
     "priceComparable": false,
     "containsSyntheticData": true,
     "sourceIds": [
@@ -414,6 +418,7 @@
         "isLocal": true
       }
     ],
+    "localShareOfKnown": 0.6456,
     "priceComparable": false,
     "containsSyntheticData": true,
     "sourceIds": [
@@ -486,6 +491,7 @@
         "isLocal": true
       }
     ],
+    "localShareOfKnown": 1,
     "priceComparable": false,
     "containsSyntheticData": true,
     "sourceIds": [
@@ -554,6 +560,7 @@
         "isLocal": false
       }
     ],
+    "localShareOfKnown": 0.7,
     "priceComparable": true,
     "containsSyntheticData": true,
     "sourceIds": [
@@ -635,6 +642,7 @@
         "isLocal": false
       }
     ],
+    "localShareOfKnown": 0.8837,
     "priceComparable": true,
     "containsSyntheticData": true,
     "sourceIds": [
@@ -678,6 +686,7 @@
         "isLocal": true
       }
     ],
+    "localShareOfKnown": 0.25,
     "priceComparable": false,
     "containsSyntheticData": true,
     "sourceIds": [
@@ -786,6 +795,7 @@
         "isLocal": false
       }
     ],
+    "localShareOfKnown": 0.7554,
     "priceComparable": false,
     "containsSyntheticData": true,
     "sourceIds": [
@@ -878,6 +888,7 @@
         "isLocal": true
       }
     ],
+    "localShareOfKnown": 0.5603,
     "priceComparable": true,
     "containsSyntheticData": true,
     "sourceIds": [
@@ -977,6 +988,7 @@
         "isLocal": true
       }
     ],
+    "localShareOfKnown": 1,
     "priceComparable": false,
     "containsSyntheticData": true,
     "sourceIds": [

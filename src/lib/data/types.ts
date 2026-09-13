@@ -248,6 +248,14 @@ export interface ProductSeasonSummary {
 
   primaryOrigins: OriginSummary[]
   /**
+   * Share of local (Santa Cruz) origins among ALL observations with a known
+   * origin, in [0,1]; null when no observation has a recorded origin —
+   * absent origin evidence must never read as "0 % local". Computed over
+   * the full observation set: `primaryOrigins` is a display-truncated top
+   * list and must never be summed to reconstruct this value.
+   */
+  localShareOfKnown: number | null
+  /**
    * False when historical units are not comparable, so no price trend is
    * derived (§54).
    */
