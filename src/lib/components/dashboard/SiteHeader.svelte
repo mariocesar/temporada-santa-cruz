@@ -8,6 +8,7 @@
 </script>
 
 <header class="site-header">
+  <p class="kicker">Santa Cruz de la Sierra · Bolivia</p>
   <div class="title-row">
     <div>
       <h1>Temporada Santa Cruz</h1>
@@ -22,18 +23,27 @@
       <a href="#fuentes">Fuentes</a>
     </nav>
   </div>
-  <p class="meta">
-    <span>Mercados de Santa Cruz de la Sierra, Bolivia</span>
-    {#if dataUpdatedAt}
-      <span aria-hidden="true">·</span>
-      <span>Datos actualizados hasta: {dataUpdatedAt}</span>
-    {/if}
-  </p>
+  {#if dataUpdatedAt}
+    <p class="meta">Datos actualizados hasta: {dataUpdatedAt}</p>
+  {/if}
 </header>
 
 <style>
   .site-header {
     margin-bottom: var(--space-8);
+    padding-top: var(--space-4);
+  }
+
+  /* The place kicker is part of the owner-vetted reference language
+     (docs/design-references/NOTES.md §8): letterspaced small caps above
+     the display title. */
+  .kicker {
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.14em;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-1);
   }
 
   .title-row {
@@ -45,16 +55,17 @@
   }
 
   h1 {
-    font-size: clamp(1.75rem, 4vw, 2.375rem);
-    line-height: 1.15;
-    margin: 0 0 var(--space-2);
-    letter-spacing: -0.01em;
+    font-size: clamp(2.25rem, 5.5vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1.08;
+    margin: 0 0 var(--space-3);
+    color: var(--color-display);
   }
 
   .subtitle {
     color: var(--color-text-muted);
     font-size: 1.0625rem;
-    max-width: 44rem;
+    max-width: 42rem;
     margin: 0;
   }
 
@@ -75,9 +86,6 @@
   }
 
   .meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
     color: var(--color-text-muted);
     font-size: 0.875rem;
     margin: var(--space-3) 0 0;

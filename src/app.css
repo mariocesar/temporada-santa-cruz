@@ -1,30 +1,36 @@
 /*
- * Temporada Santa Cruz — design tokens (seed).
- * The full design system is developed during the execution phase
- * (PROJECT.md §9). These are intentionally minimal starting values.
+ * Temporada Santa Cruz — design system tokens.
+ *
+ * Direction (PROJECT.md §9 + docs/design-references/NOTES.md): editorial,
+ * agricultural, warm — a paper almanac, not a SaaS dashboard. Type is the
+ * Alegreya superfamily (Huerta Tipográfica): serif display, humanist sans
+ * for UI and body. The produce itself supplies the accents (per-product
+ * hues live in src/lib/ui/palette.ts); the chrome stays paper and ink.
  */
 
 :root {
-  /* Surfaces: warm, subdued neutrals */
-  --color-bg: #faf8f4;
-  --color-surface: #ffffff;
-  --color-border: #e4dfd5;
+  /* Paper and ink */
+  --color-bg: #fbf8f0;
+  --color-surface: #fffdf7;
+  --color-border: #e6dfcc;
+  --color-text: #2a2620;
+  --color-text-muted: #6e6557;
 
-  /* Text */
-  --color-text: #2b2721;
-  --color-text-muted: #6f675a;
+  /* Leaf green: display type and interactive ink (links, focus). */
+  --color-display: #29512c;
+  --color-accent: #38652f;
 
-  /* Accent placeholder (seasonal produce accents come later) */
-  --color-accent: #3f6d3a;
-
-  /* Season encoding track (empty weeks). Mode ramps live in the
-     .season-mercado / .season-local classes below. */
-  --season-track: #f1ede4;
+  /* Season encoding track (empty weeks) behind every chart row. */
+  --season-track: #f1ebdb;
 
   /* Estimated reference season (§104): a neutral outline/hatch texture
      channel — never a solid fill competing with observed season classes,
-     and never mode-hued (the estimate is neither mercado nor local). */
+     and never a produce hue (the estimate is not evidence). */
   --season-reference: #8b8272;
+
+  /* Type */
+  --font-display: 'Alegreya', Georgia, 'Times New Roman', serif;
+  --font-body: 'Alegreya Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* Spacing scale */
   --space-1: 0.25rem;
@@ -33,6 +39,11 @@
   --space-4: 1rem;
   --space-6: 1.5rem;
   --space-8: 2rem;
+
+  /* Corners: chips are fully round; surfaces stay nearly square (paper,
+     not app cards). */
+  --radius-chip: 999px;
+  --radius: 4px;
 
   color-scheme: light;
 }
@@ -52,14 +63,18 @@ body {
   min-height: 100dvh;
   background: var(--color-bg);
   color: var(--color-text);
-  font-family:
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
-  line-height: 1.5;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-text);
 }
 
 img,
