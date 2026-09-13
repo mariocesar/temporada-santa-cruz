@@ -212,6 +212,7 @@
                 productId={view.product.id}
                 hue={productHue(view.product)}
                 size={i % 2 === 0 ? 122 : 100}
+                frame="card"
               />
             </span>
           {/each}
@@ -237,6 +238,7 @@
                 productId={view.product.id}
                 hue={productHue(view.product)}
                 size={i % 2 === 0 ? 100 : 122}
+                frame="card"
               />
             </span>
           {/each}
@@ -433,12 +435,30 @@
     padding-top: var(--space-8);
   }
 
-  /* Plates pasted into the almanac: a slight hand-set rotation, washed so
-     they read as marginalia rather than data. */
+  /* Plates pasted into the almanac: each sheet keeps its hand-set
+     rotation and casts the small warm shadow of real paper. Hovering
+     picks the plate up — it straightens, lifts, and its shadow deepens.
+     Purely decorative; reduced motion zeroes the transition globally. */
   .plate {
     display: block;
-    opacity: 0.8;
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    overflow: hidden;
+    background: var(--color-surface);
+    box-shadow:
+      0 1px 2px rgb(42 38 32 / 0.1),
+      0 4px 10px rgb(42 38 32 / 0.08);
     transform: rotate(var(--rot, 0deg));
+    transition:
+      transform 240ms cubic-bezier(0.22, 0.7, 0.28, 1),
+      box-shadow 240ms ease;
+  }
+
+  .plate:hover {
+    transform: rotate(0deg) translateY(-5px) scale(1.02);
+    box-shadow:
+      0 2px 4px rgb(42 38 32 / 0.12),
+      0 12px 26px rgb(42 38 32 / 0.16);
   }
 
   .empty {

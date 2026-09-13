@@ -15,11 +15,17 @@
     hue: string
     /** Rendered width in px (plates keep their own aspect ratio). */
     size?: number
+    /**
+     * 'blend' melts the scan's paper into the page (soft, reference-style);
+     * 'card' keeps the scan's own sheet visible so the caller can frame it
+     * as a pasted plate — shadows only make sense with a visible edge.
+     */
+    frame?: 'blend' | 'card'
     stroke?: number
     wash?: number
   }
 
-  let { productId, hue, size = 96, stroke = 1.5, wash = 0.12 }: Props = $props()
+  let { productId, hue, size = 96, frame = 'blend', stroke = 1.5, wash = 0.12 }: Props = $props()
 
   const entry = $derived(illustrationFor(productId))
   const plateFile = $derived(
@@ -33,6 +39,7 @@
        floating in a white rectangle. -->
   <img
     class="plate-img"
+    class:card={frame === 'card'}
     src="{import.meta.env.BASE_URL}{plateFile}"
     alt="{entry.title} — {entry.artist}, {entry.year}"
     title="{entry.artist}, {entry.year} · {entry.license}"
@@ -50,5 +57,12 @@
     height: auto;
     mix-blend-mode: multiply;
     filter: saturate(0.94);
+  }
+
+  /* Card framing: the scan's own sheet stays visible (warmed slightly so
+     bright-white scans sit with the page) and the caller draws the edge. */
+  .plate-img.card {
+    mix-blend-mode: normal;
+    filter: saturate(0.94) sepia(0.07) brightness(0.99);
   }
 </style>
