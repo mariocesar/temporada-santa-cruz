@@ -4,14 +4,16 @@ This is the working plan for building Temporada Santa Cruz. The full product
 specification lives in [PROJECT.md](../PROJECT.md); this document sequences it
 into executable phases with exit criteria. Update it as phases complete.
 
-**Status: Phases 0–3 and 5 complete (2026-09-13). Phase 4's brand/design-
-system layer and the demo "delight" pass landed the same day (owner
-directive: demo state first, then "focus on the visual story and look",
-desktop first) — see the Phase 4 checklist; its deferred audit/docs work
-(WCAG AA, touch tooltips, documentation set, Tier 1 illustrations) remains.
-Phase 6 (first real data) landed its first import the same day: 544
-verified real CAO observations (2014–2026) now coexist with the marked
-demo seed — see the Phase 6 checklist and docs/DATA_SOURCES.md.**
+**Status: Phases 0–3, 5 and 6 complete (2026-09-13). Phase 6 finished the
+same day it started: after the first import (544 observations, 9
+bulletins), a second batch recovered 21 more bulletins via Wayback/IBCE/
+agrodatos — 1,575 verified real CAO observations across 49 survey dates
+and 9 years (2012–2018, 2025–2026) — and the demo seed was retired
+entirely; the published dataset is real-only (see the Phase 6 checklist
+and docs/DATA_SOURCES.md). Phase 4's brand/design-system layer, the
+"delight" pass, and Tier 1 historical plates landed the same day — its
+deferred audit/docs work (WCAG AA, touch tooltips, documentation set,
+three remaining plates) is the one open phase.**
 
 Note: the dashboard was built by a session already in flight when the
 2026-09-13 renumbering inserted Phase 2; its checkboxes below reflect that.
@@ -320,10 +322,11 @@ A minimal deploy workflow already existed from Phase 0. Completed:
       `https://mariocesar.github.io/temporada-santa-cruz/`.
 
 Exit criteria: CI + deployment portion of §88 met. The remaining §88 items
-(README/docs set, WCAG audit) live in the deferred Phase 4 checklist; the
-dataset is still the marked demo seed until Phase 6 lands.
+(README/docs set, WCAG audit) live in the deferred Phase 4 checklist. (The
+demo-seed caveat that used to live here closed with Phase 6: the deployed
+dataset is real-only and CI no longer sets `ALLOW_DEMO_DATA`.)
 
-## Phase 6 — First real-data milestone (§101) — first import landed 2026-09-13
+## Phase 6 — First real-data milestone (§101) ✅ (done 2026-09-13 — demo seed retired)
 
 Per the confirmed data-sourcing decision, research and fetch legitimately
 accessible CAO/SIPREM, SIIP, and INE materials directly:
@@ -366,15 +369,39 @@ accessible CAO/SIPREM, SIIP, and INE materials directly:
       opening, factual fixes from a five-angle adversarial review, close
       updated to the 544 real CAO observations.
 
-Remaining for Phase 6 exit: retire demo records product-by-product as real
-weekly coverage grows (Wayback CDX over cao.org.bo / IBCE's folder, the
-`/diario` + `/mensual` series, SIIP via a JS-capable session, INE census
-microdata via ANDA). Coverage report per product lives in
-`docs/DATA_SOURCES.md` § Import status.
+- [x] Batch 2 (same day, second session): the Wayback CDX lead paid off —
+      21 more bulletins recovered (2012–2013 from the old cao.org.bo
+      folder, 2013–2015 from IBCE's still-live-but-unlisted mirror files,
+      Dec-2025–Jan-2026 from agrodatos `/mercados`), transcribed and
+      adversarially verified per report (workflow `wf_a854b712-5ea`,
+      20/21 first-pass CONFIRMED). Total: 1,575 real observations, 49
+      survey dates, 30 bulletins, 9 years. Two false leads closed and
+      documented: agrodatos `/diarios`–`/mensuales` are news digests with
+      no price tables (627 issues checked); OAP's ~400 archived weekly
+      bulletins track staples only (tomate-only overlap, deferred lead).
+- [x] New `row_seq` print-order discriminator (optional trailing raw CSV
+      column, in the observation ID only when present) for the 2013-07-25
+      reduced layout that prints quality-tiered lines without a Calidad
+      column; unit registry gained `caja-2-arroba` + two alias spellings.
+- [x] **Demo seed retired entirely.** Real-only derive keeps every product
+      out of "Datos insuficientes" except mango (literature-only, the
+      designed §104 display); all others classify at confianza alta
+      (palta: media). `data/raw/demo/observations.csv` deleted from the
+      repo, CI no longer sets `ALLOW_DEMO_DATA`, the build drops
+      unreferenced synthetic sources from the public dataset, and the
+      published index reads `containsDemoData: false`. `bun run seed:demo`
+      remains for gated local demos (§79). Verified in a real browser:
+      no banner, no DEMO source cards, March/October no-evidence gaps
+      render as dashed breaks.
 
-Exit: honest coverage report ✔; confidence labels reflect real evidence ✔
-(for the imported dates — the dataset remains marked as partially
-synthetic until the demo seed is fully replaced).
+Remaining leads for future coverage growth (documented in
+`docs/DATA_SOURCES.md`): years 2019 – early 2025 have no publicly
+retrievable bulletin (paid SIPREM subscription, CAO social media, or
+physical archives); SIIP desktop form via a JS-capable session; INE census
+microdata via ANDA; OAP weekly bulletins for a tomato-only series.
+
+Exit criteria met: honest coverage report ✔; confidence labels reflect
+real evidence ✔; no synthetic record ships ✔.
 
 ---
 

@@ -47,8 +47,16 @@ if (containsDemoData && process.env.ALLOW_DEMO_DATA !== 'true') {
   )
 }
 
-// Sources: publish every registry entry; synthetic ones stay clearly marked.
-const sources: DataSource[] = registries.sources
+// Sources: publish the registry, EXCEPT synthetic sources that no published
+// observation references — a retired demo source (§45) must not keep a card
+// in the public dataset. Real sources stay listed even without observations
+// (SIIP/INE document the model's context and open leads, §56–57).
+const referencedSourceIds = new Set<string>(
+  observations.flatMap((o) => [o.sourceId, o.originalSourceId]),
+)
+const sources: DataSource[] = registries.sources.filter(
+  (s) => !s.synthetic || referencedSourceIds.has(s.id),
+)
 
 const dates = observations.map((o) => o.observedAt).sort()
 const index: DatasetIndex = {

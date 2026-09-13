@@ -3,66 +3,64 @@
     "productId": "achachairu",
     "peakWeeks": [
       1,
-      2,
-      3,
       4,
       5,
       6,
-      49,
-      50,
+      7,
+      8,
+      9,
+      10,
+      44,
+      45,
+      46,
       51,
       52
     ],
     "marketSeasonRanges": [
       {
-        "startWeek": 47,
-        "endWeek": 8
+        "startWeek": 44,
+        "endWeek": 10
       }
     ],
     "localSeasonRanges": [
+      {
+        "startWeek": 15,
+        "endWeek": 19
+      },
       {
         "startWeek": 44,
         "endWeek": 10
       }
     ],
-    "observationCount": 56,
-    "yearsCovered": 10,
-    "firstObservation": "2014-12-05",
+    "observationCount": 52,
+    "yearsCovered": 7,
+    "firstObservation": "2013-01-10",
     "lastObservation": "2026-02-18",
-    "confidence": 0.9377,
+    "confidence": 0.8148,
     "confidenceLabel": "alta",
     "insufficientEvidence": false,
     "evidence": {
-      "observations": 56,
-      "years": 10,
-      "independentSources": 3,
-      "originKnownRatio": 0.875,
-      "yearConsistency": 0.8345,
-      "weekCoverage": 0.8077
+      "observations": 52,
+      "years": 7,
+      "independentSources": 1,
+      "originKnownRatio": 1,
+      "yearConsistency": 0.7407,
+      "weekCoverage": 0.4808
     },
     "primaryOrigins": [
       {
         "originId": "bo-santa-cruz",
         "label": "Santa Cruz",
-        "share": 0.7755,
-        "observations": 38,
-        "isLocal": true
-      },
-      {
-        "originId": "bo-sc-norte",
-        "label": "Norte Integrado",
-        "share": 0.2245,
-        "observations": 11,
+        "share": 1,
+        "observations": 52,
         "isLocal": true
       }
     ],
     "localShareOfKnown": 1,
     "priceComparable": false,
-    "containsSyntheticData": true,
+    "containsSyntheticData": false,
     "sourceIds": [
-      "cao-siprem",
-      "demo-mayorista",
-      "demo-minorista"
+      "cao-siprem"
     ]
   },
   {
@@ -78,10 +76,6 @@
       8,
       9,
       10,
-      11,
-      12,
-      13,
-      14,
       15,
       16,
       17,
@@ -93,13 +87,20 @@
       23,
       24,
       25,
-      26,
       27,
       28,
       29,
       30,
       31,
-      43,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
       44,
       45,
       46,
@@ -112,61 +113,36 @@
     ],
     "marketSeasonRanges": [
       {
-        "startWeek": 1,
-        "endWeek": 52
-      }
-    ],
-    "localSeasonRanges": [
+        "startWeek": 15,
+        "endWeek": 40
+      },
       {
-        "startWeek": 1,
-        "endWeek": 52
+        "startWeek": 44,
+        "endWeek": 10
       }
     ],
-    "observationCount": 206,
-    "yearsCovered": 11,
-    "firstObservation": "2014-06-04",
-    "lastObservation": "2026-08-31",
-    "confidence": 0.9397,
+    "localSeasonRanges": [],
+    "observationCount": 98,
+    "yearsCovered": 9,
+    "firstObservation": "2012-09-10",
+    "lastObservation": "2026-02-18",
+    "confidence": 0.8,
     "confidenceLabel": "alta",
     "insufficientEvidence": false,
     "evidence": {
-      "observations": 206,
-      "years": 11,
-      "independentSources": 3,
-      "originKnownRatio": 0.7233,
-      "yearConsistency": 0.8368,
-      "weekCoverage": 0.8077
+      "observations": 98,
+      "years": 9,
+      "independentSources": 1,
+      "originKnownRatio": 0,
+      "yearConsistency": 1,
+      "weekCoverage": 0.4808
     },
-    "primaryOrigins": [
-      {
-        "originId": "bo-santa-cruz",
-        "label": "Santa Cruz",
-        "share": 0.4631,
-        "observations": 69,
-        "isLocal": true
-      },
-      {
-        "originId": "bo-sc-norte",
-        "label": "Norte Integrado",
-        "share": 0.3893,
-        "observations": 58,
-        "isLocal": true
-      },
-      {
-        "originId": "bo-beni",
-        "label": "Beni",
-        "share": 0.1477,
-        "observations": 22,
-        "isLocal": false
-      }
-    ],
-    "localShareOfKnown": 0.8523,
-    "priceComparable": true,
-    "containsSyntheticData": true,
+    "primaryOrigins": [],
+    "localShareOfKnown": null,
+    "priceComparable": false,
+    "containsSyntheticData": false,
     "sourceIds": [
-      "cao-siprem",
-      "demo-mayorista",
-      "demo-minorista"
+      "cao-siprem"
     ]
   },
   {
@@ -182,22 +158,32 @@
       8,
       9,
       10,
-      11,
+      15,
+      16,
       17,
       18,
       19,
+      20,
+      21,
       22,
       23,
       24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
       35,
       36,
       37,
       38,
       39,
       40,
-      41,
-      42,
-      43,
       44,
       45,
       46,
@@ -210,155 +196,65 @@
     ],
     "marketSeasonRanges": [
       {
-        "startWeek": 1,
-        "endWeek": 52
+        "startWeek": 15,
+        "endWeek": 40
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 10
       }
     ],
     "localSeasonRanges": [
       {
-        "startWeek": 1,
-        "endWeek": 52
+        "startWeek": 4,
+        "endWeek": 7
+      },
+      {
+        "startWeek": 15,
+        "endWeek": 26
+      },
+      {
+        "startWeek": 33,
+        "endWeek": 40
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 1
       }
     ],
-    "observationCount": 184,
-    "yearsCovered": 11,
-    "firstObservation": "2014-06-04",
-    "lastObservation": "2026-08-31",
-    "confidence": 0.9317,
+    "observationCount": 98,
+    "yearsCovered": 9,
+    "firstObservation": "2012-09-10",
+    "lastObservation": "2026-02-18",
+    "confidence": 0.8959,
     "confidenceLabel": "alta",
     "insufficientEvidence": false,
     "evidence": {
-      "observations": 184,
-      "years": 11,
-      "independentSources": 3,
-      "originKnownRatio": 0.788,
-      "yearConsistency": 0.7647,
-      "weekCoverage": 0.8077
+      "observations": 98,
+      "years": 9,
+      "independentSources": 1,
+      "originKnownRatio": 0.9592,
+      "yearConsistency": 1,
+      "weekCoverage": 0.4808
     },
     "primaryOrigins": [
       {
-        "originId": "bo-santa-cruz",
-        "label": "Santa Cruz",
-        "share": 0.4,
-        "observations": 58,
-        "isLocal": true
-      },
-      {
-        "originId": "bo-sc-norte",
-        "label": "Norte Integrado",
-        "share": 0.269,
-        "observations": 39,
-        "isLocal": true
-      },
-      {
         "originId": "bo-cbba-chapare",
         "label": "Chapare",
-        "share": 0.2207,
-        "observations": 32,
+        "share": 1,
+        "observations": 94,
         "isLocal": false
       }
     ],
-    "localShareOfKnown": 0.669,
+    "localShareOfKnown": 0,
     "priceComparable": false,
-    "containsSyntheticData": true,
+    "containsSyntheticData": false,
     "sourceIds": [
-      "cao-siprem",
-      "demo-mayorista",
-      "demo-minorista"
+      "cao-siprem"
     ]
   },
   {
     "productId": "mandarina",
-    "peakWeeks": [
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23,
-      24,
-      25,
-      26,
-      27,
-      28,
-      29,
-      30,
-      31
-    ],
-    "marketSeasonRanges": [
-      {
-        "startWeek": 7,
-        "endWeek": 7
-      },
-      {
-        "startWeek": 12,
-        "endWeek": 33
-      }
-    ],
-    "localSeasonRanges": [
-      {
-        "startWeek": 43,
-        "endWeek": 49
-      },
-      {
-        "startWeek": 51,
-        "endWeek": 38
-      }
-    ],
-    "observationCount": 108,
-    "yearsCovered": 11,
-    "firstObservation": "2014-06-04",
-    "lastObservation": "2026-07-20",
-    "confidence": 0.9339,
-    "confidenceLabel": "alta",
-    "insufficientEvidence": false,
-    "evidence": {
-      "observations": 108,
-      "years": 11,
-      "independentSources": 3,
-      "originKnownRatio": 0.8333,
-      "yearConsistency": 0.7529,
-      "weekCoverage": 0.8077
-    },
-    "primaryOrigins": [
-      {
-        "originId": "bo-santa-cruz",
-        "label": "Santa Cruz",
-        "share": 0.5556,
-        "observations": 50,
-        "isLocal": true
-      },
-      {
-        "originId": "bo-cochabamba",
-        "label": "Cochabamba",
-        "share": 0.2889,
-        "observations": 26,
-        "isLocal": false
-      },
-      {
-        "originId": "bo-sc-valles",
-        "label": "Valles Cruceños",
-        "share": 0.1556,
-        "observations": 14,
-        "isLocal": true
-      }
-    ],
-    "localShareOfKnown": 0.7111,
-    "priceComparable": false,
-    "containsSyntheticData": true,
-    "sourceIds": [
-      "cao-siprem",
-      "demo-mayorista",
-      "demo-minorista"
-    ]
-  },
-  {
-    "productId": "naranja",
     "peakWeeks": [
       15,
       16,
@@ -377,156 +273,82 @@
       29,
       30,
       31,
-      32,
+      33,
       34,
       35,
-      36
+      44,
+      45,
+      46
     ],
     "marketSeasonRanges": [
       {
         "startWeek": 1,
-        "endWeek": 2
+        "endWeek": 5
       },
       {
-        "startWeek": 7,
-        "endWeek": 7
+        "startWeek": 9,
+        "endWeek": 10
       },
       {
-        "startWeek": 13,
-        "endWeek": 38
+        "startWeek": 15,
+        "endWeek": 37
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 47
       }
     ],
     "localSeasonRanges": [
       {
-        "startWeek": 45,
-        "endWeek": 41
+        "startWeek": 15,
+        "endWeek": 26
+      },
+      {
+        "startWeek": 33,
+        "endWeek": 39
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 49
+      },
+      {
+        "startWeek": 51,
+        "endWeek": 10
       }
     ],
-    "observationCount": 131,
-    "yearsCovered": 11,
-    "firstObservation": "2014-06-04",
-    "lastObservation": "2026-08-31",
-    "confidence": 0.8966,
+    "observationCount": 60,
+    "yearsCovered": 7,
+    "firstObservation": "2012-09-10",
+    "lastObservation": "2026-02-18",
+    "confidence": 0.8085,
     "confidenceLabel": "alta",
     "insufficientEvidence": false,
     "evidence": {
-      "observations": 131,
-      "years": 11,
-      "independentSources": 3,
-      "originKnownRatio": 0.8168,
-      "yearConsistency": 0.5747,
-      "weekCoverage": 0.8077
+      "observations": 60,
+      "years": 7,
+      "independentSources": 1,
+      "originKnownRatio": 0.9,
+      "yearConsistency": 0.5926,
+      "weekCoverage": 0.4808
     },
     "primaryOrigins": [
       {
         "originId": "bo-santa-cruz",
         "label": "Santa Cruz",
-        "share": 0.5421,
-        "observations": 58,
-        "isLocal": true
-      },
-      {
-        "originId": "bo-cochabamba",
-        "label": "Cochabamba",
-        "share": 0.2617,
-        "observations": 28,
-        "isLocal": false
-      },
-      {
-        "originId": "bo-sc-norte",
-        "label": "Norte Integrado",
-        "share": 0.1963,
-        "observations": 21,
-        "isLocal": true
-      }
-    ],
-    "localShareOfKnown": 0.7383,
-    "priceComparable": false,
-    "containsSyntheticData": true,
-    "sourceIds": [
-      "cao-siprem",
-      "demo-mayorista",
-      "demo-minorista"
-    ]
-  },
-  {
-    "productId": "sandia",
-    "peakWeeks": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      46,
-      47,
-      48,
-      49,
-      50,
-      51,
-      52
-    ],
-    "marketSeasonRanges": [
-      {
-        "startWeek": 17,
-        "endWeek": 18
-      },
-      {
-        "startWeek": 23,
-        "endWeek": 23
-      },
-      {
-        "startWeek": 43,
-        "endWeek": 8
-      }
-    ],
-    "localSeasonRanges": [
-      {
-        "startWeek": 1,
-        "endWeek": 52
-      }
-    ],
-    "observationCount": 112,
-    "yearsCovered": 11,
-    "firstObservation": "2014-06-04",
-    "lastObservation": "2026-07-06",
-    "confidence": 0.933,
-    "confidenceLabel": "alta",
-    "insufficientEvidence": false,
-    "evidence": {
-      "observations": 112,
-      "years": 11,
-      "independentSources": 3,
-      "originKnownRatio": 0.8839,
-      "yearConsistency": 0.7228,
-      "weekCoverage": 0.8077
-    },
-    "primaryOrigins": [
-      {
-        "originId": "bo-santa-cruz",
-        "label": "Santa Cruz",
-        "share": 0.9192,
-        "observations": 91,
-        "isLocal": true
-      },
-      {
-        "originId": "bo-sc-valles",
-        "label": "Valles Cruceños",
-        "share": 0.0808,
-        "observations": 8,
+        "share": 1,
+        "observations": 54,
         "isLocal": true
       }
     ],
     "localShareOfKnown": 1,
     "priceComparable": false,
-    "containsSyntheticData": true,
+    "containsSyntheticData": false,
     "sourceIds": [
-      "cao-siprem",
-      "demo-mayorista",
-      "demo-minorista"
+      "cao-siprem"
     ]
   },
   {
-    "productId": "durazno",
+    "productId": "naranja",
     "peakWeeks": [
       1,
       2,
@@ -535,86 +357,22 @@
       5,
       6,
       7,
-      52
-    ],
-    "marketSeasonRanges": [
-      {
-        "startWeek": 17,
-        "endWeek": 18
-      },
-      {
-        "startWeek": 46,
-        "endWeek": 9
-      }
-    ],
-    "localSeasonRanges": [
-      {
-        "startWeek": 17,
-        "endWeek": 18
-      },
-      {
-        "startWeek": 23,
-        "endWeek": 24
-      },
-      {
-        "startWeek": 34,
-        "endWeek": 36
-      },
-      {
-        "startWeek": 45,
-        "endWeek": 12
-      }
-    ],
-    "observationCount": 106,
-    "yearsCovered": 11,
-    "firstObservation": "2014-06-04",
-    "lastObservation": "2026-06-22",
-    "confidence": 0.8996,
-    "confidenceLabel": "alta",
-    "insufficientEvidence": false,
-    "evidence": {
-      "observations": 106,
-      "years": 11,
-      "independentSources": 3,
-      "originKnownRatio": 0.8868,
-      "yearConsistency": 0.5548,
-      "weekCoverage": 0.8077
-    },
-    "primaryOrigins": [
-      {
-        "originId": "bo-santa-cruz",
-        "label": "Santa Cruz",
-        "share": 0.4681,
-        "observations": 44,
-        "isLocal": true
-      },
-      {
-        "originId": "bo-sc-valles",
-        "label": "Valles Cruceños",
-        "share": 0.1809,
-        "observations": 17,
-        "isLocal": true
-      },
-      {
-        "originId": "bo-sc-comarapa",
-        "label": "Comarapa",
-        "share": 0.1277,
-        "observations": 12,
-        "isLocal": true
-      }
-    ],
-    "localShareOfKnown": 0.8404,
-    "priceComparable": true,
-    "containsSyntheticData": true,
-    "sourceIds": [
-      "cao-siprem",
-      "demo-mayorista",
-      "demo-minorista"
-    ]
-  },
-  {
-    "productId": "frutilla",
-    "peakWeeks": [
+      8,
+      9,
+      10,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
       28,
       29,
       30,
@@ -626,154 +384,460 @@
       36,
       37,
       38,
-      39
+      39,
+      40,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      51,
+      52
     ],
     "marketSeasonRanges": [
       {
-        "startWeek": 1,
-        "endWeek": 3
+        "startWeek": 15,
+        "endWeek": 40
       },
       {
-        "startWeek": 7,
-        "endWeek": 7
-      },
-      {
-        "startWeek": 17,
-        "endWeek": 17
-      },
-      {
-        "startWeek": 26,
-        "endWeek": 43
-      },
-      {
-        "startWeek": 47,
-        "endWeek": 49
+        "startWeek": 44,
+        "endWeek": 10
       }
     ],
     "localSeasonRanges": [
       {
-        "startWeek": 16,
-        "endWeek": 11
+        "startWeek": 15,
+        "endWeek": 26
+      },
+      {
+        "startWeek": 33,
+        "endWeek": 40
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 10
       }
     ],
-    "observationCount": 91,
-    "yearsCovered": 11,
-    "firstObservation": "2014-06-04",
-    "lastObservation": "2026-08-31",
-    "confidence": 0.8973,
+    "observationCount": 81,
+    "yearsCovered": 9,
+    "firstObservation": "2012-09-10",
+    "lastObservation": "2026-02-18",
+    "confidence": 0.8951,
     "confidenceLabel": "alta",
     "insufficientEvidence": false,
     "evidence": {
-      "observations": 91,
-      "years": 11,
-      "independentSources": 3,
-      "originKnownRatio": 0.8242,
-      "yearConsistency": 0.5744,
-      "weekCoverage": 0.8077
+      "observations": 81,
+      "years": 9,
+      "independentSources": 1,
+      "originKnownRatio": 0.9506,
+      "yearConsistency": 1,
+      "weekCoverage": 0.4808
     },
     "primaryOrigins": [
       {
         "originId": "bo-santa-cruz",
         "label": "Santa Cruz",
-        "share": 0.4267,
-        "observations": 32,
-        "isLocal": true
-      },
-      {
-        "originId": "bo-sc-comarapa",
-        "label": "Comarapa",
-        "share": 0.3333,
-        "observations": 25,
-        "isLocal": true
-      },
-      {
-        "originId": "bo-sc-valles",
-        "label": "Valles Cruceños",
-        "share": 0.1733,
-        "observations": 13,
+        "share": 1,
+        "observations": 77,
         "isLocal": true
       }
     ],
-    "localShareOfKnown": 0.9333,
+    "localShareOfKnown": 1,
     "priceComparable": true,
-    "containsSyntheticData": true,
+    "containsSyntheticData": false,
     "sourceIds": [
-      "cao-siprem",
-      "demo-mayorista",
-      "demo-minorista"
+      "cao-siprem"
     ]
   },
   {
-    "productId": "uva",
-    "peakWeeks": [],
+    "productId": "sandia",
+    "peakWeeks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      33,
+      34,
+      35,
+      36,
+      39,
+      40,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52
+    ],
     "marketSeasonRanges": [
       {
-        "startWeek": 6,
-        "endWeek": 7
+        "startWeek": 15,
+        "endWeek": 26
       },
       {
-        "startWeek": 17,
-        "endWeek": 17
+        "startWeek": 33,
+        "endWeek": 40
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 10
       }
     ],
     "localSeasonRanges": [
       {
-        "startWeek": 4,
-        "endWeek": 8
+        "startWeek": 15,
+        "endWeek": 26
+      },
+      {
+        "startWeek": 33,
+        "endWeek": 40
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 10
+      }
+    ],
+    "observationCount": 168,
+    "yearsCovered": 9,
+    "firstObservation": "2012-09-10",
+    "lastObservation": "2026-02-18",
+    "confidence": 0.9,
+    "confidenceLabel": "alta",
+    "insufficientEvidence": false,
+    "evidence": {
+      "observations": 168,
+      "years": 9,
+      "independentSources": 1,
+      "originKnownRatio": 1,
+      "yearConsistency": 1,
+      "weekCoverage": 0.4808
+    },
+    "primaryOrigins": [
+      {
+        "originId": "bo-santa-cruz",
+        "label": "Santa Cruz",
+        "share": 1,
+        "observations": 168,
+        "isLocal": true
+      }
+    ],
+    "localShareOfKnown": 1,
+    "priceComparable": false,
+    "containsSyntheticData": false,
+    "sourceIds": [
+      "cao-siprem"
+    ]
+  },
+  {
+    "productId": "durazno",
+    "peakWeeks": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      33,
+      34,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52
+    ],
+    "marketSeasonRanges": [
+      {
+        "startWeek": 15,
+        "endWeek": 26
+      },
+      {
+        "startWeek": 33,
+        "endWeek": 35
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 10
+      }
+    ],
+    "localSeasonRanges": [
+      {
+        "startWeek": 15,
+        "endWeek": 19
+      },
+      {
+        "startWeek": 21,
+        "endWeek": 26
+      },
+      {
+        "startWeek": 33,
+        "endWeek": 38
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 10
+      }
+    ],
+    "observationCount": 153,
+    "yearsCovered": 9,
+    "firstObservation": "2012-12-06",
+    "lastObservation": "2026-02-18",
+    "confidence": 0.9,
+    "confidenceLabel": "alta",
+    "insufficientEvidence": false,
+    "evidence": {
+      "observations": 153,
+      "years": 9,
+      "independentSources": 1,
+      "originKnownRatio": 1,
+      "yearConsistency": 1,
+      "weekCoverage": 0.4808
+    },
+    "primaryOrigins": [
+      {
+        "originId": "bo-santa-cruz",
+        "label": "Santa Cruz",
+        "share": 0.902,
+        "observations": 138,
+        "isLocal": true
+      },
+      {
+        "originId": "ar",
+        "label": "Argentina",
+        "share": 0.0523,
+        "observations": 8,
+        "isLocal": false
+      },
+      {
+        "originId": "cl",
+        "label": "Chile",
+        "share": 0.0392,
+        "observations": 6,
+        "isLocal": false
+      }
+    ],
+    "localShareOfKnown": 0.902,
+    "priceComparable": true,
+    "containsSyntheticData": false,
+    "sourceIds": [
+      "cao-siprem"
+    ]
+  },
+  {
+    "productId": "frutilla",
+    "peakWeeks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      15,
+      16,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52
+    ],
+    "marketSeasonRanges": [
+      {
+        "startWeek": 15,
+        "endWeek": 40
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 10
+      }
+    ],
+    "localSeasonRanges": [
+      {
+        "startWeek": 15,
+        "endWeek": 26
+      },
+      {
+        "startWeek": 33,
+        "endWeek": 40
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 10
+      }
+    ],
+    "observationCount": 98,
+    "yearsCovered": 9,
+    "firstObservation": "2012-09-10",
+    "lastObservation": "2026-02-18",
+    "confidence": 0.8959,
+    "confidenceLabel": "alta",
+    "insufficientEvidence": false,
+    "evidence": {
+      "observations": 98,
+      "years": 9,
+      "independentSources": 1,
+      "originKnownRatio": 0.9592,
+      "yearConsistency": 1,
+      "weekCoverage": 0.4808
+    },
+    "primaryOrigins": [
+      {
+        "originId": "bo-santa-cruz",
+        "label": "Santa Cruz",
+        "share": 1,
+        "observations": 94,
+        "isLocal": true
+      }
+    ],
+    "localShareOfKnown": 1,
+    "priceComparable": true,
+    "containsSyntheticData": false,
+    "sourceIds": [
+      "cao-siprem"
+    ]
+  },
+  {
+    "productId": "uva",
+    "peakWeeks": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      15,
+      16,
+      27,
+      28,
+      29,
+      30,
+      31,
+      33,
+      34,
+      35,
+      44,
+      45,
+      46,
+      47
+    ],
+    "marketSeasonRanges": [
+      {
+        "startWeek": 15,
+        "endWeek": 40
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 10
+      }
+    ],
+    "localSeasonRanges": [
+      {
+        "startWeek": 5,
+        "endWeek": 10
       },
       {
         "startWeek": 15,
         "endWeek": 15
       },
       {
-        "startWeek": 21,
-        "endWeek": 21
+        "startWeek": 33,
+        "endWeek": 33
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 46
       }
     ],
-    "observationCount": 74,
-    "yearsCovered": 6,
-    "firstObservation": "2014-06-04",
+    "observationCount": 172,
+    "yearsCovered": 9,
+    "firstObservation": "2012-09-10",
     "lastObservation": "2026-02-18",
-    "confidence": 0.9042,
+    "confidence": 0.8988,
     "confidenceLabel": "alta",
     "insufficientEvidence": false,
     "evidence": {
-      "observations": 74,
-      "years": 6,
-      "independentSources": 2,
-      "originKnownRatio": 1,
-      "yearConsistency": 0.7711,
-      "weekCoverage": 0.8077
+      "observations": 172,
+      "years": 9,
+      "independentSources": 1,
+      "originKnownRatio": 0.9884,
+      "yearConsistency": 1,
+      "weekCoverage": 0.4808
     },
     "primaryOrigins": [
       {
         "originId": "bo-tarija",
         "label": "Tarija",
-        "share": 0.5,
-        "observations": 37,
-        "isLocal": false
-      },
-      {
-        "originId": "pe",
-        "label": "Perú",
-        "share": 0.1892,
-        "observations": 14,
+        "share": 0.4412,
+        "observations": 75,
         "isLocal": false
       },
       {
         "originId": "br",
         "label": "Brasil",
-        "share": 0.1081,
-        "observations": 8,
+        "share": 0.2118,
+        "observations": 36,
+        "isLocal": false
+      },
+      {
+        "originId": "pe",
+        "label": "Perú",
+        "share": 0.1294,
+        "observations": 22,
         "isLocal": false
       }
     ],
-    "localShareOfKnown": 0.0676,
+    "localShareOfKnown": 0.1,
     "priceComparable": true,
-    "containsSyntheticData": true,
+    "containsSyntheticData": false,
     "sourceIds": [
-      "cao-siprem",
-      "demo-mayorista"
+      "cao-siprem"
     ]
   },
   {
@@ -789,10 +853,6 @@
       8,
       9,
       10,
-      11,
-      12,
-      13,
-      14,
       15,
       16,
       17,
@@ -819,7 +879,8 @@
       38,
       39,
       40,
-      41,
+      44,
+      45,
       46,
       47,
       48,
@@ -830,69 +891,79 @@
     ],
     "marketSeasonRanges": [
       {
-        "startWeek": 1,
-        "endWeek": 52
+        "startWeek": 15,
+        "endWeek": 40
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 10
       }
     ],
     "localSeasonRanges": [
       {
-        "startWeek": 1,
-        "endWeek": 52
+        "startWeek": 15,
+        "endWeek": 26
+      },
+      {
+        "startWeek": 33,
+        "endWeek": 37
+      },
+      {
+        "startWeek": 40,
+        "endWeek": 40
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 10
       }
     ],
-    "observationCount": 232,
-    "yearsCovered": 11,
-    "firstObservation": "2014-06-04",
-    "lastObservation": "2026-08-31",
-    "confidence": 0.9582,
+    "observationCount": 164,
+    "yearsCovered": 9,
+    "firstObservation": "2012-09-10",
+    "lastObservation": "2026-02-18",
+    "confidence": 0.839,
     "confidenceLabel": "alta",
     "insufficientEvidence": false,
     "evidence": {
-      "observations": 232,
-      "years": 11,
-      "independentSources": 3,
-      "originKnownRatio": 0.6853,
-      "yearConsistency": 0.9483,
-      "weekCoverage": 0.8077
+      "observations": 164,
+      "years": 9,
+      "independentSources": 1,
+      "originKnownRatio": 0.3902,
+      "yearConsistency": 1,
+      "weekCoverage": 0.4808
     },
     "primaryOrigins": [
       {
-        "originId": "bo-sc-norte",
-        "label": "Norte Integrado",
-        "share": 0.4088,
-        "observations": 65,
-        "isLocal": true
+        "originId": "bo-cbba-chapare",
+        "label": "Chapare",
+        "share": 0.7344,
+        "observations": 47,
+        "isLocal": false
       },
       {
-        "originId": "bo-santa-cruz",
-        "label": "Santa Cruz",
-        "share": 0.2516,
-        "observations": 40,
-        "isLocal": true
-      },
-      {
-        "originId": "bo-cochabamba",
-        "label": "Cochabamba",
-        "share": 0.2138,
-        "observations": 34,
+        "originId": "bo-la-paz",
+        "label": "La Paz",
+        "share": 0.2656,
+        "observations": 17,
         "isLocal": false
       }
     ],
-    "localShareOfKnown": 0.6604,
+    "localShareOfKnown": 0,
     "priceComparable": false,
-    "containsSyntheticData": true,
+    "containsSyntheticData": false,
     "sourceIds": [
-      "cao-siprem",
-      "demo-mayorista",
-      "demo-minorista"
+      "cao-siprem"
     ]
   },
   {
     "productId": "tomate",
     "peakWeeks": [
       1,
-      13,
-      14,
+      2,
+      3,
+      4,
+      5,
+      6,
       15,
       16,
       17,
@@ -919,67 +990,63 @@
       38,
       39,
       40,
-      41,
-      42,
-      43
+      45,
+      46,
+      52
     ],
     "marketSeasonRanges": [
       {
-        "startWeek": 1,
-        "endWeek": 52
+        "startWeek": 15,
+        "endWeek": 40
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 10
       }
     ],
     "localSeasonRanges": [
       {
-        "startWeek": 1,
-        "endWeek": 52
+        "startWeek": 15,
+        "endWeek": 26
+      },
+      {
+        "startWeek": 33,
+        "endWeek": 40
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 10
       }
     ],
-    "observationCount": 238,
-    "yearsCovered": 11,
-    "firstObservation": "2014-06-04",
-    "lastObservation": "2026-08-31",
-    "confidence": 0.966,
+    "observationCount": 196,
+    "yearsCovered": 9,
+    "firstObservation": "2012-09-10",
+    "lastObservation": "2026-02-18",
+    "confidence": 0.8959,
     "confidenceLabel": "alta",
     "insufficientEvidence": false,
     "evidence": {
-      "observations": 238,
-      "years": 11,
-      "independentSources": 3,
-      "originKnownRatio": 0.8613,
-      "yearConsistency": 0.8993,
-      "weekCoverage": 0.8077
+      "observations": 196,
+      "years": 9,
+      "independentSources": 1,
+      "originKnownRatio": 0.9592,
+      "yearConsistency": 1,
+      "weekCoverage": 0.4808
     },
     "primaryOrigins": [
       {
         "originId": "bo-santa-cruz",
         "label": "Santa Cruz",
-        "share": 0.5366,
-        "observations": 110,
-        "isLocal": true
-      },
-      {
-        "originId": "bo-cochabamba",
-        "label": "Cochabamba",
-        "share": 0.3024,
-        "observations": 62,
-        "isLocal": false
-      },
-      {
-        "originId": "bo-sc-valles",
-        "label": "Valles Cruceños",
-        "share": 0.161,
-        "observations": 33,
+        "share": 1,
+        "observations": 188,
         "isLocal": true
       }
     ],
-    "localShareOfKnown": 0.6976,
+    "localShareOfKnown": 1,
     "priceComparable": true,
-    "containsSyntheticData": true,
+    "containsSyntheticData": false,
     "sourceIds": [
-      "cao-siprem",
-      "demo-mayorista",
-      "demo-minorista"
+      "cao-siprem"
     ]
   },
   {
@@ -993,12 +1060,6 @@
       6,
       7,
       8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
       15,
       16,
       17,
@@ -1012,6 +1073,8 @@
       25,
       26,
       27,
+      28,
+      29,
       30,
       31,
       32,
@@ -1023,8 +1086,10 @@
       38,
       39,
       40,
-      41,
-      42,
+      44,
+      45,
+      46,
+      47,
       48,
       49,
       50,
@@ -1033,94 +1098,124 @@
     ],
     "marketSeasonRanges": [
       {
-        "startWeek": 1,
-        "endWeek": 52
+        "startWeek": 15,
+        "endWeek": 40
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 10
       }
     ],
     "localSeasonRanges": [
       {
-        "startWeek": 1,
-        "endWeek": 52
+        "startWeek": 15,
+        "endWeek": 26
+      },
+      {
+        "startWeek": 33,
+        "endWeek": 40
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 10
       }
     ],
-    "observationCount": 189,
-    "yearsCovered": 11,
-    "firstObservation": "2014-06-04",
-    "lastObservation": "2026-08-31",
-    "confidence": 0.9607,
+    "observationCount": 49,
+    "yearsCovered": 9,
+    "firstObservation": "2012-09-10",
+    "lastObservation": "2026-02-18",
+    "confidence": 0.8501,
     "confidenceLabel": "alta",
     "insufficientEvidence": false,
     "evidence": {
-      "observations": 189,
-      "years": 11,
-      "independentSources": 3,
-      "originKnownRatio": 0.8042,
-      "yearConsistency": 0.9011,
-      "weekCoverage": 0.8077
+      "observations": 49,
+      "years": 9,
+      "independentSources": 1,
+      "originKnownRatio": 0.9592,
+      "yearConsistency": 1,
+      "weekCoverage": 0.4808
     },
     "primaryOrigins": [
       {
         "originId": "bo-santa-cruz",
         "label": "Santa Cruz",
-        "share": 0.5987,
-        "observations": 91,
-        "isLocal": true
-      },
-      {
-        "originId": "bo-sc-norte",
-        "label": "Norte Integrado",
-        "share": 0.4013,
-        "observations": 61,
+        "share": 1,
+        "observations": 47,
         "isLocal": true
       }
     ],
     "localShareOfKnown": 1,
-    "priceComparable": false,
-    "containsSyntheticData": true,
+    "priceComparable": true,
+    "containsSyntheticData": false,
     "sourceIds": [
-      "cao-siprem",
-      "demo-mayorista",
-      "demo-minorista"
+      "cao-siprem"
     ]
   },
   {
     "productId": "palta",
-    "peakWeeks": [],
-    "marketSeasonRanges": [],
-    "localSeasonRanges": [],
-    "observationCount": 16,
-    "yearsCovered": 2,
+    "peakWeeks": [
+      44,
+      45,
+      46,
+      47
+    ],
+    "marketSeasonRanges": [
+      {
+        "startWeek": 4,
+        "endWeek": 5
+      },
+      {
+        "startWeek": 9,
+        "endWeek": 10
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 50
+      }
+    ],
+    "localSeasonRanges": [
+      {
+        "startWeek": 2,
+        "endWeek": 10
+      },
+      {
+        "startWeek": 44,
+        "endWeek": 48
+      }
+    ],
+    "observationCount": 39,
+    "yearsCovered": 3,
     "firstObservation": "2018-11-16",
     "lastObservation": "2026-02-18",
-    "confidence": 0.5252,
+    "confidence": 0.6036,
     "confidenceLabel": "media",
-    "insufficientEvidence": true,
+    "insufficientEvidence": false,
     "evidence": {
-      "observations": 16,
-      "years": 2,
+      "observations": 39,
+      "years": 3,
       "independentSources": 1,
       "originKnownRatio": 1,
-      "yearConsistency": 0.9425,
-      "weekCoverage": 0.8077
+      "yearConsistency": 0.5556,
+      "weekCoverage": 0.4808
     },
     "primaryOrigins": [
       {
         "originId": "bo-santa-cruz",
         "label": "Santa Cruz",
-        "share": 0.625,
-        "observations": 10,
+        "share": 0.5128,
+        "observations": 20,
         "isLocal": true
       },
       {
         "originId": "pe",
         "label": "Perú",
-        "share": 0.375,
-        "observations": 6,
+        "share": 0.4872,
+        "observations": 19,
         "isLocal": false
       }
     ],
-    "localShareOfKnown": 0.625,
-    "priceComparable": false,
+    "localShareOfKnown": 0.5128,
+    "priceComparable": true,
     "containsSyntheticData": false,
     "sourceIds": [
       "cao-siprem"
@@ -1142,7 +1237,7 @@
       "independentSources": 0,
       "originKnownRatio": null,
       "yearConsistency": null,
-      "weekCoverage": 0.8077
+      "weekCoverage": 0.4808
     },
     "primaryOrigins": [],
     "localShareOfKnown": null,
@@ -1165,36 +1260,78 @@
   },
   {
     "productId": "limon",
-    "peakWeeks": [],
+    "peakWeeks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52
+    ],
     "marketSeasonRanges": [
       {
-        "startWeek": 1,
-        "endWeek": 2
+        "startWeek": 15,
+        "endWeek": 40
       },
       {
-        "startWeek": 17,
-        "endWeek": 19
-      },
-      {
-        "startWeek": 23,
-        "endWeek": 24
+        "startWeek": 44,
+        "endWeek": 10
       }
     ],
     "localSeasonRanges": [],
-    "observationCount": 48,
-    "yearsCovered": 5,
-    "firstObservation": "2014-06-04",
+    "observationCount": 147,
+    "yearsCovered": 9,
+    "firstObservation": "2012-09-10",
     "lastObservation": "2026-02-18",
-    "confidence": 0.7134,
-    "confidenceLabel": "media",
+    "confidence": 0.8,
+    "confidenceLabel": "alta",
     "insufficientEvidence": false,
     "evidence": {
-      "observations": 48,
-      "years": 5,
+      "observations": 147,
+      "years": 9,
       "independentSources": 1,
       "originKnownRatio": 0,
-      "yearConsistency": 0.8171,
-      "weekCoverage": 0.8077
+      "yearConsistency": 1,
+      "weekCoverage": 0.4808
     },
     "primaryOrigins": [],
     "localShareOfKnown": null,

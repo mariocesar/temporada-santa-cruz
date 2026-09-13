@@ -36,28 +36,6 @@
     "kind": "original"
   },
   {
-    "id": "demo-mayorista",
-    "name": "DEMO — Reporte mayorista sintético (datos NO reales)",
-    "publisher": "Temporada Santa Cruz — semilla de demostración generada",
-    "sourceType": "market",
-    "description": "Datos SINTÉTICOS generados deterministicamente para desarrollar la interfaz (scripts/data/seed/generate-demo.ts). No describen ningún mercado real y se eliminan a medida que ingresan observaciones reales.",
-    "methodologyNotes": "Todo registro de esta fuente lleva synthetic=true y el dataset publicado activa el aviso DATOS DE DEMOSTRACIÓN (PROJECT.md §45, §79).",
-    "licenseNotes": "Sin restricciones: datos inventados.",
-    "kind": "original",
-    "synthetic": true
-  },
-  {
-    "id": "demo-minorista",
-    "name": "DEMO — Reporte minorista sintético (datos NO reales)",
-    "publisher": "Temporada Santa Cruz — semilla de demostración generada",
-    "sourceType": "market",
-    "description": "Segunda fuente SINTÉTICA (precios minoristas mensuales) para ejercitar la diversidad de fuentes del modelo de confianza durante el desarrollo. No describe ningún mercado real.",
-    "methodologyNotes": "Todo registro de esta fuente lleva synthetic=true y el dataset publicado activa el aviso DATOS DE DEMOSTRACIÓN (PROJECT.md §45, §79).",
-    "licenseNotes": "Sin restricciones: datos inventados.",
-    "kind": "original",
-    "synthetic": true
-  },
-  {
     "id": "ibce-perfil-limon-2010",
     "name": "IBCE — Perfil de Mercado: Limón (2010)",
     "publisher": "Instituto Boliviano de Comercio Exterior (IBCE)",

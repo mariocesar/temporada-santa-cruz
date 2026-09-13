@@ -1,9 +1,9 @@
 {
-  "dataUpdatedAt": "2026-08-31",
+  "dataUpdatedAt": "2026-02-18",
   "productCount": 15,
-  "observationCount": 1791,
-  "sourceCount": 3,
-  "containsDemoData": true,
+  "observationCount": 1575,
+  "sourceCount": 1,
+  "containsDemoData": false,
   "allDataSynthetic": false,
   "containsEstimatedSeasons": true,
   "files": {
