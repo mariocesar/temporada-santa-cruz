@@ -17,6 +17,8 @@ Confirmed decisions (2026-09-13) are recorded in PROJECT.md §103.
 - [x] Base-path-aware `vite.config.ts` (`VITE_BASE_PATH`)
 - [x] Spanish HTML shell with SEO metadata, original favicon
 - [x] MIT (code) + CC BY 4.0 (curated data) licensing
+- [x] Minimal Pages deploy workflow (install → check → build → deploy on push
+      to main); Pages configured with source "GitHub Actions" via `gh`
 - [x] This plan
 
 ## Phase 1 — Domain model and data pipeline (PROJECT.md §84)
@@ -74,13 +76,12 @@ README, CONTRIBUTING, `docs/METHODOLOGY.md`, `docs/DATA_SOURCES.md`,
 
 ## Phase 4 — Productionize and deploy (§87)
 
-1. `.github/workflows/deploy.yml`: Bun, frozen lockfile, check + test + data
-   validation + build, official Pages actions, `VITE_BASE_PATH` derived from
-   the repository name (§80).
+A minimal deploy workflow already exists from Phase 0. Complete it:
+
+1. Add `bun run test` and `bun run data:validate` steps to
+   `.github/workflows/deploy.yml` once those commands exist (§80).
 2. PR validation workflow if not redundant (§81).
-3. Configure Pages (source: GitHub Actions) via `gh`; document any manual
-   setting that `gh` cannot apply (§82).
-4. Verify deployed asset paths and reload behavior at
+3. Verify deployed asset paths and reload behavior at
    `https://mariocesar.github.io/temporada-santa-cruz/`.
 
 Exit: §88 definition of done, deployed.
