@@ -126,7 +126,7 @@
   {#each grouped as group (group.state)}
     {#if group.items.length > 0}
       <h3>{group.title} <span class="count">({group.items.length})</span></h3>
-      <ul class="cards">
+      <ul class="cards" class:feature={group.state === 'pico'}>
         {#each group.items as view, i (view.product.id)}
           <li>
             <button
@@ -141,7 +141,7 @@
                     <ProductGlyph
                       productId={view.product.id}
                       hue={productHue(view.product)}
-                      size={34}
+                      size={group.state === 'pico' ? 48 : 34}
                       stroke={1.25}
                       wash={0.12}
                     />
@@ -257,6 +257,30 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
     gap: var(--space-3);
+  }
+
+  /* Peak week is the answer most readers came for: those cards get the
+     room, the bigger drawing, and a breath of the product's own hue. */
+  .cards.feature {
+    grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
+  }
+
+  .cards.feature .card {
+    background: color-mix(in oklab, var(--hue) 5%, var(--color-surface));
+    border-left-width: 6px;
+    padding: var(--space-4);
+    gap: var(--space-2);
+  }
+
+  .cards.feature .card-name {
+    font-size: 1.375rem;
+  }
+
+  /* In the feature row the season itself is the headline information, not
+     a caption under the name. */
+  .cards.feature .card-season {
+    font-size: 1rem;
+    color: var(--color-text);
   }
 
   /* The produce hue enters as a woven left selvage — cards stay paper,

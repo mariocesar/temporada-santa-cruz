@@ -131,7 +131,12 @@
     border-top: 1px solid var(--color-border);
     padding-top: var(--space-6);
     margin-bottom: var(--space-8);
-    max-width: 48rem;
+  }
+
+  /* Prose keeps a readable measure; the concept cards below get the full
+     width. */
+  .methodology > :where(p, h3, ul) {
+    max-width: 44rem;
   }
 
   h2 {
@@ -150,17 +155,32 @@
 
   .concepts {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
     gap: var(--space-3);
-    margin: var(--space-4) 0;
+    margin: var(--space-4) 0 var(--space-6);
+    max-width: 60rem;
+  }
+
+  .concepts > div {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--color-accent);
+    border-radius: var(--radius);
+    padding: var(--space-3) var(--space-4) var(--space-4);
   }
 
   .concepts dt {
+    font-family: var(--font-display);
     font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--color-display);
+    margin-bottom: var(--space-1);
   }
 
   .concepts dd {
     margin: 0;
     color: var(--color-text-muted);
+    font-size: 0.9375rem;
   }
 
   ul {

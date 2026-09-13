@@ -95,5 +95,11 @@ svg {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    /* Staggered entrances hold their opening keyframe during the delay
+       (animation-fill-mode: both). Zeroing only the duration would leave
+       a reader who asked for no motion staring at invisible rows until
+       each delay elapsed. */
+    animation-delay: 0s !important;
+    transition-delay: 0s !important;
   }
 }

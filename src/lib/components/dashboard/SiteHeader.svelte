@@ -52,6 +52,9 @@
 
     {#if shown.length > 0}
       <figure class="masthead-art">
+        {#if featuredCaption !== ''}
+          <figcaption>{featuredCaption}</figcaption>
+        {/if}
         <div class="art-row" role="img" aria-label={artLabel}>
           {#each shown as view, i (view.product.id)}
             <span
@@ -61,16 +64,13 @@
               <ProductGlyph
                 productId={view.product.id}
                 hue={productHue(view.product)}
-                size={72}
-                stroke={1.35}
-                wash={0.12}
+                size={88}
+                stroke={1.4}
+                wash={0.13}
               />
             </span>
           {/each}
         </div>
-        {#if featuredCaption !== ''}
-          <figcaption>{featuredCaption}</figcaption>
-        {/if}
       </figure>
     {/if}
   </div>
@@ -175,7 +175,7 @@
   }
 
   figcaption {
-    margin-top: var(--space-2);
+    margin-bottom: var(--space-2);
     font-size: 0.8125rem;
     color: var(--color-text-muted);
     font-variant-caps: all-small-caps;
