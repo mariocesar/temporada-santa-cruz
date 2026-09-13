@@ -1,0 +1,145 @@
+[
+  {
+    "id": "achachairu",
+    "slug": "achachairu",
+    "nameEs": "Achachairú",
+    "scientificName": "Garcinia humilis",
+    "aliases": [
+      "achachairú",
+      "achachairu",
+      "achacha"
+    ],
+    "category": "fruit"
+  },
+  {
+    "id": "papaya",
+    "slug": "papaya",
+    "nameEs": "Papaya",
+    "scientificName": "Carica papaya",
+    "aliases": [
+      "papaya",
+      "lechosa"
+    ],
+    "category": "fruit"
+  },
+  {
+    "id": "pina",
+    "slug": "pina",
+    "nameEs": "Piña",
+    "scientificName": "Ananas comosus",
+    "aliases": [
+      "piña",
+      "pina",
+      "ananá"
+    ],
+    "category": "fruit"
+  },
+  {
+    "id": "mandarina",
+    "slug": "mandarina",
+    "nameEs": "Mandarina",
+    "scientificName": "Citrus reticulata",
+    "aliases": [
+      "mandarina"
+    ],
+    "category": "fruit",
+    "varieties": [
+      "Criolla",
+      "Ponkan"
+    ]
+  },
+  {
+    "id": "naranja",
+    "slug": "naranja",
+    "nameEs": "Naranja",
+    "scientificName": "Citrus sinensis",
+    "aliases": [
+      "naranja"
+    ],
+    "category": "fruit",
+    "varieties": [
+      "Criolla",
+      "Valencia"
+    ]
+  },
+  {
+    "id": "sandia",
+    "slug": "sandia",
+    "nameEs": "Sandía",
+    "scientificName": "Citrullus lanatus",
+    "aliases": [
+      "sandía",
+      "sandia"
+    ],
+    "category": "fruit"
+  },
+  {
+    "id": "durazno",
+    "slug": "durazno",
+    "nameEs": "Durazno",
+    "scientificName": "Prunus persica",
+    "aliases": [
+      "durazno",
+      "melocotón"
+    ],
+    "category": "fruit"
+  },
+  {
+    "id": "frutilla",
+    "slug": "frutilla",
+    "nameEs": "Frutilla",
+    "scientificName": "Fragaria × ananassa",
+    "aliases": [
+      "frutilla",
+      "fresa"
+    ],
+    "category": "fruit"
+  },
+  {
+    "id": "uva",
+    "slug": "uva",
+    "nameEs": "Uva",
+    "scientificName": "Vitis vinifera",
+    "aliases": [
+      "uva"
+    ],
+    "category": "fruit",
+    "varieties": [
+      "Moscatel",
+      "Negra criolla"
+    ]
+  },
+  {
+    "id": "guineo",
+    "slug": "guineo",
+    "nameEs": "Guineo",
+    "scientificName": "Musa acuminata",
+    "aliases": [
+      "guineo",
+      "banano",
+      "guineo de seda"
+    ],
+    "category": "fruit"
+  },
+  {
+    "id": "tomate",
+    "slug": "tomate",
+    "nameEs": "Tomate",
+    "scientificName": "Solanum lycopersicum",
+    "aliases": [
+      "tomate"
+    ],
+    "category": "vegetable"
+  },
+  {
+    "id": "yuca",
+    "slug": "yuca",
+    "nameEs": "Yuca",
+    "scientificName": "Manihot esculenta",
+    "aliases": [
+      "yuca",
+      "mandioca"
+    ],
+    "category": "tuber"
+  }
+]

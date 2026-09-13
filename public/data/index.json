@@ -1,0 +1,14 @@
+{
+  "dataUpdatedAt": "2026-08-31",
+  "productCount": 12,
+  "observationCount": 1247,
+  "sourceCount": 2,
+  "containsDemoData": true,
+  "files": {
+    "products": "products.json",
+    "seasonality": "seasonality.json",
+    "summaries": "summaries.json",
+    "sources": "sources.json"
+  },
+  "schemaVersion": 1
+}

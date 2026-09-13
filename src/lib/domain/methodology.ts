@@ -69,6 +69,12 @@ export const LOCAL_SCORE_WEIGHTS = {
 // ---------------------------------------------------------------------------
 
 export const PRICE_SIGNAL = {
+  /**
+   * Price level used for the seasonality signal. Wholesale prices track
+   * supply more directly than retail; retail values stay in the data for
+   * display only. Never mix the two levels in one median.
+   */
+  basis: 'wholesale',
   /** Minimum comparable observations in a year to trust that year's median. */
   minObservationsPerYearMedian: 5,
   /** Minimum comparable observations in a week bin to emit a price signal. */

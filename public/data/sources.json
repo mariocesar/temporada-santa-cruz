@@ -1,0 +1,54 @@
+[
+  {
+    "id": "cao-siprem",
+    "name": "CAO / SIPREM — Reportes de precios de mercado",
+    "publisher": "Cámara Agropecuaria del Oriente (CAO)",
+    "url": "https://www.cao.org.bo/",
+    "description": "Reportes periódicos de precios mayoristas y minoristas de frutas y verduras en mercados de Santa Cruz, con clasificación de oferta (Escasa/Normal/Abundante), procedencia, variedad y calidad. Fuente primaria del proyecto.",
+    "methodologyNotes": "La clasificación de oferta alimenta la señal de disponibilidad; la procedencia alimenta la señal local. Los reportes históricos pueden existir como PDF o espejos; los espejos se registran como fuentes 'mirror' y no cuentan como evidencia independiente.",
+    "licenseNotes": "Material del publicador bajo sus propios términos; se documenta la adquisición por reporte y no se redistribuye material restringido.",
+    "kind": "original"
+  },
+  {
+    "id": "siip",
+    "name": "SIIP — Sistema Integrado de Información Productiva",
+    "publisher": "Ministerio de Desarrollo Rural y Tierras (Bolivia)",
+    "url": "https://siip.produccion.gob.bo/",
+    "description": "Precios mayoristas diarios y observaciones de frutas y verduras, incluyendo mercados de Santa Cruz de la Sierra. Fuente de mercado independiente de la CAO.",
+    "methodologyNotes": "Fuente independiente para el conteo de fuentes del modelo de confianza. Cobertura y formato por verificar en la Fase 5.",
+    "licenseNotes": "Datos públicos del Estado boliviano; términos por documentar al importar.",
+    "kind": "original"
+  },
+  {
+    "id": "ine-censo-2013",
+    "name": "INE — Censo Agropecuario 2013",
+    "publisher": "Instituto Nacional de Estadística (Bolivia)",
+    "url": "https://www.ine.gob.bo/",
+    "description": "Censo agropecuario con cultivo, superficie, mes de siembra y mes de cosecha por municipio. Se usa ÚNICAMENTE como prior histórico del calendario de cosecha y como evidencia geográfica.",
+    "coverageStart": "2012-10-01",
+    "coverageEnd": "2013-09-30",
+    "methodologyNotes": "Datos de 2013: NUNCA se presentan como producción actual. La evidencia de mercado reciente prevalece cuando contradice este prior (PROJECT.md §21, §34).",
+    "licenseNotes": "Datos públicos del INE; términos por documentar al importar.",
+    "kind": "original"
+  },
+  {
+    "id": "demo-mayorista",
+    "name": "DEMO — Reporte mayorista sintético (datos NO reales)",
+    "publisher": "Temporada Santa Cruz — semilla de demostración generada",
+    "description": "Datos SINTÉTICOS generados deterministicamente para desarrollar la interfaz (scripts/data/seed/generate-demo.ts). No describen ningún mercado real y se eliminan a medida que ingresan observaciones reales.",
+    "methodologyNotes": "Todo registro de esta fuente lleva synthetic=true y el dataset publicado activa el aviso DATOS DE DEMOSTRACIÓN (PROJECT.md §45, §79).",
+    "licenseNotes": "Sin restricciones: datos inventados.",
+    "kind": "original",
+    "synthetic": true
+  },
+  {
+    "id": "demo-minorista",
+    "name": "DEMO — Reporte minorista sintético (datos NO reales)",
+    "publisher": "Temporada Santa Cruz — semilla de demostración generada",
+    "description": "Segunda fuente SINTÉTICA (precios minoristas mensuales) para ejercitar la diversidad de fuentes del modelo de confianza durante el desarrollo. No describe ningún mercado real.",
+    "methodologyNotes": "Todo registro de esta fuente lleva synthetic=true y el dataset publicado activa el aviso DATOS DE DEMOSTRACIÓN (PROJECT.md §45, §79).",
+    "licenseNotes": "Sin restricciones: datos inventados.",
+    "kind": "original",
+    "synthetic": true
+  }
+]

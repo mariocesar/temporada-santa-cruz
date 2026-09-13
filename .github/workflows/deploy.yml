@@ -37,6 +37,10 @@ jobs:
           # Project Pages base path (see vite.config.ts). A future custom
           # domain sets this to "/" instead.
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
+          # Deliberate acknowledgment (PROJECT.md §79): the dataset is still
+          # the marked demo seed, so the deployed site shows the
+          # DATOS DE DEMOSTRACIÓN banner. Remove once real data lands.
+          ALLOW_DEMO_DATA: "true"
 
       - uses: actions/configure-pages@v5
 
