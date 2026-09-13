@@ -4,9 +4,10 @@ This is the working plan for building Temporada Santa Cruz. The full product
 specification lives in [PROJECT.md](../PROJECT.md); this document sequences it
 into executable phases with exit criteria. Update it as phases complete.
 
-**Status: Phases 0–1 complete; Phase 3 (functional dashboard) core built
-2026-09-13 — only its reference-season integration points remain, blocked on
-Phase 2. Phase 2 (reference seasons) is next.**
+**Status: Phases 0–2 complete; Phase 3 (functional dashboard) core built
+2026-09-13 — its reference-season integration points (timeline hatched
+band, detail-panel citation, "Ahora" exclusion/sorting) are now unblocked
+and are the next task.**
 
 Note: the dashboard was built by a session already in flight when the
 2026-09-13 renumbering inserted Phase 2; its checkboxes below reflect that.
@@ -66,55 +67,71 @@ Exit criteria met: all data commands run, tests pass, generated JSON is
 loadable from the app, demo records are impossible to mistake for facts
 (synthetic flags, DEMO source names, banner, and double build guard).
 
-## Phase 2 — Reference seasons from phenology bibliography (§104)
+## Phase 2 — Reference seasons from phenology bibliography (§104) ✅ (done 2026-09-13)
 
 Goal: products without market observations (palta, mango, …) show a
 clearly-marked, display-only estimated season traced to cited literature;
 nothing enters the observed scoring path. Design and owner decisions are
 recorded in PROJECT.md §103–§104.
 
-- [ ] `sourceType` taxonomy (`market | census | literature`) on
+- [x] `sourceType` taxonomy (`market | census | literature`) on
       `sourceSchema` (`scripts/data/schemas.ts`) and `DataSource`
-      (`src/lib/data/types.ts`); retro-type all five existing
-      `sources.json` entries (INE → `census`, formalizing its "prior only"
-      prose flag); validation rule: literature sources require `url` and
+      (`src/lib/data/types.ts`); all five existing `sources.json` entries
+      retro-typed (INE → `census`, formalizing its "prior only" prose
+      flag); validation rule: literature sources require `url` and
       `accessedAt`.
-- [ ] `MONTH_WEEK_SPANS` month→week-bin table in `methodology.ts`; new pure
-      module `src/lib/domain/referenceSeason.ts`: month window → week range
-      (incl. Oct–Feb wraparound), windows → canonical merged ranges reusing
-      `rangesFromMask` (`cyclic.ts`), basis derived from cited source types
-      (throws on `market`).
-- [ ] Curated registry `data/metadata/phenology.json` (productId, cyclic
+- [x] `MONTH_WEEK_SPANS` month→week-bin table in `methodology.ts`; new pure
+      module `src/lib/domain/referenceSeason.ts`: windows → cyclic mask →
+      canonical merged ranges reusing `rangesFromMask` (incl. Oct–Feb
+      wraparound and the 12-month-wrap → full-year collapse), basis derived
+      from cited source types (throws on `market`), approximate Spanish
+      formatting ("aprox. nov – ene", "todo el año (estimado)").
+- [x] Curated registry `data/metadata/phenology.json` (productId, cyclic
       month/week windows, sourceIds, note, citation) with a strict zod
-      schema, loaded via `loadRegistries()`; new `phenologyErrors()`
+      schema, loaded via `loadRegistries()`; `phenologyErrors()`
       cross-check wired into `validate.ts` (unknown product/source,
-      market-typed or synthetic sources rejected).
-- [ ] Derive publishes an optional display-only `referenceSeason`
-      (ranges + basis + sourceIds) on `ProductSeasonSummary` — no per-week
-      scores, no smoothing, no `assertDerived` changes;
+      market-typed or synthetic sources rejected, duplicates).
+- [x] Derive publishes an optional display-only `referenceSeason`
+      (ranges + basis + sourceIds + note) on `ProductSeasonSummary` — no
+      per-week scores, no smoothing, no `assertDerived` changes;
       `summary.sourceIds` stays observation-only. `build.ts` adds
       `containsEstimatedSeasons` to the index and bumps `schemaVersion`
       to 2.
-- [ ] Research and cite public agronomy literature (§103 permission); add
-      the curated ~6–8 products to `products.json` (palta *Persea
-      americana* with alias "aguacate", mango *Mangifera indica*, others as
-      citable); phenology entries only for products with verified sources —
-      never fabricate citations.
-- [ ] Minimal shell proof in `App.svelte`: "≈ Temporada estimada
-      (bibliografía): aprox. oct – feb" badge alongside (never replacing)
-      "Datos insuficientes"; dataset footnote when
-      `containsEstimatedSeasons`.
-- [ ] Tests: month-span invariants, wraparound + week-53 fold, range
-      merging, `phenologyErrors`, derive integration, and the
-      anti-conflation regression (derive with vs without a phenology entry
-      is deep-equal except `referenceSeason`).
-- [ ] Multi-agent verification pass: `verifier` over citation→window
-      transcriptions and cyclic edge cases.
+- [x] Research via multi-agent workflow (7 `source-scout` + `verifier`
+      pass per citation). Honest outcome: `products.json` gained palta
+      (alias "aguacate"), mango, and limón; phenology entries ONLY for the
+      two products with verifier-confirmed citable literature — mango
+      (nov–ene, "Las Frutas en Bolivia", Editorial Riquezas 2011, ISBN
+      978-99974-880-5-3) and limón (ene–abr, IBCE "Perfil de Mercado —
+      Limón" 2010, §5.5). Palta stays estimate-free (only a trade-blog
+      source surfaced — below the §103 literature bar); maracuyá,
+      chirimoya, coco and cayú found no citable agronomy month data and
+      were not added. Leads for future sessions: OAP/MDRyT "Serie
+      Agrícola" interactive viewers and a Scribd "Calendario Agrícola
+      Santa Cruz — Zona Valles" document (both access-restricted to
+      simple fetching).
+- [x] Shell proof (landed in the Phase-3 dashboard, which superseded the
+      minimal App.svelte shell): "≈ Temporada estimada (bibliografía):
+      aprox. nov – ene" badge in the product detail panel alongside —
+      never replacing — "Datos insuficientes", with the §104 accessible
+      description and per-entry note; footer dataset footnote when
+      `containsEstimatedSeasons`. Verified in a real browser at 390 px
+      and desktop widths (mango, limón, and palta-without-badge).
+- [x] Tests (29 new): month-span invariants, wraparound + week-53
+      non-authorability, range merging, formatting, `phenologyErrors`,
+      schema rules, derive integration, and the anti-conflation regression
+      (derive with vs without a phenology entry is deep-equal except
+      `referenceSeason`).
+- [x] Multi-agent verification pass: workflow `verifier` agents over every
+      scout citation→window transcription, then a second `verifier` pass
+      over the final curated repo entries (both CONFIRMED: verbatim
+      quotes, retrievable URLs via HTTP 200, conservative windows,
+      wraparound projection 11→1 ⇒ weeks 44→5).
 
-Exit: estimate-only products render the estimated badge plus "Datos
-insuficientes" in the shell; observed outputs are identical except the new
+Exit criteria met: estimate-only products render the estimated badge plus
+"Datos insuficientes"; observed outputs are identical except the new
 fields; every window traces to a real, dated, retrievable citation;
-`check`, `test`, and `data` stay green.
+`check`, `test`, and `data` are green.
 
 ## Phase 3 — Functional dashboard (§85) — core built 2026-09-13
 
@@ -142,7 +159,7 @@ fields; every window traces to a real, dated, retrievable citation;
       multi-agent review workflow (correctness + market/local distinction +
       URL state; 14 verifier-confirmed findings fixed).
 
-Pending — blocked on Phase 2 (reference seasons, §104):
+Pending — unblocked now that Phase 2 is done (reference seasons, §104):
 
 - [ ] Timeline "estimada (referencia)" bucket — outlined/hatched band
       (texture channel, never a sixth solid fill).
