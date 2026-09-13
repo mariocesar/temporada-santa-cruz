@@ -1,11 +1,13 @@
-# Minimal Pages deployment — enough to see progress on every push to main.
-# Phase 4 (docs/PLAN.md) completes this: add `bun run test` and
-# `bun run data:validate` once those commands exist, plus PR validation.
+# CI + GitHub Pages deployment (PROJECT.md §80–81, single workflow to avoid
+# duplication): every push to main and every pull request runs the full
+# validation ladder (check → test → data:validate → build); only pushes to
+# main (and manual dispatches) deploy the result to Pages.
 name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -13,9 +15,11 @@ permissions:
   pages: write
   id-token: write
 
+# Deploys to main serialize (never cancel a production deploy); PR runs get
+# their own group per ref and cancel superseded builds.
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: pages-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
@@ -31,6 +35,12 @@ jobs:
       - name: Typecheck
         run: bun run check
 
+      - name: Test
+        run: bun run test
+
+      - name: Validate data
+        run: bun run data:validate
+
       - name: Build
         run: bun run build
         env:
@@ -43,12 +53,15 @@ jobs:
           ALLOW_DEMO_DATA: "true"
 
       - uses: actions/configure-pages@v5
+        if: github.event_name != 'pull_request'
 
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
         with:
           path: dist
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:
