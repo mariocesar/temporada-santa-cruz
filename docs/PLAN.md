@@ -4,12 +4,12 @@ This is the working plan for building Temporada Santa Cruz. The full product
 specification lives in [PROJECT.md](../PROJECT.md); this document sequences it
 into executable phases with exit criteria. Update it as phases complete.
 
-**Status: Phases 0–3 complete (2026-09-13). Phase 4's brand/design-system
-layer and the demo "delight" pass landed the same day (owner directive:
-demo state first, then "focus on the visual story and look", desktop
-first) — see the Phase 4 checklist. What remains for Phase 4 exit is the
-deferred audit/docs work: full WCAG AA audit, touch-tooltip review, the
-documentation set, and Tier 1 historical illustration sourcing.**
+**Status: Phases 0–3 and 5 complete (2026-09-13). Phase 4's brand/design-
+system layer and the demo "delight" pass landed the same day (owner
+directive: demo state first, then "focus on the visual story and look",
+desktop first) — see the Phase 4 checklist; its deferred audit/docs work
+(WCAG AA, touch tooltips, documentation set, Tier 1 illustrations) remains.
+Phase 6 (first real data) is in progress: source recon underway.**
 
 Note: the dashboard was built by a session already in flight when the
 2026-09-13 renumbering inserted Phase 2; its checkboxes below reflect that.
@@ -268,17 +268,24 @@ DATA_CONTRIBUTION docs, and Tier 1 public-domain illustration sourcing for
 owner picks. The owner still owes the reference screenshot drop
 (`sf-farmers-market-seasons.png`).
 
-## Phase 5 — Productionize and deploy (§87)
+## Phase 5 — Productionize and deploy (§87) ✅ (done 2026-09-13)
 
-A minimal deploy workflow already exists from Phase 0. Complete it:
+A minimal deploy workflow already existed from Phase 0. Completed:
 
-1. Add `bun run test` and `bun run data:validate` steps to
-   `.github/workflows/deploy.yml` once those commands exist (§80).
-2. PR validation workflow if not redundant (§81).
-3. Verify deployed asset paths and reload behavior at
-   `https://mariocesar.github.io/temporada-santa-cruz/`.
+- [x] `bun run test` and `bun run data:validate` steps added to
+      `.github/workflows/deploy.yml` (§80).
+- [x] PR validation folded into the same workflow (§81 "avoid duplication"):
+      `pull_request` trigger runs the full ladder, skips Pages artifact +
+      deploy, and gets its own cancellable concurrency group; deploys to
+      main stay serialized and uncancellable.
+- [x] Verified live after a green run: asset paths under
+      `/temporada-santa-cruz/`, `data/index.json` 200, deep-link
+      (`?producto=…`) reload 200 at
+      `https://mariocesar.github.io/temporada-santa-cruz/`.
 
-Exit: §88 definition of done, deployed.
+Exit criteria: CI + deployment portion of §88 met. The remaining §88 items
+(README/docs set, WCAG audit) live in the deferred Phase 4 checklist; the
+dataset is still the marked demo seed until Phase 6 lands.
 
 ## Phase 6 — First real-data milestone (§101)
 
