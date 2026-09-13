@@ -20,6 +20,8 @@
     rowHeight?: number
     /** Vertical breathing room between rows, in px. */
     rowGap?: number
+    /** Mixed real+demo dataset: mark rows with synthetic records (§45). */
+    markSynthetic?: boolean
     onselect: (slug: string) => void
   }
 
@@ -30,6 +32,7 @@
     selectedSlug,
     rowHeight = 54,
     rowGap = 14,
+    markSynthetic = false,
     onselect,
   }: Props = $props()
 
@@ -75,8 +78,12 @@
     const estimate = s.referenceSeason
       ? ` Temporada estimada según bibliografía: ${formatReferenceRanges(s.referenceSeason.ranges)} — no proviene de observaciones de mercado.`
       : ''
+    const synthetic =
+      markSynthetic && s.containsSyntheticData
+        ? ' Incluye datos sintéticos de demostración.'
+        : ''
     if (s.insufficientEvidence) {
-      return `${view.product.nameEs}: datos insuficientes para clasificar la temporada.${estimate}`
+      return `${view.product.nameEs}: datos insuficientes para clasificar la temporada.${estimate}${synthetic}`
     }
     const parts: string[] = []
     if (s.marketSeasonRanges.length > 0) {
@@ -92,7 +99,7 @@
       parts.push(`sin datos en ${noDataWeeks} ${noDataWeeks === 1 ? 'semana' : 'semanas'}`)
     }
     parts.push(`confianza ${CONFIDENCE_TEXT[s.confidenceLabel].toLowerCase()}`)
-    return `${view.product.nameEs} — ${parts.join('; ')}.${estimate}`
+    return `${view.product.nameEs} — ${parts.join('; ')}.${estimate}${synthetic}`
   }
 
   function handleHover(view: ProductView) {
@@ -144,6 +151,11 @@
             />
             {view.product.nameEs}
           </span>
+          {#if markSynthetic && view.summary.containsSyntheticData}
+            <span class="synthetic-tag" title="Incluye datos sintéticos de demostración"
+              >SINTÉTICA</span
+            >
+          {/if}
           <ConfidenceChip summary={view.summary} />
         </button>
         <div
@@ -198,6 +210,9 @@
         <p class="tooltip-row muted">
           ≈ Estimada (bibliografía): {formatReferenceRanges(hover.view.summary.referenceSeason.ranges)}
         </p>
+      {/if}
+      {#if markSynthetic && hover.view.summary.containsSyntheticData}
+        <p class="tooltip-row muted">Incluye datos sintéticos de demostración</p>
       {/if}
       {#if hoverWeekly && hoverWeekly.observations > 0}
         <p class="tooltip-row muted">
@@ -346,6 +361,19 @@
   .name.selected .name-chip {
     border-color: var(--hue);
     box-shadow: inset 0 0 0 1px var(--hue);
+  }
+
+  /* Same warning voice as the demo banner and the detail panel's tag. */
+  .synthetic-tag {
+    flex: none;
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: #6b4d05;
+    background: #fdeeca;
+    border: 1px solid #e5c574;
+    border-radius: 999px;
+    padding: 0 var(--space-2);
   }
 
   .strip-cell {

@@ -9,10 +9,12 @@
   interface Props {
     views: ReadonlyArray<ProductView>
     dash: DashboardState
+    /** Mixed real+demo dataset: mark products with synthetic records (§45). */
+    markSynthetic?: boolean
     onselect: (slug: string) => void
   }
 
-  let { views, dash, onselect }: Props = $props()
+  let { views, dash, markSynthetic = false, onselect }: Props = $props()
 
   // The mode toggle repeats here (shared state with "Ahora") so the active
   // concept — mercado vs producción cruceña — is explicit where the
@@ -155,6 +157,7 @@
       selectedSlug={dash.selectedSlug}
       rowHeight={poster ? posterRowHeight : 54}
       rowGap={poster ? POSTER_ROW_GAP : 14}
+      {markSynthetic}
       {onselect}
     />
   {/if}

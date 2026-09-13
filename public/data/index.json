@@ -4,6 +4,7 @@
   "observationCount": 1247,
   "sourceCount": 2,
   "containsDemoData": true,
+  "allDataSynthetic": true,
   "containsEstimatedSeasons": true,
   "files": {
     "products": "products.json",
@@ -11,5 +12,5 @@
     "summaries": "summaries.json",
     "sources": "sources.json"
   },
-  "schemaVersion": 2
+  "schemaVersion": 3
 }

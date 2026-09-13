@@ -12,10 +12,12 @@
   interface Props {
     views: ReadonlyArray<ProductView>
     dash: DashboardState
+    /** Mixed real+demo dataset: mark products with synthetic records (§45). */
+    markSynthetic?: boolean
     onselect: (slug: string) => void
   }
 
-  let { views, dash, onselect }: Props = $props()
+  let { views, dash, markSynthetic = false, onselect }: Props = $props()
 
   const MODE_OPTIONS: ReadonlyArray<{ value: ViewMode; label: string }> = [
     { value: 'mercado', label: MODE_LABEL.mercado },
@@ -147,6 +149,13 @@
                     />
                   </span>
                   <span class="card-name">{view.product.nameEs}</span>
+                  {#if markSynthetic && view.summary.containsSyntheticData}
+                    <span class="synthetic-tag" title="Incluye datos sintéticos de demostración"
+                      >SINTÉTICA<span class="visually-hidden">
+                        — incluye datos sintéticos de demostración</span
+                      ></span
+                    >
+                  {/if}
                 </span>
                 <span class="card-category">{CATEGORY_LABEL[view.product.category]}</span>
               </span>
@@ -369,5 +378,28 @@
 
   .rest {
     margin: var(--space-4) 0 0;
+  }
+
+  /* Same warning voice as the demo banner and the detail panel's tag. */
+  .synthetic-tag {
+    flex: none;
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: #6b4d05;
+    background: #fdeeca;
+    border: 1px solid #e5c574;
+    border-radius: 999px;
+    padding: 0 var(--space-2);
+    margin-left: var(--space-1);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 </style>

@@ -1,11 +1,27 @@
 <!--
   Demo-data banner (PROJECT.md §45, §79): shown whenever the published
   dataset contains ANY synthetic record. Synthetic data must be impossible
-  to mistake for researched fact.
+  to mistake for researched fact. In the mixed real+demo state the copy
+  narrows its claim and points at the per-product SINTÉTICA markers.
 -->
+<script lang="ts">
+  interface Props {
+    /** True when real and synthetic records coexist in the dataset. */
+    partial?: boolean
+  }
+
+  let { partial = false }: Props = $props()
+</script>
+
 <p class="demo-banner" role="status">
-  <strong>DATOS DE DEMOSTRACIÓN</strong> — los valores mostrados son sintéticos y no
-  describen ningún mercado real.
+  {#if partial}
+    <strong>DATOS PARCIALMENTE SINTÉTICOS</strong> — algunos valores son sintéticos de
+    demostración y no describen ningún mercado real; los productos afectados llevan la
+    marca SINTÉTICA.
+  {:else}
+    <strong>DATOS DE DEMOSTRACIÓN</strong> — los valores mostrados son sintéticos y no
+    describen ningún mercado real.
+  {/if}
 </p>
 
 <style>

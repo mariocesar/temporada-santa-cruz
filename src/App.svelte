@@ -91,6 +91,17 @@
       : null,
   )
 
+  /**
+   * Per-product SINTÉTICA markers activate only in the mixed real+demo
+   * state: while EVERYTHING is synthetic the banner already declares it for
+   * the whole dataset, and per-card repetition would add noise, not honesty.
+   */
+  const markSynthetic = $derived(
+    dataset != null &&
+      dataset.index.containsDemoData &&
+      dataset.index.allDataSynthetic === false,
+  )
+
   function select(slug: string) {
     if (dash) dash.selectedSlug = slug
   }
@@ -108,7 +119,7 @@
 
 <main>
   {#if dataset?.index.containsDemoData}
-    <DemoBanner />
+    <DemoBanner partial={dataset.index.allDataSynthetic === false} />
   {/if}
 
   <SiteHeader {dataUpdatedAt} {featured} {featuredCaption} />
@@ -125,8 +136,8 @@
   {:else if !dataset || !dash}
     <p class="loading" role="status">Cargando datos…</p>
   {:else}
-    <AhoraSection {views} {dash} onselect={select} />
-    <ExplorerSection {views} {dash} onselect={select} />
+    <AhoraSection {views} {dash} {markSynthetic} onselect={select} />
+    <ExplorerSection {views} {dash} {markSynthetic} onselect={select} />
 
     {#if selectedView}
       <ProductDetail
