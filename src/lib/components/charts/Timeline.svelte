@@ -4,7 +4,8 @@
   import { MONTH_NAMES_ES, formatRangesAsMonths, monthOfWeekBin } from '../../domain/months'
   import { formatReferenceRanges, REFERENCE_SEASON_ARIA_ES } from '../../domain/referenceSeason'
   import { stateAt, type ProductView } from '../../data/views'
-  import { CONFIDENCE_TEXT, SEASON_STATE_LABEL, type ViewMode } from '../../i18n/labels'
+  import { CONFIDENCE_TEXT, MODE_LABEL, SEASON_STATE_LABEL, type ViewMode } from '../../i18n/labels'
+  import { productHue } from '../../ui/palette'
   import ConfidenceChip from '../ui/ConfidenceChip.svelte'
   import MonthAxis from './MonthAxis.svelte'
   import SeasonStrip from './SeasonStrip.svelte'
@@ -91,7 +92,7 @@
   )
 </script>
 
-<div class="timeline season-{mode}">
+<div class="timeline">
   <div class="scroller">
     <div class="grid">
       <div class="corner" aria-hidden="true"></div>
@@ -104,7 +105,9 @@
           class:selected={view.product.slug === selectedSlug}
           onclick={() => onselect(view.product.slug)}
         >
-          <span class="name-text">{view.product.nameEs}</span>
+          <span class="name-chip" style="--hue: {productHue(view.product)}">
+            {view.product.nameEs}
+          </span>
           <ConfidenceChip summary={view.summary} />
         </button>
         <div class="strip-cell" class:selected={view.product.slug === selectedSlug}>
@@ -114,11 +117,16 @@
             reference={view.summary.referenceSeason?.ranges ?? []}
             markerWeek={referenceWeek}
             insufficient={view.summary.insufficientEvidence}
+            hue={productHue(view.product)}
+            height={44}
             label={describeRow(view)}
             onhoverweek={handleHover(view)}
           />
         </div>
       {/each}
+
+      <div class="corner bottom" aria-hidden="true"></div>
+      <div class="axis-cell bottom"><MonthAxis /></div>
     </div>
   </div>
 
@@ -167,36 +175,38 @@
   <dl class="legend">
     <div class="legend-item">
       <dt>
-        <svg viewBox="0 0 42 12" aria-hidden="true">
-          <rect x="0" y="0" width="14" height="12" class="lg-occasional" />
-          <rect x="14" y="0" width="14" height="12" class="lg-in" />
-          <rect x="28" y="0" width="14" height="12" class="lg-peak" />
-        </svg>
-      </dt>
-      <dd>Ocasional · En temporada · Pico ({mode === 'local' ? 'producción cruceña' : 'mercado'})</dd>
-    </div>
-    <div class="legend-item">
-      <dt>
-        <svg viewBox="0 0 42 12" aria-hidden="true">
-          <rect x="0" y="8" width="42" height="4" class="lg-secondary" />
+        <svg viewBox="0 0 42 14" aria-hidden="true">
+          <path class="lg-ridge" d="M 1,13 C 8,13 10,3 16,3 C 24,3 26,10 33,12 L 41,13 Z" />
         </svg>
       </dt>
       <dd>
-        Línea inferior: {mode === 'local' ? 'temporada de mercado' : 'producción cruceña en temporada'}
+        Curva rellena: {MODE_LABEL[mode].toLowerCase()} — la altura es el puntaje
+        semanal (el pico de la curva es el pico de temporada)
       </dd>
     </div>
     <div class="legend-item">
       <dt>
-        <svg viewBox="0 0 42 12" aria-hidden="true">
-          <line x1="21" y1="0" x2="21" y2="12" class="lg-marker" />
+        <svg viewBox="0 0 42 14" aria-hidden="true">
+          <path class="lg-silhouette" d="M 1,13 C 8,13 10,3 16,3 C 24,3 26,10 33,12 L 41,13 Z" />
+        </svg>
+      </dt>
+      <dd>
+        Silueta clara: {MODE_LABEL[mode === 'local' ? 'mercado' : 'local'].toLowerCase()},
+        detrás de la curva
+      </dd>
+    </div>
+    <div class="legend-item">
+      <dt>
+        <svg viewBox="0 0 42 14" aria-hidden="true">
+          <line x1="21" y1="0" x2="21" y2="14" class="lg-marker" />
         </svg>
       </dt>
       <dd>Semana de referencia</dd>
     </div>
     <div class="legend-item">
       <dt>
-        <svg viewBox="0 0 42 12" aria-hidden="true">
-          <line x1="2" y1="6" x2="40" y2="6" class="lg-insufficient" />
+        <svg viewBox="0 0 42 14" aria-hidden="true">
+          <line x1="2" y1="12" x2="40" y2="12" class="lg-insufficient" />
         </svg>
       </dt>
       <dd>Sin datos esa semana (los productos con evidencia insuficiente no se clasifican)</dd>
@@ -204,11 +214,11 @@
     {#if anyReferenceSeason}
       <div class="legend-item">
         <dt>
-          <svg viewBox="0 0 42 12" aria-hidden="true">
-            <rect x="1" y="1" width="40" height="10" class="lg-reference-outline" />
-            <line x1="8" y1="11" x2="18" y2="1" class="lg-reference-hatch" />
-            <line x1="18" y1="11" x2="28" y2="1" class="lg-reference-hatch" />
-            <line x1="28" y1="11" x2="38" y2="1" class="lg-reference-hatch" />
+          <svg viewBox="0 0 42 14" aria-hidden="true">
+            <rect x="1" y="1" width="40" height="12" class="lg-reference-outline" />
+            <line x1="8" y1="13" x2="20" y2="1" class="lg-reference-hatch" />
+            <line x1="18" y1="13" x2="30" y2="1" class="lg-reference-hatch" />
+            <line x1="28" y1="13" x2="40" y2="1" class="lg-reference-hatch" />
           </svg>
         </dt>
         <dd>≈ {REFERENCE_SEASON_ARIA_ES}</dd>
@@ -222,9 +232,10 @@
     position: relative;
   }
 
-  /* Palette comes from the global .season-mercado / .season-local classes
-     (app.css) — the hue changes with the mode so the active concept is
-     unmistakable (§13, §16). */
+  /* Every curve wears its product's own produce-derived hue
+     (src/lib/ui/palette.ts); the active concept is named in the section
+     header and the legend below, and the mode toggle swaps which concept
+     is the filled curve (§13, §16). */
 
   .scroller {
     overflow-x: auto;
@@ -233,8 +244,8 @@
   .grid {
     display: grid;
     grid-template-columns: minmax(11rem, max-content) minmax(30rem, 1fr);
-    align-items: center;
-    row-gap: 4px;
+    align-items: end;
+    row-gap: 5px;
     min-width: 42rem;
   }
 
@@ -248,6 +259,10 @@
 
   .axis-cell {
     padding-left: var(--space-2);
+  }
+
+  .axis-cell.bottom {
+    padding-top: 2px;
   }
 
   .name {
@@ -265,17 +280,26 @@
     border-radius: 0.25rem;
   }
 
-  .name-text {
+  /* Name chips (NOTES §5): the label lives with the data, tinted by the
+     product's hue. */
+  .name-chip {
     font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.35;
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-chip);
+    border: 1px solid color-mix(in oklab, var(--hue) 55%, var(--color-bg));
+    background: color-mix(in oklab, var(--hue) 10%, var(--color-bg));
+    white-space: nowrap;
   }
 
-  .name:hover .name-text {
-    color: var(--color-accent);
-    text-decoration: underline;
+  .name:hover .name-chip {
+    border-color: var(--hue);
   }
 
-  .name.selected .name-text {
-    color: var(--color-accent);
+  .name.selected .name-chip {
+    border-color: var(--hue);
+    box-shadow: inset 0 0 0 1px var(--hue);
   }
 
   .strip-cell {
@@ -345,24 +369,21 @@
 
   .legend svg {
     width: 42px;
-    height: 12px;
+    height: 14px;
     display: block;
   }
 
-  .lg-occasional {
-    fill: var(--season-occasional);
+  /* Legend swatches demonstrate the encoding with one neutral produce
+     amber — real rows each wear their own hue. */
+  .lg-ridge {
+    fill: #b36a1f;
+    fill-opacity: 0.82;
+    stroke: #b36a1f;
+    stroke-width: 1;
   }
 
-  .lg-in {
-    fill: var(--season-in);
-  }
-
-  .lg-peak {
-    fill: var(--season-peak);
-  }
-
-  .lg-secondary {
-    fill: var(--season-secondary);
+  .lg-silhouette {
+    fill: color-mix(in oklab, #b36a1f 26%, var(--color-bg));
   }
 
   .lg-marker {
@@ -372,7 +393,8 @@
   }
 
   .lg-insufficient {
-    stroke: var(--color-border);
+    stroke: var(--season-reference);
+    stroke-opacity: 0.7;
     stroke-width: 2;
     stroke-dasharray: 4 5;
   }

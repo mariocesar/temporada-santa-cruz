@@ -10,6 +10,7 @@ import { categoryMatchesFilter } from '../i18n/labels'
 import type {
   Product,
   ProductSeasonSummary,
+  SeasonRange,
   SeasonState,
   WeeklySeasonality,
 } from './types'
@@ -114,9 +115,10 @@ export function filterViews(
 // Sorting (§77)
 // ---------------------------------------------------------------------------
 
-export type SortKey = 'nombre' | 'temporada' | 'confianza' | 'categoria'
+export type SortKey = 'inicio' | 'nombre' | 'temporada' | 'confianza' | 'categoria'
 
 export const SORT_OPTIONS: ReadonlyArray<{ value: SortKey; label: string }> = [
+  { value: 'inicio', label: 'Inicio de temporada' },
   { value: 'nombre', label: 'Nombre' },
   { value: 'temporada', label: 'Temporada actual' },
   { value: 'confianza', label: 'Confianza' },
@@ -135,6 +137,32 @@ const STATE_ORDER: Record<SeasonState, number> = {
 const byName = (a: ProductView, b: ProductView) =>
   a.product.nameEs.localeCompare(b.product.nameEs, 'es')
 
+/** Cyclic range length in week bins (a wrapping range crosses the year edge). */
+function rangeLength(range: SeasonRange): number {
+  return range.startWeek <= range.endWeek
+    ? range.endWeek - range.startWeek + 1
+    : WEEK_BINS - range.startWeek + 1 + range.endWeek
+}
+
+/**
+ * Cascade anchor (design-references NOTES §4): the start week of the
+ * product's principal season range for the active mode — longest range
+ * first, earlier start on ties. Null when the product has no ranges to
+ * cascade (insufficient evidence, or no season in this mode); a
+ * reference-season estimate NEVER supplies an anchor (§104: the estimate
+ * must not raise prominence).
+ */
+function cascadeStart(view: ProductView, mode: ViewMode): number | null {
+  if (view.summary.insufficientEvidence) return null
+  const ranges =
+    mode === 'local' ? view.summary.localSeasonRanges : view.summary.marketSeasonRanges
+  if (ranges.length === 0) return null
+  const main = [...ranges].sort(
+    (a, b) => rangeLength(b) - rangeLength(a) || a.startWeek - b.startWeek,
+  )[0]!
+  return main.startWeek
+}
+
 export function sortViews(
   views: ReadonlyArray<ProductView>,
   sort: SortKey,
@@ -143,6 +171,21 @@ export function sortViews(
 ): ProductView[] {
   const sorted = [...views]
   switch (sort) {
+    case 'inicio':
+      // Cascade (the default): curves step across the year by season
+      // start. Products without a cascade anchor follow, alphabetically,
+      // with insufficient-evidence products last (§104).
+      return sorted.sort((a, b) => {
+        const sa = cascadeStart(a, mode)
+        const sb = cascadeStart(b, mode)
+        if (sa !== null && sb !== null) return sa - sb || byName(a, b)
+        if (sa !== null) return -1
+        if (sb !== null) return 1
+        if (a.summary.insufficientEvidence !== b.summary.insufficientEvidence) {
+          return a.summary.insufficientEvidence ? 1 : -1
+        }
+        return byName(a, b)
+      })
     case 'nombre':
       // Default order (§104): classifiable products come first; products
       // with insufficient evidence — including estimate-only ones, whose

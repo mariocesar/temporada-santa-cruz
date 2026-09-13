@@ -227,6 +227,67 @@ describe('sortViews', () => {
     ])
   })
 
+  it('cascades by season start, wrap-around ranges anchored at their start week', () => {
+    const cascade = buildProductViews(
+      [
+        product({ id: 'late', nameEs: 'Tardío' }),
+        product({ id: 'early', nameEs: 'Temprano' }),
+        product({ id: 'wrap', nameEs: 'Envolvente' }),
+        product({ id: 'none', nameEs: 'Ausente' }),
+      ],
+      [
+        summary({ productId: 'late', marketSeasonRanges: [{ startWeek: 30, endWeek: 40 }] }),
+        summary({
+          productId: 'early',
+          // Longest range anchors: weeks 5–20 (16 bins) beats 45–48 (4).
+          marketSeasonRanges: [
+            { startWeek: 45, endWeek: 48 },
+            { startWeek: 5, endWeek: 20 },
+          ],
+        }),
+        // Dec→Jan wrap: anchor is week 48, cascading at the year's end.
+        summary({ productId: 'wrap', marketSeasonRanges: [{ startWeek: 48, endWeek: 6 }] }),
+        // Observed but without market ranges: after anchored products.
+        summary({ productId: 'none', marketSeasonRanges: [] }),
+      ],
+      [],
+    )
+    expect(sortViews(cascade, 'inicio', 'mercado', 1).map((v) => v.product.id)).toEqual([
+      'early', // week 5
+      'late', // week 30
+      'wrap', // week 48
+      'none',
+    ])
+  })
+
+  it('cascade sends estimate-only products last; the estimate supplies no anchor (§104)', () => {
+    const referenceSeason = {
+      ranges: [{ startWeek: 1, endWeek: 18 }],
+      basis: 'literature' as const,
+      sourceIds: ['ibce'],
+    }
+    const cascade = buildProductViews(
+      [
+        product({ id: 'obs', nameEs: 'Observado' }),
+        product({ id: 'est', nameEs: 'Aestimado' }),
+        product({ id: 'bare', nameEs: 'Zin datos' }),
+      ],
+      [
+        summary({ productId: 'obs', marketSeasonRanges: [{ startWeek: 30, endWeek: 40 }] }),
+        // Estimated ene–abr window must NOT cascade it before the observed
+        // product, nor before its estimate-less alphabetical peers.
+        summary({ productId: 'est', insufficientEvidence: true, referenceSeason }),
+        summary({ productId: 'bare', insufficientEvidence: true }),
+      ],
+      [],
+    )
+    expect(sortViews(cascade, 'inicio', 'mercado', 1).map((v) => v.product.id)).toEqual([
+      'obs',
+      'est', // "Aestimado" — alphabetical within the insufficient group
+      'bare',
+    ])
+  })
+
   it('default-sorts estimate-only products after observed ones (§104)', () => {
     const referenceSeason = {
       ranges: [{ startWeek: 44, endWeek: 5 }],

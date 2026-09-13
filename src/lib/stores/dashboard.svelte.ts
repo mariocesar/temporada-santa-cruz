@@ -27,7 +27,7 @@ export class DashboardState {
   /** Week pinned via the month explorer; null follows the browser's week. */
   pinnedWeek = $state<number | null>(null)
   /** Timeline sort — deliberately NOT in the URL (§49: only useful state). */
-  sort = $state<SortKey>('nombre')
+  sort = $state<SortKey>('inicio')
 
   readonly todayWeek: number
 

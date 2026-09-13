@@ -88,26 +88,6 @@ svg {
   outline-offset: 2px;
 }
 
-/*
- * Season-strip palettes (PROJECT.md §16): intensity encodes the season class
- * (ocasional / en temporada / pico); the HUE encodes which concept is being
- * shown, so market and local season can never be confused. The secondary
- * color draws the underline stripe for the other concept.
- */
-.season-mercado {
-  --season-occasional: #f0dfba;
-  --season-in: #e0b566;
-  --season-peak: #b97f2a;
-  --season-secondary: #6f9a5c;
-}
-
-.season-local {
-  --season-occasional: #dde8d0;
-  --season-in: #a9c88b;
-  --season-peak: #567d3e;
-  --season-secondary: #d3a24a;
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

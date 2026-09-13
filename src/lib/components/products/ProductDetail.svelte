@@ -9,6 +9,7 @@
   } from '../../data/views'
   import { formatRangesAsMonths, MONTH_NAMES_ES, monthOfWeekBin } from '../../domain/months'
   import { CATEGORY_LABEL, CONFIDENCE_TEXT, SEASON_STATE_LABEL } from '../../i18n/labels'
+  import { productHue } from '../../ui/palette'
   import ConfidenceChip from '../ui/ConfidenceChip.svelte'
   import ReferenceSeasonBadge from '../ui/ReferenceSeasonBadge.svelte'
   import MonthAxis from '../charts/MonthAxis.svelte'
@@ -219,21 +220,23 @@
     <section aria-labelledby="detail-timeline">
       <h3 id="detail-timeline">Temporada a lo largo del año</h3>
       <MonthAxis />
-      <div class="strip-block season-mercado">
+      <div class="strip-block">
         <p class="strip-label">Mercado</p>
         <SeasonStrip
           primary={view.marketSeries}
           markerWeek={referenceWeek}
-          height={20}
+          hue={productHue(product)}
+          height={32}
           label={`Temporada de mercado: ${summary.marketSeasonRanges.length > 0 ? formatRangesAsMonths(summary.marketSeasonRanges) : 'sin temporada marcada'}`}
         />
       </div>
-      <div class="strip-block season-local">
+      <div class="strip-block">
         <p class="strip-label">Producción cruceña</p>
         <SeasonStrip
           primary={view.localSeries}
           markerWeek={referenceWeek}
-          height={20}
+          hue={productHue(product)}
+          height={32}
           label={`Temporada de producción cruceña: ${summary.localSeasonRanges.length > 0 ? formatRangesAsMonths(summary.localSeasonRanges) : 'sin temporada marcada'}`}
         />
       </div>
