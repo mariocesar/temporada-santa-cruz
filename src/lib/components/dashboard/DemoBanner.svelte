@@ -25,14 +25,19 @@
 </p>
 
 <style>
+  /* Unmistakable but not the headline: a centered notice ribbon in the
+     same warning voice, sized to its words instead of the full page. */
   .demo-banner {
+    display: table;
+    margin: 0 auto var(--space-2);
+    max-width: 46rem;
+    text-align: center;
     background: #fdeeca;
     border: 1px solid #e5c574;
     color: #6b4d05;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     letter-spacing: 0.01em;
-    padding: var(--space-2) var(--space-3);
-    border-radius: 0.375rem;
-    margin: 0 0 var(--space-6);
+    padding: var(--space-1) var(--space-4);
+    border-radius: var(--radius-chip);
   }
 </style>

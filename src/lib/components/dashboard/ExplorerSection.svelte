@@ -3,29 +3,61 @@
   import { MONTH_NAMES_ES, monthOfWeekBin } from '../../domain/months'
   import type { DashboardState } from '../../stores/dashboard.svelte'
   import { CATEGORY_FILTERS, MODE_LABEL, type ViewMode } from '../../i18n/labels'
+  import { productHue } from '../../ui/palette'
+  import ProductGlyph from '../ui/ProductGlyph.svelte'
   import SegmentedControl from '../ui/SegmentedControl.svelte'
   import Timeline from '../charts/Timeline.svelte'
 
   interface Props {
     views: ReadonlyArray<ProductView>
     dash: DashboardState
+    /**
+     * Products at their peak in the reference week — the poster's marginal
+     * drawings (NOTES §7). Pure ornament restating the "Ahora" section
+     * below; never a claim of its own.
+     */
+    featured?: ReadonlyArray<ProductView>
+    /** Latest observation date across the dataset (§47), pre-formatted. */
+    dataUpdatedAt?: string | null
     /** Mixed real+demo dataset: mark products with synthetic records (§45). */
     markSynthetic?: boolean
     onselect: (slug: string) => void
   }
 
-  let { views, dash, markSynthetic = false, onselect }: Props = $props()
+  let {
+    views,
+    dash,
+    featured = [],
+    dataUpdatedAt = null,
+    markSynthetic = false,
+    onselect,
+  }: Props = $props()
 
-  // The mode toggle repeats here (shared state with "Ahora") so the active
-  // concept — mercado vs producción cruceña — is explicit where the
-  // timeline is actually read (§13: the state must be obvious).
+  // The lámina is the landing experience: one mode toggle stays in view
+  // (the market/local distinction must be explicit where the curves are
+  // read, §13); search, category and sort live behind one quiet control.
   const MODE_OPTIONS: ReadonlyArray<{ value: ViewMode; label: string }> = [
     { value: 'mercado', label: MODE_LABEL.mercado },
     { value: 'local', label: MODE_LABEL.local },
   ]
 
+  let filtersOpen = $state(false)
+
+  const filtersActive = $derived(
+    dash.query !== '' || dash.category !== 'todos' || dash.sort !== 'inicio',
+  )
+  const showFilters = $derived(filtersOpen || filtersActive)
+
   const filtered = $derived(filterViews(views, dash.query, dash.category))
   const visible = $derived(sortViews(filtered, dash.sort, dash.mode, dash.referenceWeek))
+
+  // Marginal drawings flank the cascade in its side gutters, pasted onto
+  // the page like plates in an almanac: left column takes the even picks,
+  // right column the odd ones.
+  const MAX_MARGIN_ART = 4
+  const marginArt = $derived(featured.slice(0, MAX_MARGIN_ART))
+  const leftArt = $derived(marginArt.filter((_, i) => i % 2 === 0))
+  const rightArt = $derived(marginArt.filter((_, i) => i % 2 === 1))
 
   /**
    * Poster view: the whole year on one screen, the way the owner-vetted
@@ -36,9 +68,9 @@
   let poster = $state(false)
   let viewportHeight = $state(900)
 
-  // Chrome above and below the cascade in poster view: masthead, control
-  // bar, both month axes, legend, and the page padding.
-  const POSTER_CHROME_PX = 390
+  // Chrome above and below the cascade in poster view: masthead, both
+  // month axes, the legend line, and the page padding.
+  const POSTER_CHROME_PX = 290
   const POSTER_ROW_GAP = 10
 
   const posterRowHeight = $derived(
@@ -82,67 +114,74 @@
     <div>
       {#if poster}
         <p class="kicker">Santa Cruz de la Sierra · Bolivia</p>
-      {/if}
-      <h2 id="explorer-title">
-        {#if poster}
-          El año entero
-        {:else}
-          Explorar todo el año
-        {/if}
-      </h2>
-      {#if poster}
+        <h2 id="explorer-title">El año entero</h2>
         <p class="poster-note">
           {MODE_LABEL[dash.mode]} · semana {dash.referenceWeek} ·
           {MONTH_NAMES_ES[referenceMonth - 1]}
         </p>
+      {:else}
+        <h2 id="explorer-title" class="visually-hidden">El año entero</h2>
       {/if}
     </div>
 
-    <button
-      type="button"
-      class="poster-toggle"
-      aria-pressed={poster}
-      onclick={() => (poster = !poster)}
-    >
-      {poster ? 'Salir de la lámina' : 'Ver como lámina'}
-    </button>
+    <div class="head-controls">
+      {#if !poster}
+        <SegmentedControl
+          options={MODE_OPTIONS}
+          value={dash.mode}
+          label="Tipo de temporada"
+          onChange={(mode) => (dash.mode = mode)}
+        />
+        <button
+          type="button"
+          class="quiet-toggle"
+          aria-expanded={showFilters}
+          onclick={() => (filtersOpen = !showFilters)}
+        >
+          Buscar y filtrar
+        </button>
+      {/if}
+      <button
+        type="button"
+        class="quiet-toggle"
+        aria-pressed={poster}
+        onclick={() => (poster = !poster)}
+      >
+        {poster ? 'Salir de la lámina' : 'Ver como lámina'}
+      </button>
+    </div>
   </div>
 
-  <div class="controls">
-    <p class="search">
-      <label class="visually-hidden" for="product-search">Buscar producto</label>
-      <input
-        id="product-search"
-        type="search"
-        placeholder="Buscar producto (nombre o alias)…"
-        autocomplete="off"
-        bind:value={dash.query}
+  {#if showFilters && !poster}
+    <div class="controls">
+      <p class="search">
+        <label class="visually-hidden" for="product-search">Buscar producto</label>
+        <input
+          id="product-search"
+          type="search"
+          placeholder="Buscar producto (nombre o alias)…"
+          autocomplete="off"
+          bind:value={dash.query}
+        />
+      </p>
+
+      <SegmentedControl
+        options={CATEGORY_FILTERS}
+        value={dash.category}
+        label="Filtrar por categoría"
+        onChange={(category) => (dash.category = category)}
       />
-    </p>
 
-    <SegmentedControl
-      options={MODE_OPTIONS}
-      value={dash.mode}
-      label="Tipo de temporada"
-      onChange={(mode) => (dash.mode = mode)}
-    />
-
-    <SegmentedControl
-      options={CATEGORY_FILTERS}
-      value={dash.category}
-      label="Filtrar por categoría"
-      onChange={(category) => (dash.category = category)}
-    />
-
-    <p class="sort">
-      <label for="timeline-sort">Ordenar por</label>
-      <select id="timeline-sort" bind:value={dash.sort}>
-        {#each SORT_OPTIONS as option (option.value)}
-          <option value={option.value}>{option.label}</option>
-        {/each}
-      </select>
-    </p>
-  </div>
+      <p class="sort">
+        <label for="timeline-sort">Ordenar por</label>
+        <select id="timeline-sort" bind:value={dash.sort}>
+          {#each SORT_OPTIONS as option (option.value)}
+            <option value={option.value}>{option.label}</option>
+          {/each}
+        </select>
+      </p>
+    </div>
+  {/if}
 
   {#if visible.length === 0}
     <div class="empty">
@@ -150,22 +189,70 @@
       <button type="button" onclick={clearFilters}>Limpiar filtros</button>
     </div>
   {:else}
-    <Timeline
-      views={visible}
-      mode={dash.mode}
-      referenceWeek={dash.referenceWeek}
-      selectedSlug={dash.selectedSlug}
-      rowHeight={poster ? posterRowHeight : 54}
-      rowGap={poster ? POSTER_ROW_GAP : 14}
-      {markSynthetic}
-      {onselect}
-    />
+    <div class="stage" class:with-art={!poster && marginArt.length > 0}>
+      {#if !poster && marginArt.length > 0}
+        <div class="margin-art left" aria-hidden="true">
+          {#each leftArt as view, i (view.product.id)}
+            <span class="plate" style="--rot: {i % 2 === 0 ? -3 : 2}deg">
+              <ProductGlyph
+                productId={view.product.id}
+                hue={productHue(view.product)}
+                size={104}
+                stroke={1.5}
+                wash={0.12}
+              />
+            </span>
+          {/each}
+        </div>
+      {/if}
+
+      <Timeline
+        views={visible}
+        mode={dash.mode}
+        referenceWeek={dash.referenceWeek}
+        selectedSlug={dash.selectedSlug}
+        rowHeight={poster ? posterRowHeight : 42}
+        rowGap={poster ? POSTER_ROW_GAP : 24}
+        {markSynthetic}
+        {onselect}
+      />
+
+      {#if !poster && marginArt.length > 0}
+        <div class="margin-art right" aria-hidden="true">
+          {#each rightArt as view, i (view.product.id)}
+            <span class="plate" style="--rot: {i % 2 === 0 ? 2.5 : -2}deg">
+              <ProductGlyph
+                productId={view.product.id}
+                hue={productHue(view.product)}
+                size={104}
+                stroke={1.5}
+                wash={0.12}
+              />
+            </span>
+          {/each}
+        </div>
+      {/if}
+    </div>
+  {/if}
+
+  {#if !poster}
+    <p class="colophon">
+      {#if dataUpdatedAt}
+        <span>Datos actualizados hasta: {dataUpdatedAt}</span>
+      {/if}
+      <a href="#metodologia">Metodología</a>
+      <a href="#fuentes">Fuentes de datos</a>
+    </p>
   {/if}
 </section>
 
 <style>
+  /* The lámina is the hero: it escapes the article column and takes the
+     width a poster deserves, art in the gutters at desktop widths. */
   .explorer {
     margin-bottom: var(--space-8);
+    margin-inline: calc(50% - 50vw);
+    padding-inline: max(var(--space-4), calc(50vw - 40rem));
   }
 
   /* The poster takes the screen: one page, the whole year, no competing
@@ -193,6 +280,10 @@
     align-items: flex-start;
     justify-content: space-between;
     gap: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+
+  .explorer.poster .head {
     margin-bottom: var(--space-4);
   }
 
@@ -222,7 +313,14 @@
     color: var(--color-text-muted);
   }
 
-  .poster-toggle {
+  .head-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-left: auto;
+  }
+
+  .quiet-toggle {
     appearance: none;
     flex: none;
     font: inherit;
@@ -237,8 +335,13 @@
     transition: border-color 160ms ease, color 160ms ease;
   }
 
-  .poster-toggle:hover {
+  .quiet-toggle:hover {
     border-color: var(--color-accent);
+  }
+
+  .quiet-toggle[aria-expanded='true'] {
+    border-color: var(--color-accent);
+    background: color-mix(in oklab, var(--color-accent) 8%, var(--color-surface));
   }
 
   .controls {
@@ -285,6 +388,46 @@
     color: var(--color-text);
   }
 
+  /* Cascade with art gutters (NOTES §7): drawings sit in the whitespace
+     flanking the chart, soft, never over the data. */
+  .stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @media (min-width: 78rem) {
+    .stage.with-art {
+      grid-template-columns: 7.5rem minmax(0, 1fr) 7.5rem;
+      column-gap: var(--space-4);
+    }
+  }
+
+  .margin-art {
+    display: none;
+  }
+
+  @media (min-width: 78rem) {
+    .margin-art {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      padding-block: var(--space-8);
+    }
+  }
+
+  .margin-art.right {
+    padding-top: var(--space-8);
+  }
+
+  /* Plates pasted into the almanac: a slight hand-set rotation, washed so
+     they read as marginalia rather than data. */
+  .plate {
+    display: block;
+    opacity: 0.8;
+    transform: rotate(var(--rot, 0deg));
+  }
+
   .empty {
     background: var(--color-surface);
     border: 1px dashed var(--color-border);
@@ -309,6 +452,20 @@
     border-radius: 0.375rem;
     padding: var(--space-1) var(--space-3);
     cursor: pointer;
+  }
+
+  .colophon {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-1) var(--space-6);
+    margin: var(--space-4) 0 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .colophon a {
+    color: var(--color-accent);
   }
 
   .visually-hidden {

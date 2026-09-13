@@ -1,7 +1,6 @@
 <script lang="ts">
   import { loadDataset, type Dataset } from './lib/data/loader'
   import { buildProductViews, stateAt, type ProductView } from './lib/data/views'
-  import { MONTH_NAMES_ES, monthOfWeekBin } from './lib/domain/months'
   import { DashboardState, todayWeekBin } from './lib/stores/dashboard.svelte'
   import { parseParams } from './lib/stores/urlState'
   import AhoraSection from './lib/components/dashboard/AhoraSection.svelte'
@@ -61,10 +60,11 @@
   )
 
   /**
-   * Cover art for the masthead: the products at their peak in the reference
-   * week, falling back to those simply in season. This restates the "Ahora"
-   * section rather than adding a claim, and products below the evidence
-   * thresholds are never eligible (stateAt keeps them at `sin_datos`).
+   * Marginal art for the lámina: the products at their peak in the
+   * reference week, falling back to those simply in season. This restates
+   * the "Ahora" section rather than adding a claim, and products below the
+   * evidence thresholds are never eligible (stateAt keeps them at
+   * `sin_datos`).
    */
   const featured = $derived.by(() => {
     if (!dash) return []
@@ -72,15 +72,6 @@
       views.filter((v) => stateAt(v, dash!.mode, dash!.referenceWeek) === state)
     const peak = at('pico')
     return peak.length > 0 ? peak : at('en_temporada')
-  })
-
-  const featuredCaption = $derived.by(() => {
-    if (!dash || featured.length === 0) return ''
-    const peak = stateAt(featured[0]!, dash.mode, dash.referenceWeek) === 'pico'
-    const when = dash.isToday
-      ? 'esta semana'
-      : `en ${MONTH_NAMES_ES[monthOfWeekBin(dash.referenceWeek) - 1]}`
-    return peak ? `En su pico ${when}` : `En temporada ${when}`
   })
 
   const dataUpdatedAt = $derived(
@@ -122,7 +113,7 @@
     <DemoBanner partial={dataset.index.allDataSynthetic === false} />
   {/if}
 
-  <SiteHeader {dataUpdatedAt} {featured} {featuredCaption} />
+  <SiteHeader />
 
   {#if error}
     <section class="state-box" aria-live="assertive">
@@ -136,8 +127,18 @@
   {:else if !dataset || !dash}
     <p class="loading" role="status">Cargando datos…</p>
   {:else}
+    <!-- The lámina IS the landing (poster-first, owner directive
+         2026-09-13): the cascade greets the reader; cards and prose
+         follow for whoever scrolls. -->
+    <ExplorerSection
+      {views}
+      {dash}
+      {featured}
+      {dataUpdatedAt}
+      {markSynthetic}
+      onselect={select}
+    />
     <AhoraSection {views} {dash} {markSynthetic} onselect={select} />
-    <ExplorerSection {views} {dash} {markSynthetic} onselect={select} />
 
     {#if selectedView}
       <ProductDetail

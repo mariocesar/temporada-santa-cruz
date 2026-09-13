@@ -29,6 +29,15 @@
     /** Produce-derived hue for this product's curve (src/lib/ui/palette.ts). */
     hue?: string
     height?: number
+    /**
+     * Extra headroom ABOVE the row box, in px, that the crest may rise
+     * into — the classic ridgeline overlap of the reference poster (NOTES
+     * §2). The layout box stays `height` tall; the canvas extends upward
+     * and later rows paint over earlier rows' spill. Axis furniture
+     * (gridlines, bands, marker, hit area) stays inside the row box so the
+     * overlap never changes what a row claims.
+     */
+    overshoot?: number
     /** Accessible summary of the strip (charts need text equivalents, §11). */
     label: string
     /**
@@ -53,6 +62,7 @@
     insufficient = false,
     hue = 'var(--season-reference)',
     height = 44,
+    overshoot = 0,
     label,
     revealDelay = 0,
     revealKey = 0,
@@ -65,11 +75,17 @@
   const REFERENCE_INSET = 1.5
   const HATCH_SPACING = 7
 
+  // Total drawing height: the row box plus the overlap headroom above it.
+  const total = $derived(height + overshoot)
+  // Top edge of the row box inside the canvas (0 when there is no overlap).
+  const boxTop = $derived(overshoot)
+
   // Headroom scales with the row: a curve that touches the top edge reads
   // as clipped rather than as a peak, and every score near 1.0 flattens
-  // into the same slab.
-  const TOP_PAD = $derived(Math.max(5, height * 0.2))
-  const baseline = $derived(height - 1)
+  // into the same slab. With overlap headroom the crest may climb into it,
+  // needing only a hairline of air at the canvas top.
+  const TOP_PAD = $derived(overshoot > 0 ? 4 : Math.max(5, height * 0.2))
+  const baseline = $derived(total - 1)
 
   // Gradients are document-global; each instance needs its own id.
   const uid = $props.id()
@@ -272,9 +288,9 @@
 </script>
 
 <svg
-  viewBox="0 0 {WIDTH} {height}"
+  viewBox="0 0 {WIDTH} {total}"
   preserveAspectRatio="none"
-  style="height: {height}px; --ridge-hue: {hue}"
+  style="height: {total}px; margin-top: -{overshoot}px; --ridge-hue: {hue}"
   role="img"
   aria-label={label}
   onpointermove={onhoverweek ? handleMove : undefined}
@@ -283,7 +299,9 @@
   <defs>
     <!-- Dense at the baseline, airy at the crest: the fill itself carries
          the sense of volume, so a long plateau still reads as a season
-         rather than as a colored slab. -->
+         rather than as a colored slab. The stops are OPAQUE paper-mixed
+         pigments, not alphas: overlapping ridges must occlude cleanly like
+         printed ink, never blend into mud. -->
     <linearGradient
       id={gradientId}
       x1="0"
@@ -292,16 +310,16 @@
       y2={baseline}
       gradientUnits="userSpaceOnUse"
     >
-      <stop offset="0" stop-color="var(--ridge-hue)" stop-opacity="0.16" />
-      <stop offset="0.5" stop-color="var(--ridge-hue)" stop-opacity="0.34" />
-      <stop offset="1" stop-color="var(--ridge-hue)" stop-opacity="0.58" />
+      <stop offset="0" stop-color="color-mix(in oklab, var(--ridge-hue) 20%, var(--color-bg))" />
+      <stop offset="0.5" stop-color="color-mix(in oklab, var(--ridge-hue) 37%, var(--color-bg))" />
+      <stop offset="1" stop-color="color-mix(in oklab, var(--ridge-hue) 60%, var(--color-bg))" />
     </linearGradient>
   </defs>
 
-  <rect class="hit" x="0" y="0" width={WIDTH} height={height} />
+  <rect class="hit" x="0" y={boxTop} width={WIDTH} height={height} />
 
   {#each MONTH_START_DAY.slice(1) as day (day)}
-    <line class="month-line" x1={day} y1="0" x2={day} y2={height} />
+    <line class="month-line" x1={day} y1={boxTop} x2={day} y2={total} />
   {/each}
 
   <line class="baseline" x1="0" y1={baseline} x2={WIDTH} y2={baseline} />
@@ -311,11 +329,11 @@
       <rect
         class="reference-outline"
         x={seg.x}
-        y={REFERENCE_INSET}
+        y={boxTop + REFERENCE_INSET}
         width={seg.w}
         height={height - 2 * REFERENCE_INSET}
       />
-      {#each hatchLines(seg, REFERENCE_INSET, height - REFERENCE_INSET) as hatch, i (i)}
+      {#each hatchLines(seg, boxTop + REFERENCE_INSET, boxTop + height - REFERENCE_INSET) as hatch, i (i)}
         <line class="reference-hatch" x1={hatch.x1} y1={hatch.y1} x2={hatch.x2} y2={hatch.y2} />
       {/each}
     </g>
@@ -358,9 +376,9 @@
     <line
       class="marker"
       x1={(markerWeek - 1) * 7 + 3.5}
-      y1="0"
+      y1={boxTop}
       x2={(markerWeek - 1) * 7 + 3.5}
-      y2={height}
+      y2={total}
     />
   {/if}
 </svg>
@@ -371,10 +389,14 @@
     width: 100%;
     /* Wrap-continuation phantom points overhang both edges; clip them. */
     overflow: hidden;
+    /* Overlapping canvases: only the row-box hit rect takes the pointer,
+       so a crest spilling over a neighbor never steals its hover. */
+    pointer-events: none;
   }
 
   .hit {
     fill: transparent;
+    pointer-events: all;
   }
 
   .month-line {
@@ -387,6 +409,7 @@
 
   .baseline {
     stroke: var(--color-border);
+    stroke-opacity: 0.45;
     stroke-width: 1;
     vector-effect: non-scaling-stroke;
   }

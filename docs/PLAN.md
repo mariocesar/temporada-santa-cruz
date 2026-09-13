@@ -260,6 +260,20 @@ look, desktop first, glyphs not to be over-polished):
       than adding a claim.
 - [x] Desktop presentation pass: "Pico de temporada" as a feature row, the
       three core concepts as cards rather than fine print.
+- [x] Poster-first landing (owner directive, 2026-09-13: "the first
+      experience should be delight, not a data app"). The lámina IS the
+      first screen: centered type-only masthead (kicker, display title,
+      one line), then the cascade at poster width with glyph marginalia in
+      its gutters. Name chips moved onto the curves at each season's start
+      (no label column; curves span the full width); ridges overlap upward
+      joyplot-style with opaque paper-mixed fills; "Confianza alta/media"
+      chips retreated to tooltip + detail panel while per-product "Datos
+      insuficientes" stays on compact rows; search/category/sort fold
+      behind one "Buscar y filtrar" control (mode toggle stays visible);
+      the five-item legend became a "Cómo leer esta lámina" disclosure;
+      the demo banner became a centered ribbon (same words, same warning
+      voice); "Ahora", methodology and sources follow below the poster.
+      Encoding and honesty devices untouched.
 
 Remaining for Phase 4 exit (deferred by owner directive — demo first):
 full WCAG AA audit (multi-agent, per dimension), touch-tooltip review,

@@ -151,8 +151,11 @@ function rangeLength(range: SeasonRange): number {
  * cascade (insufficient evidence, or no season in this mode); a
  * reference-season estimate NEVER supplies an anchor (§104: the estimate
  * must not raise prominence).
+ *
+ * Exported because the timeline also anchors each product's name chip at
+ * this week — the label lives where the season begins (NOTES §5).
  */
-function cascadeStart(view: ProductView, mode: ViewMode): number | null {
+export function cascadeStart(view: ProductView, mode: ViewMode): number | null {
   if (view.summary.insufficientEvidence) return null
   const ranges =
     mode === 'local' ? view.summary.localSeasonRanges : view.summary.marketSeasonRanges

@@ -3,10 +3,9 @@
   import { WEEK_BINS } from '../../domain/methodology'
   import { MONTH_NAMES_ES, formatRangesAsMonths, monthOfWeekBin } from '../../domain/months'
   import { formatReferenceRanges, REFERENCE_SEASON_ARIA_ES } from '../../domain/referenceSeason'
-  import { stateAt, type ProductView } from '../../data/views'
+  import { cascadeStart, stateAt, type ProductView } from '../../data/views'
   import { CONFIDENCE_TEXT, MODE_LABEL, SEASON_STATE_LABEL, type ViewMode } from '../../i18n/labels'
   import { productHue } from '../../ui/palette'
-  import ConfidenceChip from '../ui/ConfidenceChip.svelte'
   import ProductGlyph from '../ui/ProductGlyph.svelte'
   import MonthAxis from './MonthAxis.svelte'
   import SeasonStrip from './SeasonStrip.svelte'
@@ -54,6 +53,40 @@
 
   /** Rows rise in sequence, so the cascade arrives as a cascade. */
   const ROW_STAGGER_MS = 55
+
+  /**
+   * Ridgeline overlap (NOTES §2): crests may rise this far into the row
+   * above, the way the reference poster's bells share their whitespace.
+   * Later rows paint on top; hover hit areas stay inside each row box, so
+   * the overlap is purely visual and never changes a row's claim.
+   */
+  const rise = $derived(Math.round(rowHeight * 0.55))
+
+  /**
+   * Products below the evidence thresholds draw no curve — just the dashed
+   * no-evidence baseline and the §104 hatch band — so their rows need only
+   * enough height for those honesty devices, not a full ridge's headroom.
+   */
+  const compactHeight = $derived(Math.max(22, Math.round(rowHeight * 0.5)))
+
+  function stripHeight(view: ProductView): number {
+    return view.summary.insufficientEvidence ? compactHeight : rowHeight
+  }
+
+  function stripRise(view: ProductView): number {
+    return view.summary.insufficientEvidence ? 0 : rise
+  }
+
+  /**
+   * Name chips live where the season begins (NOTES §5): anchored at the
+   * cascade-anchor week of the active mode. Products without an anchor
+   * (insufficient evidence, no season in this mode) label at the year's
+   * start. Clamped so long names never run off the canvas.
+   */
+  function chipLeftPct(view: ProductView): number {
+    const anchor = cascadeStart(view, mode) ?? 1
+    return Math.min(78, ((anchor - 1) / WEEK_BINS) * 100)
+  }
 
   function primarySeries(view: ProductView): ReadonlyArray<number | null> {
     return mode === 'local' ? view.localSeries : view.marketSeries
@@ -125,43 +158,23 @@
 
 <div class="timeline">
   <div class="scroller">
-    <div class="grid" style="--row-gap: {rowGap}px">
-      <div class="corner" aria-hidden="true"></div>
-      <div class="axis-cell"><MonthAxis /></div>
+    <div class="rows" style="--row-gap: {rowGap}px">
+      <!-- The gap under the axis absorbs the first ridge's overlap rise,
+           so no crest ever climbs over the month labels. -->
+      <div class="axis-cell" style="margin-bottom: {Math.max(0, rise - rowGap)}px">
+        <MonthAxis />
+      </div>
 
       {#each views as view, rowIndex (view.product.id)}
-        <button
-          type="button"
-          class="name"
-          class:selected={view.product.slug === selectedSlug}
+        <!-- Pointer handlers here only drive the hover dim; the strip
+             itself carries the row's semantics and text equivalent. -->
+        <div
+          class="row"
+          role="presentation"
           class:dimmed={focusedId !== null && focusedId !== view.product.id}
-          onclick={() => onselect(view.product.slug)}
+          style="height: {stripHeight(view)}px"
           onpointerenter={() => (focusedId = view.product.id)}
           onpointerleave={() => (focusedId = null)}
-          onfocus={() => (focusedId = view.product.id)}
-          onblur={() => (focusedId = null)}
-        >
-          <span class="name-chip" style="--hue: {productHue(view.product)}">
-            <ProductGlyph
-              productId={view.product.id}
-              hue={productHue(view.product)}
-              size={18}
-              stroke={1.15}
-              wash={0.14}
-            />
-            {view.product.nameEs}
-          </span>
-          {#if markSynthetic && view.summary.containsSyntheticData}
-            <span class="synthetic-tag" title="Incluye datos sintéticos de demostración"
-              >SINTÉTICA</span
-            >
-          {/if}
-          <ConfidenceChip summary={view.summary} />
-        </button>
-        <div
-          class="strip-cell"
-          class:selected={view.product.slug === selectedSlug}
-          class:dimmed={focusedId !== null && focusedId !== view.product.id}
         >
           <SeasonStrip
             primary={primarySeries(view)}
@@ -170,16 +183,44 @@
             markerWeek={referenceWeek}
             insufficient={view.summary.insufficientEvidence}
             hue={productHue(view.product)}
-            height={rowHeight}
+            height={stripHeight(view)}
+            overshoot={stripRise(view)}
             label={describeRow(view)}
             revealDelay={rowIndex * ROW_STAGGER_MS}
             revealKey={mode}
             onhoverweek={handleHover(view)}
           />
+          <button
+            type="button"
+            class="name"
+            class:selected={view.product.slug === selectedSlug}
+            style="left: {chipLeftPct(view)}%"
+            onclick={() => onselect(view.product.slug)}
+            onfocus={() => (focusedId = view.product.id)}
+            onblur={() => (focusedId = null)}
+          >
+            <span class="name-chip" style="--hue: {productHue(view.product)}">
+              <ProductGlyph
+                productId={view.product.id}
+                hue={productHue(view.product)}
+                size={18}
+                stroke={1.15}
+                wash={0.14}
+              />
+              {view.product.nameEs}
+            </span>
+            {#if markSynthetic && view.summary.containsSyntheticData}
+              <span class="synthetic-tag" title="Incluye datos sintéticos de demostración"
+                >SINTÉTICA</span
+              >
+            {/if}
+            {#if view.summary.insufficientEvidence}
+              <span class="insufficient-note">Datos insuficientes</span>
+            {/if}
+          </button>
         </div>
       {/each}
 
-      <div class="corner bottom" aria-hidden="true"></div>
       <div class="axis-cell bottom"><MonthAxis /></div>
     </div>
   </div>
@@ -229,59 +270,62 @@
     </div>
   {/if}
 
-  <dl class="legend">
-    <div class="legend-item">
-      <dt>
-        <svg viewBox="0 0 42 14" aria-hidden="true">
-          <path class="lg-ridge" d="M 1,13 C 8,13 10,3 16,3 C 24,3 26,10 33,12 L 41,13 Z" />
-        </svg>
-      </dt>
-      <dd>
-        Curva rellena: {MODE_LABEL[mode].toLowerCase()} — la altura es el puntaje
-        semanal (el pico de la curva es el pico de temporada)
-      </dd>
-    </div>
-    <div class="legend-item">
-      <dt>
-        <svg viewBox="0 0 42 14" aria-hidden="true">
-          <path class="lg-silhouette" d="M 1,13 C 8,13 10,3 16,3 C 24,3 26,10 33,12 L 41,13 Z" />
-        </svg>
-      </dt>
-      <dd>
-        Silueta clara: {MODE_LABEL[mode === 'local' ? 'mercado' : 'local'].toLowerCase()},
-        detrás de la curva
-      </dd>
-    </div>
-    <div class="legend-item">
-      <dt>
-        <svg viewBox="0 0 42 14" aria-hidden="true">
-          <line x1="21" y1="0" x2="21" y2="14" class="lg-marker" />
-        </svg>
-      </dt>
-      <dd>Semana de referencia</dd>
-    </div>
-    <div class="legend-item">
-      <dt>
-        <svg viewBox="0 0 42 14" aria-hidden="true">
-          <line x1="2" y1="12" x2="40" y2="12" class="lg-insufficient" />
-        </svg>
-      </dt>
-      <dd>Sin datos esa semana (los productos con evidencia insuficiente no se clasifican)</dd>
-    </div>
-    {#if anyReferenceSeason}
+  <details class="reading">
+    <summary>Cómo leer esta lámina</summary>
+    <dl class="legend">
       <div class="legend-item">
         <dt>
           <svg viewBox="0 0 42 14" aria-hidden="true">
-            <rect x="1" y="1" width="40" height="12" class="lg-reference-outline" />
-            <line x1="8" y1="13" x2="20" y2="1" class="lg-reference-hatch" />
-            <line x1="18" y1="13" x2="30" y2="1" class="lg-reference-hatch" />
-            <line x1="28" y1="13" x2="40" y2="1" class="lg-reference-hatch" />
+            <path class="lg-ridge" d="M 1,13 C 8,13 10,3 16,3 C 24,3 26,10 33,12 L 41,13 Z" />
           </svg>
         </dt>
-        <dd>≈ {REFERENCE_SEASON_ARIA_ES}</dd>
+        <dd>
+          Curva rellena: {MODE_LABEL[mode].toLowerCase()} — la altura es el puntaje
+          semanal (el pico de la curva es el pico de temporada)
+        </dd>
       </div>
-    {/if}
-  </dl>
+      <div class="legend-item">
+        <dt>
+          <svg viewBox="0 0 42 14" aria-hidden="true">
+            <path class="lg-silhouette" d="M 1,13 C 8,13 10,3 16,3 C 24,3 26,10 33,12 L 41,13 Z" />
+          </svg>
+        </dt>
+        <dd>
+          Silueta clara: {MODE_LABEL[mode === 'local' ? 'mercado' : 'local'].toLowerCase()},
+          detrás de la curva
+        </dd>
+      </div>
+      <div class="legend-item">
+        <dt>
+          <svg viewBox="0 0 42 14" aria-hidden="true">
+            <line x1="21" y1="0" x2="21" y2="14" class="lg-marker" />
+          </svg>
+        </dt>
+        <dd>Semana de referencia</dd>
+      </div>
+      <div class="legend-item">
+        <dt>
+          <svg viewBox="0 0 42 14" aria-hidden="true">
+            <line x1="2" y1="12" x2="40" y2="12" class="lg-insufficient" />
+          </svg>
+        </dt>
+        <dd>Sin datos esa semana (los productos con evidencia insuficiente no se clasifican)</dd>
+      </div>
+      {#if anyReferenceSeason}
+        <div class="legend-item">
+          <dt>
+            <svg viewBox="0 0 42 14" aria-hidden="true">
+              <rect x="1" y="1" width="40" height="12" class="lg-reference-outline" />
+              <line x1="8" y1="13" x2="20" y2="1" class="lg-reference-hatch" />
+              <line x1="18" y1="13" x2="30" y2="1" class="lg-reference-hatch" />
+              <line x1="28" y1="13" x2="40" y2="1" class="lg-reference-hatch" />
+            </svg>
+          </dt>
+          <dd>≈ {REFERENCE_SEASON_ARIA_ES}</dd>
+        </div>
+      {/if}
+    </dl>
+  </details>
 </div>
 
 <style>
@@ -290,55 +334,68 @@
   }
 
   /* Every curve wears its product's own produce-derived hue
-     (src/lib/ui/palette.ts); the active concept is named in the section
-     header and the legend below, and the mode toggle swaps which concept
-     is the filled curve (§13, §16). */
+     (src/lib/ui/palette.ts); the active concept is named in the legend
+     below, and the mode toggle swaps which concept is the filled curve
+     (§13, §16). */
 
   .scroller {
     overflow-x: auto;
+    /* Crests of the first rows rise above their row boxes; never clip them. */
+    overflow-y: visible;
   }
 
-  .grid {
-    display: grid;
-    grid-template-columns: minmax(12rem, max-content) minmax(30rem, 1fr);
-    align-items: end;
+  /* Headroom for the first ridge's crest comes in as inline padding-top,
+     sized to the overlap rise. */
+  .rows {
+    display: flex;
+    flex-direction: column;
     row-gap: var(--row-gap, 14px);
     min-width: 42rem;
   }
 
-  .corner,
-  .name {
-    position: sticky;
-    left: 0;
-    z-index: 2;
-    background: var(--color-bg);
-  }
-
+  /* Month labels stay legible above any crest that climbs behind them. */
   .axis-cell {
-    padding-left: var(--space-2);
+    position: relative;
+    z-index: 40;
   }
 
   .axis-cell.bottom {
     padding-top: 2px;
   }
 
+  /* Positioned WITHOUT z-index on purpose: rows then paint in tree order
+     (later rows in front — the joyplot overlap) while never becoming
+     stacking contexts, which lets every name chip (z-index 2) float above
+     ALL neighboring crests instead of being trapped under the next row. */
+  .row {
+    position: relative;
+    transition: opacity 180ms ease;
+  }
+
+  .row.dimmed {
+    opacity: 0.42;
+  }
+
+  /* Name chips (NOTES §5): the label lives with the data — anchored where
+     the season starts, tinted by the product's hue, carrying the product's
+     own drawing. Chips float above neighboring crests. */
   .name {
     appearance: none;
     border: none;
+    background: none;
     font: inherit;
-    text-align: left;
     cursor: pointer;
-    display: flex;
+    position: absolute;
+    bottom: 3px;
+    z-index: 2;
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
     gap: var(--space-2);
-    padding: var(--space-1) var(--space-2) var(--space-1) 0;
+    padding: 0;
     color: var(--color-text);
-    border-radius: 0.25rem;
+    border-radius: var(--radius-chip);
   }
 
-  /* Name chips (NOTES §5): the label lives with the data, tinted by the
-     product's hue and carrying the product's own drawing. */
   .name-chip {
     display: inline-flex;
     align-items: center;
@@ -349,7 +406,7 @@
     padding: 1px var(--space-2) 1px var(--space-1);
     border-radius: var(--radius-chip);
     border: 1px solid color-mix(in oklab, var(--hue) 55%, var(--color-bg));
-    background: color-mix(in oklab, var(--hue) 10%, var(--color-bg));
+    background: color-mix(in oklab, var(--hue) 10%, var(--color-surface));
     white-space: nowrap;
     transition: border-color 160ms ease, background-color 160ms ease;
   }
@@ -366,7 +423,6 @@
   /* Same warning voice as the demo banner and the detail panel's tag. */
   .synthetic-tag {
     flex: none;
-    font-family: var(--font-sans);
     font-size: 0.6875rem;
     font-weight: 700;
     color: #6b4d05;
@@ -376,30 +432,19 @@
     padding: 0 var(--space-2);
   }
 
-  .strip-cell {
-    padding-left: var(--space-2);
-  }
-
-  /* Following one product through a dense cascade: the hovered row keeps
-     full strength, the rest ease back. Nothing about the encoding changes. */
-  .name,
-  .strip-cell {
-    transition: opacity 180ms ease;
-  }
-
-  .name.dimmed,
-  .strip-cell.dimmed {
-    opacity: 0.42;
-  }
-
-  .strip-cell.selected :global(svg) {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 1px;
+  /* The one confidence state that must stay on the lámina (§36): absence
+     of evidence, named per product. Confidence levels for classified
+     products live in the tooltip and the detail panel. */
+  .insufficient-note {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #8a2d1f;
+    white-space: nowrap;
   }
 
   .tooltip {
     position: fixed;
-    z-index: 10;
+    z-index: 50;
     pointer-events: none;
     background: var(--color-text);
     color: var(--color-bg);
@@ -430,11 +475,30 @@
     opacity: 0.75;
   }
 
+  /* The encoding explanation is one click away instead of five sentences
+     under the chart — the lámina explains itself through tooltips and the
+     per-row text equivalents. */
+  .reading {
+    margin-top: var(--space-3);
+  }
+
+  .reading summary {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    border-bottom: 1px dotted var(--color-text-muted);
+  }
+
+  .reading summary::-webkit-details-marker {
+    display: none;
+  }
+
   .legend {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2) var(--space-6);
-    margin: var(--space-4) 0 0;
+    margin: var(--space-3) 0 0;
     font-size: 0.8125rem;
     color: var(--color-text-muted);
   }
