@@ -18,7 +18,7 @@ import { confidenceLabel, confidenceValue, hasSufficientEvidence } from '../../.
 import { rangesFromMask, smoothCircular } from '../../../src/lib/domain/cyclic'
 import { weekBinOf } from '../../../src/lib/domain/isoWeek'
 import { isLocalOrigin, localShareSignal } from '../../../src/lib/domain/localShare'
-import { WEEK_BINS } from '../../../src/lib/domain/methodology'
+import { PRICE_SIGNAL, WEEK_BINS } from '../../../src/lib/domain/methodology'
 import { presenceProbability } from '../../../src/lib/domain/presence'
 import {
   comparablePricePerKg,
@@ -164,8 +164,11 @@ export function normalizeObservations(
     // the record closest to the original publisher. Mirrors are access, not
     // independent evidence.
     if (!mirrorAgrees(existing.obs, obs)) {
+      const role = (o: MarketObservation) =>
+        o.sourceId === o.originalSourceId ? 'original' : 'mirror'
       errors.push(
-        `${location}: mirror disagrees with ${existing.location} for ${id} (availability/prices differ); fix the transcription`,
+        `${location}: ${role(obs)} row disagrees with ${role(existing.obs)} row at ` +
+          `${existing.location} for ${id} (availability/prices differ); fix the transcription`,
       )
       continue
     }
@@ -247,7 +250,12 @@ export function deriveDataset(
       const { isoYear, bin } = weekBinOf(obs.observedAt)
       presentYears[bin - 1]!.add(isoYear)
       binObs[bin - 1]!.push(obs)
-      const pricePerKg = comparablePricePerKg(obs.wholesalePrice, obs.wholesaleUnit)
+      // The methodology constant decides which price level feeds the signal.
+      const [price, unit] =
+        PRICE_SIGNAL.basis === 'wholesale'
+          ? [obs.wholesalePrice, obs.wholesaleUnit]
+          : [obs.retailPrice, obs.retailUnit]
+      const pricePerKg = comparablePricePerKg(price, unit)
       if (pricePerKg !== null) comparable.push({ isoYear, bin, pricePerKg })
     }
 
@@ -279,8 +287,10 @@ export function deriveDataset(
       rawLocal.push(localSeasonScore({ market, localShare, harvest: null }))
     }
 
-    const smoothMarket = smoothCircular(rawMarket)
-    const smoothLocal = smoothCircular(rawLocal)
+    // Round BEFORE classification so published scores and published ranges
+    // stay mutually reconstructable (derived values must trace back, §23).
+    const smoothMarket = smoothCircular(rawMarket).map(roundOrNull)
+    const smoothLocal = smoothCircular(rawLocal).map(roundOrNull)
 
     // Evidence and confidence (product-level, independent from scores).
     const obsYears = new Set(productObs.map((o) => weekBinOf(o.observedAt).isoYear))
@@ -290,7 +300,10 @@ export function deriveDataset(
       years: obsYears.size,
       independentSources: new Set(productObs.map((o) => o.originalSourceId)).size,
       originKnownRatio: productObs.length > 0 ? originKnown / productObs.length : null,
-      yearConsistency: yearConsistency(coverage, presentYears),
+      // Inter-annual agreement only means something once the product itself
+      // has been observed in 2+ years; otherwise unanimous ABSENCE under
+      // coverage would inflate a single-year product's consistency.
+      yearConsistency: obsYears.size >= 2 ? yearConsistency(coverage, presentYears) : null,
       weekCoverage,
     }
     const confidence = confidenceValue(evidence)

@@ -13,24 +13,35 @@ export const isoDateSchema = z
 const priceCell = z.string().regex(/^(\d+(\.\d+)?)?$/, 'expected empty or non-negative decimal')
 
 /**
+ * Text cell: control characters are rejected because deterministic IDs and
+ * dedup keys join fields with U+001F — that invariant is enforced here, not
+ * merely assumed (see scripts/data/lib/id.ts).
+ */
+const textCell = z
+  .string()
+  .refine((s) => !/[\u0000-\u001f\u007f]/.test(s), 'control characters are not allowed')
+
+const requiredTextCell = textCell.refine((s) => s.length > 0, 'must not be empty')
+
+/**
  * Contributor CSV row (§64) plus `report_id`, which links each row to the
  * source report/document it was transcribed from (needed for deterministic
  * IDs, deduplication and report-coverage tracking).
  */
 export const rawCsvRowSchema = z.strictObject({
   observed_at: isoDateSchema,
-  source_id: z.string().min(1),
-  report_id: z.string().min(1),
-  market: z.string(),
-  product_raw: z.string().min(1),
-  origin_raw: z.string(),
-  variety_raw: z.string(),
-  quality: z.string(),
-  availability: z.string(),
+  source_id: requiredTextCell,
+  report_id: requiredTextCell,
+  market: textCell,
+  product_raw: requiredTextCell,
+  origin_raw: textCell,
+  variety_raw: textCell,
+  quality: textCell,
+  availability: textCell,
   wholesale_price: priceCell,
-  wholesale_unit: z.string(),
+  wholesale_unit: textCell,
   retail_price: priceCell,
-  retail_unit: z.string(),
+  retail_unit: textCell,
 })
 
 export type RawCsvRow = z.infer<typeof rawCsvRowSchema>

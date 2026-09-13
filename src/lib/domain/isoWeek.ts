@@ -1,6 +1,12 @@
 /**
  * ISO-8601 week handling (PROJECT.md §37), including 53-week years.
- * All computations are UTC-based to stay independent of the host timezone.
+ *
+ * All computations read UTC calendar fields. String dates (YYYY-MM-DD) are
+ * parsed as UTC and are therefore timezone-independent. Date inputs are
+ * interpreted by their UTC date: construct them with Date.UTC — a Date built
+ * from LOCAL components (new Date(y, m, d)) can represent a different UTC
+ * calendar date in far-from-UTC timezones and would mis-bin week-boundary
+ * dates.
  */
 
 import { WEEK_BINS } from './methodology'

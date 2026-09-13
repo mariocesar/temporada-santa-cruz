@@ -35,8 +35,10 @@ describe('comparablePricePerKg', () => {
     expect(comparablePricePerKg(undefined, kg)).toBeNull()
   })
 
-  it('rejects negative prices loudly', () => {
+  it('rejects negative and non-finite prices loudly', () => {
     expect(() => comparablePricePerKg(-1, kg)).toThrow(/Negative/)
+    expect(() => comparablePricePerKg(Number.NaN, kg)).toThrow(/Non-finite/)
+    expect(() => comparablePricePerKg(Number.POSITIVE_INFINITY, kg)).toThrow(/Non-finite/)
   })
 })
 
@@ -60,6 +62,11 @@ describe('relativePrices', () => {
 
   it('returns [] for empty input', () => {
     expect(relativePrices([])).toEqual([])
+  })
+
+  it('rejects non-finite comparable prices instead of skewing medians', () => {
+    expect(() => relativePrices([obs(2024, 1, Number.POSITIVE_INFINITY)])).toThrow(/Non-finite/)
+    expect(() => relativePrices([obs(2024, 1, Number.NaN)])).toThrow(/Non-finite/)
   })
 })
 

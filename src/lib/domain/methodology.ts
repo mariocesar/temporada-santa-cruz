@@ -44,6 +44,10 @@ export const AVAILABILITY_SCORE: Record<Exclude<AvailabilityLevel, 'unknown'>, n
  * When a signal is missing (null) its weight is renormalized across the
  * remaining signals — a missing signal is not evidence of zero.
  * The presence signal is required: without it no market score is emitted.
+ *
+ * Renormalization bound: with availability missing, price's effective
+ * weight rises to 0.2/0.55 ≈ 36% (its maximum); presence still dominates
+ * at 64%, so sparse price data can never carry a week on its own.
  */
 export const MARKET_SCORE_WEIGHTS = {
   availability: 0.45,
@@ -72,9 +76,10 @@ export const PRICE_SIGNAL = {
   /**
    * Price level used for the seasonality signal. Wholesale prices track
    * supply more directly than retail; retail values stay in the data for
-   * display only. Never mix the two levels in one median.
+   * display only. Never mix the two levels in one median. The pipeline
+   * reads this constant to select which price fields feed the signal.
    */
-  basis: 'wholesale',
+  basis: 'wholesale' as 'wholesale' | 'retail',
   /** Minimum comparable observations in a year to trust that year's median. */
   minObservationsPerYearMedian: 5,
   /** Minimum comparable observations in a week bin to emit a price signal. */

@@ -4,7 +4,7 @@ This is the working plan for building Temporada Santa Cruz. The full product
 specification lives in [PROJECT.md](../PROJECT.md); this document sequences it
 into executable phases with exit criteria. Update it as phases complete.
 
-**Status: initialized, execution not started.**
+**Status: Phase 1 complete; Phase 2 (functional dashboard) is next.**
 
 Confirmed decisions (2026-09-13) are recorded in PROJECT.md §103.
 
@@ -21,33 +21,45 @@ Confirmed decisions (2026-09-13) are recorded in PROJECT.md §103.
       to main); Pages configured with source "GitHub Actions" via `gh`
 - [x] This plan
 
-## Phase 1 — Domain model and data pipeline (PROJECT.md §84)
+## Phase 1 — Domain model and data pipeline (PROJECT.md §84) ✅ (done)
 
 Goal: prove `raw observation → normalized → weekly aggregation → season score
 → confidence → public JSON → Svelte UI` end-to-end with a tiny dataset.
 
-1. Testing/validation toolchain: Vitest, Zod. Wire `bun run test`.
-2. Domain types (`src/lib/data/types.ts` + shared with scripts):
-   `Product`, `Origin`, `MarketObservation`, `MarketUnit`, `DataSource`,
-   `WeeklySeasonality`, `ProductSeasonSummary`, cyclic `SeasonRange`.
-3. Methodology constants module: weights, availability mapping,
-   season-classification thresholds, evidence thresholds (§29, §33, §36, §39).
-4. Pure domain modules with tests (§60): ISO weeks (incl. week 53), cyclic
-   smoothing, presence probability, relative price index, availability score,
-   local share, market/local season scores, confidence, season classification,
-   entering/leaving trend, circular week ranges.
-5. Pipeline skeleton under `scripts/data/` (importers / normalize / derive /
-   validate), CSV intermediate format (§64), deterministic observation IDs
-   (§65), dedup design (§66–67).
-6. Source registry (`data/metadata/sources.json`) with CAO/SIPREM, SIIP, INE
-   entries: publisher, coverage, access notes, license notes.
-7. Seed dataset for the §45 candidate products, every record marked
-   `demo`/`synthetic`; `ALLOW_DEMO_DATA` build guard (§79).
-8. Wire `bun run data:validate | data:normalize | data:derive | data:build`
-   and combined `bun run data`; outputs land in `public/data/`.
+- [x] Testing/validation toolchain: Vitest, Zod. Wire `bun run test`.
+- [x] Domain types (`src/lib/data/types.ts` + shared with scripts):
+      `Product`, `Origin`, `MarketObservation`, `MarketUnit`, `DataSource`,
+      `WeeklySeasonality`, `ProductSeasonSummary`, cyclic `SeasonRange`.
+- [x] Methodology constants module (`src/lib/domain/methodology.ts`):
+      weights, availability mapping, season-classification thresholds,
+      evidence thresholds (§29, §33, §36, §39).
+- [x] Pure domain modules with tests (§60): ISO weeks (incl. week 53, folded
+      to bin 52), cyclic smoothing, presence probability, relative price
+      index, availability score, local share, market/local season scores,
+      confidence, season classification, entering/leaving trend, circular
+      week ranges.
+- [x] Pipeline under `scripts/data/` (validate / normalize / derive / build,
+      pure core in `lib/pipeline.ts`, importer contract documented), CSV
+      intermediate format (§64 + `report_id`), deterministic observation IDs
+      (§65), mirror-aware dedup (§66–67).
+- [x] Source registry (`data/metadata/sources.json`) with CAO/SIPREM, SIIP,
+      INE entries plus clearly-marked synthetic demo sources; product/origin/
+      unit registries.
+- [x] Deterministic demo seed generator (`bun run seed:demo`) for the §45
+      products, every record `synthetic`; `ALLOW_DEMO_DATA` guards both
+      `data:build` and `vite build` (§79).
+- [x] `bun run data:validate | data:normalize | data:derive | data:build`
+      and combined `bun run data`; outputs land in `public/data/`.
+- [x] End-to-end proof: app shell loads the published JSON (demo banner,
+      freshness from `dataUpdatedAt`, per-product confidence, uva gated as
+      "Datos insuficientes"); verified in a real browser.
+- [x] Multi-agent adversarial verification pass (verifier subagents) over
+      week 53, Dec→Jan wraparound, single-year data, incompatible units,
+      empty inputs, dedup/provenance.
 
-Exit: all data commands run, tests pass, generated JSON is loadable from the
-app, demo records are impossible to mistake for facts.
+Exit criteria met: all data commands run, tests pass, generated JSON is
+loadable from the app, demo records are impossible to mistake for facts
+(synthetic flags, DEMO source names, banner, and double build guard).
 
 ## Phase 2 — Functional dashboard (§85)
 

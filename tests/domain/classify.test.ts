@@ -38,9 +38,19 @@ describe('trendSlope', () => {
     expect(trendSlope(scores, 1, 2)).toBeNull()
   })
 
-  it('rejects out-of-range weeks', () => {
+  it('rejects out-of-range weeks (week 53 folds into bin 52 instead)', () => {
     expect(() => trendSlope(new Array(52).fill(0.5), 0)).toThrow()
-    expect(() => trendSlope(new Array(52).fill(0.5), 53)).toThrow()
+    expect(() => trendSlope(new Array(52).fill(0.5), 54)).toThrow()
+    expect(() => trendSlope(new Array(52).fill(0.5), Number.NaN)).toThrow()
+    expect(trendSlope(new Array(52).fill(0.5), 53)).toBe(0) // = bin 52
+    // A 52-length grid is required for the fold; other lengths reject 53.
+    expect(() => trendSlope(new Array(10).fill(0.5), 53)).toThrow()
+  })
+
+  it('fails loudly on NaN scores instead of reading them as stable', () => {
+    const scores: Array<number | null> = new Array(52).fill(0.5)
+    scores[4] = Number.NaN // neighbor of week 3
+    expect(() => trendSlope(scores, 3)).toThrow(/Non-finite/)
   })
 })
 
@@ -80,6 +90,27 @@ describe('seasonStateAt', () => {
   it('reads stable low scores as fuera', () => {
     expect(seasonStateAt(new Array<number | null>(52).fill(0.3), 30)).toBe('fuera')
     expect(seasonStateAt(new Array<number | null>(52).fill(0.05), 30)).toBe('fuera')
+  })
+
+  it('folds ISO week 53 into bin 52 on the canonical grid', () => {
+    const scores: Array<number | null> = new Array(52).fill(0.1)
+    scores[51] = 0.9 // week 52 at peak
+    expect(seasonStateAt(scores, 53)).toBe(seasonStateAt(scores, 52))
+    expect(seasonStateAt(scores, 53)).toBe('pico')
+  })
+
+  it('rejects invalid weeks loudly instead of wrapping silently', () => {
+    const scores: Array<number | null> = new Array(52).fill(0.5)
+    expect(() => seasonStateAt(scores, 0)).toThrow()
+    expect(() => seasonStateAt(scores, 54)).toThrow()
+    expect(() => seasonStateAt(scores, Number.NaN)).toThrow()
+  })
+
+  it('propagates loud failures for NaN scores', () => {
+    const scores: Array<number | null> = new Array(52).fill(0.5)
+    scores[9] = Number.NaN
+    expect(() => seasonStateAt(scores, 10)).toThrow()
+    expect(() => seasonStateAt(scores, 8)).toThrow(/Non-finite/) // NaN in trend window
   })
 
   it('handles the December→January wraparound season', () => {

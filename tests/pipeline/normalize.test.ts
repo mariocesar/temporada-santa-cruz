@@ -149,13 +149,21 @@ describe('normalizeObservations', () => {
     expect(observations[0]!.sourceId).toBe('cao')
   })
 
-  it('fails when a mirror disagrees with the original', () => {
+  it('fails when a mirror disagrees with the original, naming the roles correctly', () => {
     const { errors } = normalizeObservations(
       located([row({}), row({ source_id: 'cao-espejo', wholesale_price: '9.99' })]),
       registries,
     )
     expect(errors).toHaveLength(1)
-    expect(errors[0]).toMatch(/mirror disagrees/)
+    expect(errors[0]).toMatch(/mirror row disagrees with original row/)
+
+    // Reversed import order must attribute the roles the other way around.
+    const reversed = normalizeObservations(
+      located([row({ source_id: 'cao-espejo' }), row({ wholesale_price: '9.99' })]),
+      registries,
+    )
+    expect(reversed.errors).toHaveLength(1)
+    expect(reversed.errors[0]).toMatch(/original row disagrees with mirror row/)
   })
 
   it('reports unknown products, origins, units and availability with location', () => {
@@ -186,5 +194,33 @@ describe('normalizeObservations', () => {
 
   it('handles empty input', () => {
     expect(normalizeObservations([], registries)).toEqual({ observations: [], errors: [] })
+  })
+})
+
+describe('rawCsvRowSchema control characters', () => {
+  it('rejects U+001F and other control bytes that could forge ID collisions', async () => {
+    const { rawCsvRowSchema } = await import('../../scripts/data/schemas')
+    const base = {
+      observed_at: '2024-04-08',
+      source_id: 'cao',
+      report_id: 'r1',
+      market: 'Abasto',
+      product_raw: 'Papaya',
+      origin_raw: '',
+      variety_raw: '',
+      quality: '',
+      availability: 'A',
+      wholesale_price: '',
+      wholesale_unit: '',
+      retail_price: '',
+      retail_unit: '',
+    }
+    expect(rawCsvRowSchema.safeParse(base).success).toBe(true)
+    expect(
+      rawCsvRowSchema.safeParse({ ...base, market: 'A\u001fB' }).success,
+    ).toBe(false)
+    expect(
+      rawCsvRowSchema.safeParse({ ...base, product_raw: 'Pa\u0000paya' }).success,
+    ).toBe(false)
   })
 })

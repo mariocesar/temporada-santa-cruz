@@ -88,6 +88,11 @@ describe('smoothCircular', () => {
     expect(() => smoothCircular([1, 2], [1, -1, 1])).toThrow()
     expect(() => smoothCircular([1, 2], [0, 0, 0])).toThrow()
   })
+
+  it('rejects NaN inputs instead of poisoning the window', () => {
+    expect(() => smoothCircular([Number.NaN, 0.5, 0.5])).toThrow(/finite/)
+    expect(() => smoothCircular([Number.POSITIVE_INFINITY, 0.5, 0.5])).toThrow(/finite/)
+  })
 })
 
 describe('rangeLength', () => {

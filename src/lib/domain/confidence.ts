@@ -22,6 +22,15 @@ function ramp(value: number, saturation: number): number {
  * absence of that evidence dimension neither helps nor hurts.
  */
 export function confidenceValue(evidence: EvidenceSummary): number {
+  for (const [name, count] of [
+    ['observations', evidence.observations],
+    ['years', evidence.years],
+    ['independentSources', evidence.independentSources],
+  ] as const) {
+    if (!Number.isInteger(count) || count < 0) {
+      throw new Error(`Evidence ${name} must be a non-negative integer: ${count}`)
+    }
+  }
   if (evidence.observations === 0 || evidence.years === 0) return 0
   const w = CONFIDENCE.weights
   const parts: Array<{ value: number | null; weight: number }> = [

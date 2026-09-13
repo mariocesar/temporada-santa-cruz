@@ -50,6 +50,9 @@ export function smoothCircular(
     for (let k = -radius; k <= radius; k++) {
       const v = values[cyclicIndex(i + k, n)]
       if (v === null || v === undefined) continue
+      if (!Number.isFinite(v)) {
+        throw new Error(`Smoothing input must be finite or null, got ${v} at index ${cyclicIndex(i + k, n)}`)
+      }
       const w = kernel[k + radius]!
       sum += v * w
       weight += w

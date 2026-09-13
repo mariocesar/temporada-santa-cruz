@@ -75,6 +75,15 @@ describe('confidenceValue', () => {
     expect(withNulls).toBeCloseTo(1)
   })
 
+  it('rejects degenerate evidence counts loudly', () => {
+    expect(() => confidenceValue(evidence({ observations: Number.NaN, years: 3 }))).toThrow()
+    expect(() => confidenceValue(evidence({ observations: 10, years: -1 }))).toThrow()
+    expect(() => confidenceValue(evidence({ observations: 10, years: 1.5 }))).toThrow()
+    expect(() =>
+      confidenceValue(evidence({ observations: 10, years: 2, independentSources: 0.5 })),
+    ).toThrow()
+  })
+
   it('is independent from the seasonality score by construction', () => {
     // The evidence summary carries no score input at all; sparse evidence
     // yields low confidence regardless of how pronounced a peak looks.

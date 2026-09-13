@@ -651,7 +651,7 @@
     "yearsCovered": 1,
     "firstObservation": "2025-01-06",
     "lastObservation": "2025-03-17",
-    "confidence": 0.4159,
+    "confidence": 0.2833,
     "confidenceLabel": "baja",
     "insufficientEvidence": true,
     "evidence": {
@@ -659,7 +659,7 @@
       "years": 1,
       "independentSources": 1,
       "originKnownRatio": 1,
-      "yearConsistency": 0.9462,
+      "yearConsistency": null,
       "weekCoverage": 0.7308
     },
     "primaryOrigins": [

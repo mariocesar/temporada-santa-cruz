@@ -40,6 +40,7 @@ export function comparablePricePerKg(
   unit: MarketUnit | undefined,
 ): number | null {
   if (price === undefined || price === null) return null
+  if (!Number.isFinite(price)) throw new Error(`Non-finite price: ${price}`)
   if (price < 0) throw new Error(`Negative price: ${price}`)
   if (!unit || unit.knownWeightKg === undefined || unit.knownWeightKg <= 0) return null
   if ((unit.conversionConfidence ?? 0) < PRICE_SIGNAL.minConversionConfidence) return null
@@ -56,7 +57,10 @@ export function relativePrices(
 ): Array<{ isoYear: number; bin: number; relative: number }> {
   const byYear = new Map<number, ComparablePrice[]>()
   for (const o of observations) {
-    if (!(o.pricePerKg > 0)) continue // zero/NaN prices carry no signal
+    if (!Number.isFinite(o.pricePerKg)) {
+      throw new Error(`Non-finite comparable price: ${o.pricePerKg}`)
+    }
+    if (o.pricePerKg <= 0) continue // zero prices carry no signal
     const list = byYear.get(o.isoYear) ?? []
     list.push(o)
     byYear.set(o.isoYear, list)

@@ -263,7 +263,11 @@ export interface EvidenceSummary {
   years: number
   independentSources: number
   originKnownRatio: number | null
-  /** Inter-annual presence agreement, [0,1]; null when <2 years overlap. */
+  /**
+   * Inter-annual presence agreement, [0,1], over week bins with report
+   * coverage in 2+ years; null until the product itself has observations
+   * in 2+ distinct years.
+   */
   yearConsistency: number | null
   /** Fraction of week bins covered by at least one report, [0,1]. */
   weekCoverage: number
