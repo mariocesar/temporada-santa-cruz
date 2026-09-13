@@ -132,6 +132,13 @@
     {#if dataUpdatedAt}
       <p class="muted">Datos actualizados hasta: {dataUpdatedAt}.</p>
     {/if}
+    {#if dataset?.index.containsEstimatedSeasons}
+      <p class="muted">
+        ≈ Algunas temporadas son estimaciones según bibliografía citada y no
+        provienen de observaciones de mercado; esos productos mantienen la
+        etiqueta «Datos insuficientes».
+      </p>
+    {/if}
   </footer>
 </main>
 

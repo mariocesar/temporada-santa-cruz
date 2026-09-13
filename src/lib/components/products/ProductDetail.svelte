@@ -10,6 +10,7 @@
   import { formatRangesAsMonths, MONTH_NAMES_ES, monthOfWeekBin } from '../../domain/months'
   import { CATEGORY_LABEL, CONFIDENCE_TEXT, SEASON_STATE_LABEL } from '../../i18n/labels'
   import ConfidenceChip from '../ui/ConfidenceChip.svelte'
+  import ReferenceSeasonBadge from '../ui/ReferenceSeasonBadge.svelte'
   import MonthAxis from '../charts/MonthAxis.svelte'
   import SeasonStrip from '../charts/SeasonStrip.svelte'
 
@@ -158,6 +159,15 @@
         La evidencia disponible no alcanza para clasificar la temporada de este
         producto. {confidenceExplanation(summary)}
       </p>
+      <!-- The estimate accompanies "Datos insuficientes", never replaces it (§104). -->
+      {#if summary.referenceSeason}
+        <p class="reference">
+          <ReferenceSeasonBadge referenceSeason={summary.referenceSeason} />
+          {#if summary.referenceSeason.note}
+            <span class="reference-note">{summary.referenceSeason.note}</span>
+          {/if}
+        </p>
+      {/if}
     </section>
   {:else}
     <section aria-labelledby="detail-summary">
@@ -174,6 +184,14 @@
           conocida proviene del departamento de Santa Cruz.
         {/if}
       </p>
+      {#if summary.referenceSeason}
+        <p class="reference">
+          <ReferenceSeasonBadge referenceSeason={summary.referenceSeason} />
+          {#if summary.referenceSeason.note}
+            <span class="reference-note">{summary.referenceSeason.note}</span>
+          {/if}
+        </p>
+      {/if}
     </section>
 
     <section aria-labelledby="detail-timeline">
@@ -391,6 +409,17 @@
     padding: var(--space-2) var(--space-3);
     border-radius: 0.375rem;
     margin: 0 0 var(--space-4);
+  }
+
+  .reference {
+    margin: var(--space-2) 0 0;
+  }
+
+  .reference-note {
+    display: block;
+    margin-top: var(--space-1);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
   }
 
   section {
