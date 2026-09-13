@@ -4,7 +4,12 @@ This is the working plan for building Temporada Santa Cruz. The full product
 specification lives in [PROJECT.md](../PROJECT.md); this document sequences it
 into executable phases with exit criteria. Update it as phases complete.
 
-**Status: Phase 1 complete; Phase 2 (reference seasons) is next.**
+**Status: Phases 0–1 complete; Phase 3 (functional dashboard) core built
+2026-09-13 — only its reference-season integration points remain, blocked on
+Phase 2. Phase 2 (reference seasons) is next.**
+
+Note: the dashboard was built by a session already in flight when the
+2026-09-13 renumbering inserted Phase 2; its checkboxes below reflect that.
 
 Confirmed decisions (2026-09-13) are recorded in PROJECT.md §103.
 
@@ -111,29 +116,44 @@ insuficientes" in the shell; observed outputs are identical except the new
 fields; every window traces to a real, dated, retrievable citation;
 `check`, `test`, and `data` stay green.
 
-## Phase 3 — Functional dashboard (§85)
+## Phase 3 — Functional dashboard (§85) — core built 2026-09-13
 
-1. Data loader consuming `public/data/*.json` with freshness metadata (§47).
-2. Dashboard state module (`src/lib/stores/dashboard.svelte.ts`) + URL search
-   param sync (§49, §74).
-3. "Ahora" section: current-week classification (Pico / En temporada /
-   Entrando / Saliendo), Mercado ↔ Producción cruceña toggle (§13, §40).
-4. Search (names + aliases) and category filters (§14).
-5. Annual timeline: SVG rendered by Svelte, months over ISO weeks, encoding
-   for availability/season/peak + market vs local + confidence (§15–16),
-   plus the "estimada (referencia)" bucket for reference seasons — an
-   outlined/hatched band (texture channel, never a sixth solid fill, §104).
-6. Product detail panel: identity, summary, timeline, observations,
-   origin, price behavior, evidence, confidence explanation (§17), and the
-   reference-season citation when present (§104).
-7. Methodology + sources sections (§18, §56–57).
-8. Empty/error states (§78), month-explorer navigation (§75–76).
-9. Estimate-only products (no observations): excluded from "Ahora"
-   current-week claims (state stays `sin_datos`; no `SeasonState`
-   extension), default-sorted after observed products (§104).
+- [x] Data loader consuming `public/data/*.json` (products, summaries,
+      seasonality, sources) with freshness metadata (§47).
+- [x] Dashboard state module (`src/lib/stores/dashboard.svelte.ts`) + URL
+      search param sync with validated codec (§49, §74): product, mode,
+      category, q, week (53 folds to 52); debounced/guarded replaceState.
+- [x] "Ahora" section: current-week classification (Pico / En temporada /
+      Entrando / Saliendo), Mercado ↔ Producción cruceña toggle (§13, §40).
+- [x] Search (names + aliases + varieties, accent-folded) and category
+      filters (§14), sorting (§77).
+- [x] Annual timeline: Svelte-rendered SVG, months over ISO weeks; intensity
+      encodes season class, hue encodes the active concept, underline stripe
+      shows the other concept, dashed marks for no-evidence weeks, per-row
+      text equivalents, tooltips (§15–16, §73).
+- [x] Product detail panel: identity, honest summary, dual strips,
+      observations, origin shares (pipeline-aggregated `localShareOfKnown`),
+      §54 price behavior, evidence signals, confidence explanation,
+      provenance with synthetic tags (§17–18).
+- [x] Methodology + sources sections (§18, §56–57), fed by the
+      methodology-constants module.
+- [x] Empty/error states (§78), month-explorer navigation (§75–76).
+- [x] Verified at 390 / 768 / 1280 / 1600 px in a real browser; closing
+      multi-agent review workflow (correctness + market/local distinction +
+      URL state; 14 verifier-confirmed findings fixed).
+
+Pending — blocked on Phase 2 (reference seasons, §104):
+
+- [ ] Timeline "estimada (referencia)" bucket — outlined/hatched band
+      (texture channel, never a sixth solid fill).
+- [ ] Reference-season citation in the product detail panel.
+- [ ] Estimate-only products: excluded from "Ahora" current-week claims
+      (state stays `sin_datos`; no `SeasonState` extension), default-sorted
+      after observed products.
 
 Exit: every §88 UI behavior works with the seed dataset on desktop and mobile
-widths (390 / 768 / 1280 / 1600 px).
+widths (390 / 768 / 1280 / 1600 px) — met for the core; re-verify after the
+reference-season integration lands.
 
 ## Phase 4 — Polish (§86)
 
@@ -173,6 +193,11 @@ accessible CAO/SIPREM, SIIP, and INE materials directly:
 3. Import observations for the initial ten products (§101); document
    acquisition per source; manual CSV transcription is acceptable (§43).
 4. Re-derive; replace demo records with real ones where covered.
+5. Granular synthetic marking once real and demo records coexist
+   (2026-09-13 review finding): conditional banner copy ("algunos valores
+   son sintéticos…") driven by a build-emitted flag, plus per-product
+   SINTÉTICA markers on Ahora cards and timeline rows (the detail panel
+   already has one).
 
 Exit: honest coverage report; confidence labels reflect real evidence.
 
