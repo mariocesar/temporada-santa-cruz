@@ -42,7 +42,7 @@ Distribution channels:
 License: each bulletin states its content "puede ser reproducido de manera
 total o parcial, citando la fuente" — reproduced here citing CAO.
 
-Confirmed and imported (15 survey dates across 9 bulletins):
+Confirmed and imported (16 survey dates across 9 bulletins):
 
 | Year | Bulletins (survey dates) |
 |---|---|
@@ -112,6 +112,36 @@ Cruz/product-level rows and exports exist.
 
 The nine CAO bulletins above are transcribed to
 `data/raw/cao-siprem/*.csv` (one CSV per report; every batch passed an
-adversarial verifier before entering the raw layer), normalized with full
-provenance (`report_id` per bulletin), and published. All other listed
-material remains un-imported; nothing outside `data/raw/` feeds any score.
+adversarial verifier before entering the raw layer — three transcriptions
+were rejected on first verification, repaired, and re-verified from
+scratch), normalized with full provenance (`report_id` per bulletin), and
+published. All other listed material remains un-imported; nothing outside
+`data/raw/` feeds any score.
+
+Real (non-synthetic) coverage after this import — 544 observations, 16
+survey dates, 5 years; the demo seed still fills UI gaps and every product
+mixing demo records is marked (banner + per-product SINTÉTICA):
+
+| Product | Real rows | Survey dates | Years |
+|---|---|---|---|
+| uva | 70 | 16 | 2014, 2016, 2017, 2018, 2026 |
+| sandía | 64 | 16 | 2014, 2016, 2017, 2018, 2026 |
+| tomate | 64 | 16 | 2014, 2016, 2017, 2018, 2026 |
+| guineo (incl. BANANO rows) | 52 | 16 | 2014, 2016, 2017, 2018, 2026 |
+| limón | 48 | 16 | 2014, 2016, 2017, 2018, 2026 |
+| durazno | 44 | 16 | 2014, 2016, 2017, 2018, 2026 |
+| frutilla | 32 | 16 | 2014, 2016, 2017, 2018, 2026 |
+| papaya | 32 | 16 | 2014, 2016, 2017, 2018, 2026 |
+| piña | 32 | 16 | 2014, 2016, 2017, 2018, 2026 |
+| mandarina | 28 | 14 | 2014, 2016, 2017, 2018, 2026 |
+| naranja | 28 | 16 | 2014, 2016, 2017, 2018, 2026 |
+| achachairú | 18 | 10 | 2014, 2017, 2018, 2026 |
+| yuca | 16 | 16 | 2014, 2016, 2017, 2018, 2026 |
+| palta | 16 | 6 | 2018, 2026 |
+| mango | 0 | — | (absent from every imported bulletin; keeps its literature-only estimated season) |
+
+Notable evidence-model effects: **limón** now classifies on real data
+alone (no demo records ever existed for it); **palta** has real
+observations but honestly stays "Datos insuficientes" (2 years, 6 dates);
+**achachairú**'s absence from the Jun-2014 and 2016 bulletins is seasonal
+signal handled by presence probability, never "proof of absence".

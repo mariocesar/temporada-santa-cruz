@@ -61,6 +61,11 @@ immutable.
   CIRUELO, PLATANO, hortalizas…) that stay untranscribed for now — see the
   full PDFs. LIMA ≠ LIMON and MANGA ≠ MANGO; they are never merged.
 - Decimal commas in the source become dots; all other cell text is verbatim.
+- **A price printed as `0,0` is transcribed as an empty cell** (for that
+  date only): the bulletins use `0,0` — typically with `S/D` in the VAR
+  column — for "no price recorded", and a literal 0 would enter the §54
+  price signals as a real market price. The presence of the row itself
+  still counts as an observation.
 - A missing bulletin for any week is NOT evidence a product was absent
-  (§30) — coverage is 15 scattered survey dates across 2014–2026, and the
+  (§30) — coverage is 16 scattered survey dates across 2014–2026, and the
   report-coverage index reflects exactly that.

@@ -1,0 +1,67 @@
+observed_at,source_id,report_id,market,product_raw,origin_raw,variety_raw,quality,availability,wholesale_price,wholesale_unit,retail_price,retail_unit
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,ACHACHAIRÚ,Santa Cruz,,Primera,,30.0,100 Unidades,8.0,25 Unidades
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,ACHACHAIRÚ,Santa Cruz,,Primera,A,37.0,100 Unidades,10.0,25 Unidades
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,ACHACHAIRÚ,Santa Cruz,,Segunda,,18.0,100 Unidades,5.0,25 Unidades
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,ACHACHAIRÚ,Santa Cruz,,Segunda,A,18.0,100 Unidades,5.0,25 Unidades
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,DURAZNO,Santa Cruz,De partir,Primera,,250.0,Caja/ 17 Kg.,20.0,"Kg,"
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,DURAZNO,Santa Cruz,De partir,Primera,A,250.0,Caja/ 17 Kg.,20.0,"Kg,"
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,DURAZNO,Santa Cruz,De partir,Segunda,,150.0,Caja/ 17 Kg.,15.0,"Kg,"
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,DURAZNO,Santa Cruz,De partir,Segunda,A,150.0,Caja/ 17 Kg.,15.0,"Kg,"
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,DURAZNO,Santa Cruz,Amarillo,Primera,,240.0,Caja/ 17 Kg.,20.0,"Kg,"
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,DURAZNO,Santa Cruz,Amarillo,Primera,A,240.0,Caja/ 17 Kg.,20.0,"Kg,"
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,DURAZNO,Santa Cruz,Amarillo,Segunda,,90.0,Caja/ 17 Kg.,10.0,"Kg,"
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,DURAZNO,Santa Cruz,Amarillo,Segunda,A,90.0,Caja/ 17 Kg.,10.0,"Kg,"
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,FRUTILLA,Santa Cruz,,Primera,,8.0,Caja/1 Kg.,10.0,"Kg,"
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,FRUTILLA,Santa Cruz,,Primera,N,8.0,Caja/1 Kg.,10.0,"Kg,"
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,FRUTILLA,Santa Cruz,,Segunda,,6.0,Caja/1 Kg.,8.0,"Kg,"
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,FRUTILLA,Santa Cruz,,Segunda,N,6.0,Caja/1 Kg.,8.0,"Kg,"
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,GUINEO,,,Grande,,50.0,Racimo,10.0,Docena
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,GUINEO,,,Grande,N,50.0,Racimo,10.0,Docena
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,GUINEO,,,Pequeño,,35.0,Racimo,7.0,Docena
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,GUINEO,,,Pequeño,N,35.0,Racimo,7.0,Docena
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,LIMON,,De Licuar,Primera,,38.0,100 Unidades,10.0,25 Unidades
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,LIMON,,De Licuar,Primera,N,38.0,100 Unidades,10.0,25 Unidades
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,LIMON,,Amarillo,Primera,,70.0,100 Unidades,18.0,25 Unidades
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,LIMON,,Amarillo,Primera,N,70.0,100 Unidades,18.0,25 Unidades
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,LIMON,,Amarillo,Segunda,,45.0,100 Unidades,12.0,25 Unidades
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,LIMON,,Amarillo,Segunda,N,45.0,100 Unidades,12.0,25 Unidades
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,NARANJA,Santa Cruz,Criolla,Primera,,46.0,100 Unidades,12.0,25 Unidades
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,NARANJA,Santa Cruz,Criolla,Primera,N,46.0,100 Unidades,12.0,25 Unidades
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,NARANJA,Santa Cruz,,Primera,,35.0,Bolsa 20 Kg.,1.8,Kg.
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,NARANJA,Santa Cruz,,Primera,E,35.0,Bolsa 20 Kg.,1.8,Kg.
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,PAPAYA,,,Grande,,600.0,100 Unidades,7.0,Unidad
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,PAPAYA,,,Grande,N,600.0,100 Unidades,7.0,Unidad
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,PAPAYA,,,Mediana,,400.0,100 Unidades,5.0,Unidad
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,PAPAYA,,,Mediana,N,400.0,100 Unidades,5.0,Unidad
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,PIÑA,Chapare,,Grande,,700.0,100 Unidades,8.0,Unidad
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,PIÑA,Chapare,,Grande,A,700.0,100 Unidades,8.0,Unidad
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,PIÑA,Chapare,,Pequeño,,400.0,100 Unidades,5.0,Unidad
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,PIÑA,Chapare,,Pequeño,A,400.0,100 Unidades,5.0,Unidad
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,BANANO,Chapare,,Primera,,70.0,Caja/14 pengas,6.0,Docena
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,BANANO,Chapare,,Primera,N,55.0,Caja/14 pengas,5.0,Docena
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,SANDIA,Santa Cruz,Negra,Grande,,2300.0,100 Unidades,25.0,Unidad
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,SANDIA,Santa Cruz,Negra,Grande,E,2300.0,100 Unidades,25.0,Unidad
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,SANDIA,Santa Cruz,Negra,Pequeño,,450.0,100 Unidades,5.0,Unidad
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,SANDIA,Santa Cruz,Negra,Pequeño,E,450.0,100 Unidades,5.0,Unidad
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,SANDIA,Santa Cruz,Japonesa,Grande,,3800.0,100 Unidades,40.0,Unidad
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,SANDIA,Santa Cruz,Japonesa,Grande,A,3800.0,100 Unidades,40.0,Unidad
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,SANDIA,Santa Cruz,Japonesa,Mediana,,2300.0,100 Unidades,25.0,Unidad
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,SANDIA,Santa Cruz,Japonesa,Mediana,A,2300.0,100 Unidades,25.0,Unidad
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,SANDIA,Santa Cruz,Japonesa,Pequeño,,950.0,100 Unidades,10.0,Unidad
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,SANDIA,Santa Cruz,Japonesa,Pequeño,A,950.0,100 Unidades,10.0,Unidad
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,UVA,Perú,Negra,Primera,,170.0,Caja/10 Kg.,20.0,"Kg,"
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,UVA,Perú,Negra,Primera,N,170.0,Caja/10 Kg.,20.0,"Kg,"
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,UVA,Perú,Rosada,Primera,,170.0,Caja/10 Kg.,20.0,"Kg,"
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,UVA,Perú,Rosada,Primera,N,170.0,Caja/10 Kg.,20.0,"Kg,"
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,UVA,Brasil,Blanca,Primera,,210.0,Caja/8Kg.,33.0,"Kg,"
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,UVA,Brasil,Blanca,Primera,N,210.0,Caja/8Kg.,33.0,"Kg,"
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,TOMATE,Santa Cruz,Manzana,Primera,,90.0,Caja/20 Kg,9.0,Kg.
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,TOMATE,Santa Cruz,Manzana,Primera,E,110.0,Caja/20 Kg,11.0,Kg.
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,TOMATE,Santa Cruz,Manzana,Segunda,,40.0,Caja/20 Kg,4.0,Kg.
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,TOMATE,Santa Cruz,Manzana,Segunda,N,50.0,Caja/20 Kg,5.0,Kg.
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,TOMATE,Santa Cruz,Pera,Primera,,100.0,Caja/20 Kg.,9.0,Kg.
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,TOMATE,Santa Cruz,Pera,Primera,N,120.0,Caja/20 Kg.,12.0,Kg.
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,TOMATE,Santa Cruz,Pera,Segunda,,50.0,Caja/20 Kg,5.0,Kg.
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,TOMATE,Santa Cruz,Pera,Segunda,N,60.0,Caja/20 Kg,6.0,Kg.
+2014-12-05,ibce-cao-mirror,cao-2014-12-08,Abasto,YUCA Norteña,Santa Cruz,Blanca,Primera,,55.0,@,7.5,3 Libras
+2014-12-08,ibce-cao-mirror,cao-2014-12-08,Abasto,YUCA Norteña,Santa Cruz,Blanca,Primera,A,50.0,@,7.0,3 Libras

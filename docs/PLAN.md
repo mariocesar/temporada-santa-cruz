@@ -9,7 +9,9 @@ system layer and the demo "delight" pass landed the same day (owner
 directive: demo state first, then "focus on the visual story and look",
 desktop first) — see the Phase 4 checklist; its deferred audit/docs work
 (WCAG AA, touch tooltips, documentation set, Tier 1 illustrations) remains.
-Phase 6 (first real data) is in progress: source recon underway.**
+Phase 6 (first real data) landed its first import the same day: 544
+verified real CAO observations (2014–2026) now coexist with the marked
+demo seed — see the Phase 6 checklist and docs/DATA_SOURCES.md.**
 
 Note: the dashboard was built by a session already in flight when the
 2026-09-13 renumbering inserted Phase 2; its checkboxes below reflect that.
@@ -301,24 +303,50 @@ Exit criteria: CI + deployment portion of §88 met. The remaining §88 items
 (README/docs set, WCAG audit) live in the deferred Phase 4 checklist; the
 dataset is still the marked demo seed until Phase 6 lands.
 
-## Phase 6 — First real-data milestone (§101)
+## Phase 6 — First real-data milestone (§101) — first import landed 2026-09-13
 
 Per the confirmed data-sourcing decision, research and fetch legitimately
 accessible CAO/SIPREM, SIIP, and INE materials directly:
 
-1. Map what exists: report dates, formats, mirrors, coverage per year.
-2. Build a report inventory (which weeks have reports vs gaps — missing
-   reports are NOT absence evidence, §30).
-3. Import observations for the initial ten products (§101); document
-   acquisition per source; manual CSV transcription is acceptable (§43).
-4. Re-derive; replace demo records with real ones where covered.
-5. Granular synthetic marking once real and demo records coexist
-   (2026-09-13 review finding): conditional banner copy ("algunos valores
-   son sintéticos…") driven by a build-emitted flag, plus per-product
-   SINTÉTICA markers on Ahora cards and timeline rows (the detail panel
-   already has one).
+- [x] Map what exists (multi-agent recon: 5 source-scouts + verifier per
+      inventory, every claimed URL independently re-checked). Findings in
+      `docs/DATA_SOURCES.md`: CAO bulletins are the primary match (free
+      PDFs on agrodatos.com.bo + IBCE mirrors); SIIP viewer is JS-walled
+      and its bulletin index confirmed fruit-free; the published Censo
+      2013 volumes verifiably contain NO monthly harvest-calendar tables
+      (microdata is the remaining §34 lead); OAP domain is dead.
+- [x] Report inventory with per-year confirmed/not-checked status and the
+      §30 missing≠absent framing (`docs/DATA_SOURCES.md`), acquisition per
+      report in `data/raw/cao-siprem/ACQUISITION.md`, source PDFs archived
+      under `data/raw/cao-siprem/reports/` per CAO's cite-the-source
+      notice.
+- [x] Imported 544 real observations from 9 CAO bulletins (16 survey
+      dates: 2014×4, 2016×4, 2017×2, 2018×2, 2026×4) covering all §101
+      priority products present in those bulletins, plus tomate/yuca/
+      palta/limón. Workflow: data-transcriber per report → adversarial
+      verifier per report; 3 transcriptions rejected on first pass,
+      repaired, re-verified from scratch. Nothing entered `data/raw/`
+      unverified.
+- [x] Re-derived. Demo records still coexist (they fill UI gaps per §45;
+      real coverage is 16 scattered dates, not enough to retire the seed)
+      — but real evidence already moved the model: uva and limón left
+      "Datos insuficientes"; limón and palta are pure-real products (no
+      demo rows); mango stays honestly estimate-only.
+- [x] Granular synthetic marking (commit 393ee5a): build emits
+      `allDataSynthetic` (schemaVersion 3), banner switches to "DATOS
+      PARCIALMENTE SINTÉTICOS" in the mixed state, per-product SINTÉTICA
+      markers on Ahora cards and timeline rows + §11 text equivalents;
+      re-applied onto the poster-first lámina by the parallel UI session.
 
-Exit: honest coverage report; confidence labels reflect real evidence.
+Remaining for Phase 6 exit: retire demo records product-by-product as real
+weekly coverage grows (Wayback CDX over cao.org.bo / IBCE's folder, the
+`/diario` + `/mensual` series, SIIP via a JS-capable session, INE census
+microdata via ANDA). Coverage report per product lives in
+`docs/DATA_SOURCES.md` § Import status.
+
+Exit: honest coverage report ✔; confidence labels reflect real evidence ✔
+(for the imported dates — the dataset remains marked as partially
+synthetic until the demo seed is fully replaced).
 
 ---
 

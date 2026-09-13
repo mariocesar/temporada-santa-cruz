@@ -1,0 +1,36 @@
+observed_at,source_id,report_id,market,product_raw,origin_raw,variety_raw,quality,availability,wholesale_price,wholesale_unit,retail_price,retail_unit
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,ACHACHAIRÚ,Santa Cruz,,Primera,N,20.0,100 Unidades,7.0,25 Unidades
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,ACHACHAIRÚ,Santa Cruz,,Segunda,N,12.0,100 Unidades,3.5,25 Unidades
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,DURAZNO,Santa Cruz,De partir,Primera,N,125.0,Caja/ 17 Kg.,10.0,"Kg,"
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,DURAZNO,Santa Cruz,De partir,Segunda,N,100.0,Caja/ 17 Kg.,8.0,"Kg,"
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,DURAZNO,Santa Cruz,Amarillo,Primera,N,80.0,Caja/ 17 Kg.,8.0,"Kg,"
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,DURAZNO,Santa Cruz,Amarillo,Segunda,N,50.0,Caja/ 17 Kg.,5.0,"Kg,"
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,FRUTILLA,Santa Cruz,,Primera,N,8.0,Caja/1 Kg.,10.0,"Kg,"
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,FRUTILLA,Santa Cruz,,Segunda,N,6.0,Caja/1 Kg.,8.0,"Kg,"
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,GUINEO,,,Grande,N,80.0,Racimo,10.0,Docena
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,GUINEO,,,Pequeño,N,50.0,Racimo,6.0,Docena
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,GUINEO,La Paz,,Primera,N,140.0,Caja 15/pengas,14.0,Docena
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,LIMON,,De Licuar,Primera,N,18.0,100 Unidades,5.0,25 Unidades
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,LIMON,,Amarillo,Primera,N,20.0,100 Unidades,6.0,25 Unidades
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,LIMON,,Amarillo,Segunda,N,12.0,100 Unidades,4.0,25 Unidades
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,MANDARINA,Santa Cruz,Japonesa,Primera,N,110.0,100 Unidades,30.0,25 Unidades
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,MANDARINA,Santa Cruz,Incor,Primera,N,100.0,100 Unidades,30.0,25 Unidades
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,NARANJA,Santa Cruz,Criolla,Primera,N,50.0,100 Unidades,15.0,25 Unidades
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,PALTA,Santa Cruz,,Grande,A,500.0,100 Unidades,8.0,Unidad
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,PALTA,Santa Cruz,,Mediana,E,200.0,100 Unidades,4.0,Unidad
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,PALTA,Perú,,Primera,E,350.0,Caja/18 Kg.,25.0,Kg.
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,PAPAYA,,,Grande,N,1400.0,100 Unidades,15.0,Unidad
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,PAPAYA,,,Mediana,N,1100.0,100 Unidades,12.0,Unidad
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,PIÑA,Chapare,,Grande,N,900.0,100 Unidades,12.0,Unidad
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,PIÑA,Chapare,,Pequeño,N,400.0,100 Unidades,5.0,Unidad
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,BANANO,Chapare,,Primera,N,60.0,Caja/14 pengas,6.0,Docena
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,SANDIA,Santa Cruz,Hibrida,Grande,N,2600.0,100 Unidades,30.0,Unidad
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,SANDIA,Santa Cruz,Hibrida,Pequeño,N,1100.0,100 Unidades,13.0,Unidad
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,UVA,Saipina,Blanca,Primera,E,150.0,Caja/18 Kg,"10.0","Kg,"
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,UVA,Tarija,Blanca,Primera,E,170.0,Caja/22 Kg,"10.0","Kg,"
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,UVA,Tarija,Negra,Primera,E,180.0,Caja/22 Kg,"11.0","Kg,"
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,TOMATE,Santa Cruz,Manzana,Primera,E,90.0,Caja/20 Kg,9.0,Kg.
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,TOMATE,Santa Cruz,Manzana,Segunda,E,70.0,Caja/20 Kg,7.0,Kg.
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,TOMATE,Santa Cruz,Pera,Primera,N,70.0,Caja/20 Kg.,7.0,Kg.
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,TOMATE,Santa Cruz,Pera,Segunda,N,40.0,Caja/20 Kg,4.0,Kg.
+2026-02-18,cao-siprem,cao-2026-02-18,Abasto,YUCA Norteña,Santa Cruz,Blanca,Primera,N,60.0,@,10.0,3 Libras
