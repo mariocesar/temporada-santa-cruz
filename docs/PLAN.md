@@ -74,6 +74,11 @@ Typography and design system, spacing, responsive charts, accessibility pass
 README, CONTRIBUTING, `docs/METHODOLOGY.md`, `docs/DATA_SOURCES.md`,
 `docs/DATA_CONTRIBUTION.md` (§62–63, §94).
 
+**Visual direction input:** the owner will provide screenshots of designs
+they like at the start of this phase. Request them before beginning
+design-system work and use them as reference material — they refine, not
+override, the §9 direction (editorial, agricultural, warm; not SaaS).
+
 ## Phase 4 — Productionize and deploy (§87)
 
 A minimal deploy workflow already exists from Phase 0. Complete it:
