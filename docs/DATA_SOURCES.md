@@ -42,26 +42,63 @@ Distribution channels:
 License: each bulletin states its content "puede ser reproducido de manera
 total o parcial, citando la fuente" — reproduced here citing CAO.
 
-Confirmed and imported (16 survey dates across 9 bulletins):
+Confirmed and imported (49 survey dates across 30 bulletins after the
+second batch — see `data/raw/cao-siprem/ACQUISITION.md` for per-report
+provenance):
 
-| Year | Bulletins (survey dates) |
+| Year | Survey dates covered |
 |---|---|
-| 2014 | 2014-06-09 (Jun 4, 9) · 2014-12-08 (Dec 5, 8) |
-| 2016 | 2016-05-03 (Apr 29, May 3) · 2016-09-09 (Aug 31, Sep 9) |
-| 2017 | 2017-01-11 (Jan 6, 11) |
-| 2018 | 2018-11-19 (Nov 16, 19) |
-| 2026 | 2026-02-11 (Feb 9, 11) · 2026-02-13 (Feb 13) · 2026-02-18 (Feb 18) |
+| 2012 | Sep 10, 13, 17 · Dec 6, 10 |
+| 2013 | Jan 10, 14 · Feb 7, 14, 18 · May 2, 6, 9 · Jul 18, 25 |
+| 2014 | Apr 21, 23 · Jun 4, 9, 11 · Dec 5, 8 |
+| 2015 | Feb 4, 11 |
+| 2016 | Apr 29 · May 3 · Aug 31 · Sep 9 |
+| 2017 | Jan 6, 11 |
+| 2018 | Nov 16, 19 |
+| 2025 | Nov 28 · Dec 1, 3, 5, 8, 10, 12, 15 |
+| 2026 | Jan 16, 21, 23, 26, 28 · Feb 9, 11, 13, 18 |
 
-Known-but-not-yet-imported material: a third Feb-2026 issue was read and
-imported; the `/diario` series shows sequential issue numbers (~1.737+,
-suggesting years of frequent issues whose URLs are not enumerable from the
-landing pages); `/mensual` listed Sept/Nov/Dec 2025 monthly bulletins
-(direct URLs not captured yet). Years 2013, 2015, 2019–2025 have **no
-confirmed retrievable bulletin so far** — status "not checked to
-exhaustion", not "not published": search indexing is partial, the Wayback
-Machine was unreachable from this environment (its CDX API over
-`cao.org.bo` and `ibce.org.bo/images/idt_documentos/` is the single best
-follow-up lead), and IBCE's folder cannot be listed directly.
+March and October have no real survey date in any recovered year — the
+report-coverage index and the timeline's dashed no-evidence weeks reflect
+exactly that gap.
+
+Wayback CDX follow-up (second sweep, 2026-09-13) — the lead paid off and
+also resolved two earlier misreadings:
+
+- **`/diario`–`/diarios` and `/mensual`–`/mensuales` are NOT price
+  bulletins.** The sequential numbering (~1.737+) belongs to CAO's "AGRO
+  DATOS" news digest (international news, CBOT closes, SENAMHI climate
+  panels, adverts). Verified by full-text extraction of the complete live
+  `/diarios` archive index (627 issues, 2017–2020) plus samples from every
+  year and a visual page-by-page check: no MAYORISTA ABASTO table in any of
+  them. Documented absence — do not re-mine this series for prices.
+- **The Abasto price-bulletin series distributes via `/mercados`.** A
+  Wayback capture of that page (2025-12-09) plus directly archived PDFs
+  yielded nine additional bulletins (2025-12-01 … 2026-01-28), all still
+  live on agrodatos' immutable Wix media store and now imported. The page
+  stopped updating after Feb-2026 — the 2026-06-13 capture still lists the
+  three Feb-2026 issues.
+- **`cao.org.bo/archivos/descargas/` (pre-2014 site) via Wayback:** eight
+  "Precios Mayorista" bulletins 2012-09 … 2013-05 archived with HTTP 200,
+  all imported. Two more (2012-12-17, 2012-12-20) were captured only as
+  404s — lost unless another mirror surfaces.
+- **Joomla-era `cao.org.bo/sitio/index.php/descargas` (2015–2018):** the
+  paginated listings are archived, but only four download endpoints were
+  ever captured: two duplicate the already-imported 2016-05-03 bulletin,
+  two are CAO-SIPREM annual price spreadsheets (FAO producer prices /
+  agroindustrial series — not Abasto bulletins). The rest of that era's
+  bulletin downloads were never archived.
+- **IBCE's folder still serves unlisted historical files:** probing the
+  `Precios-CAO-YYYY-MM-DD.pdf` filenames found in Wayback recovered three
+  live PDFs (2014-04-23, 2014-06-11, 2015-02-11) plus one Wayback-only
+  (2013-07-25), all imported. A site-wide Wayback sweep of `ibce.org.bo`
+  for "precios" documents found nothing further (only international-price
+  CIFRAS bulletins).
+
+After this sweep, years **2019 – early 2025 have no retrievable bulletin
+anywhere public** — still "not checked to exhaustion", but the cheap
+channels are now exhausted; what remains is the paid SIPREM subscription,
+CAO social-media accounts, or physical archives.
 
 ## SIIP (siip.produccion.gob.bo) — blocked for now
 
@@ -97,8 +134,15 @@ Cruz/product-level rows and exports exist.
 ## Other sources checked
 
 - **OAP (observatorioagro.gob.bo)** — domain does not resolve (DNS
-  NXDOMAIN, 2026-09-13). Reportedly published daily/weekly wholesale price
-  bulletins; retry later and via Wayback.
+  NXDOMAIN, 2026-09-13). Wayback checked (second sweep, same day): ~400
+  weekly "Boletín semanal" PDFs 2013–2020 ARE archived
+  (`…/documento/semanal/semanal_YYYY/`, ~50 per year, ≥43 even in 2019).
+  Basket verified on 2015 and 2017 samples: staples only (papa, tomate
+  híbrido, cebolla, zanahoria, arroz, carne…) with weekly Fri/Sat prices
+  per city incl. Santa Cruz. **Tomate is the only §45 overlap** — a
+  documented lead for a tomato-only import (weekly price, Bs/45 lb, no
+  OFERTA column, no origin), deliberately deferred: ~400 PDFs of
+  transcription for one product.
 - **ICE / Gobernación de Santa Cruz** — one "Monitoreo de Precios al Por
   Menor 2024" PDF located (>10 MB, unread). Open lead.
 - **GAMSCZ** — the Distrito 4 / Mercado Abasto page is institutional only;
@@ -110,39 +154,43 @@ Cruz/product-level rows and exports exist.
 
 ## Import status
 
-The nine CAO bulletins above are transcribed to
+The 30 CAO bulletins above are transcribed to
 `data/raw/cao-siprem/*.csv` (one CSV per report; every batch passed an
-adversarial verifier before entering the raw layer — three transcriptions
-were rejected on first verification, repaired, and re-verified from
-scratch), normalized with full provenance (`report_id` per bulletin), and
-published. All other listed material remains un-imported; nothing outside
-`data/raw/` feeds any score.
+adversarial verifier before entering the raw layer — batch 1: three
+transcriptions rejected, repaired and re-verified from scratch; batch 2:
+20/21 confirmed first-pass, one content-correct transcription fixed for a
+CSV quoting nit and re-checked), normalized with full provenance
+(`report_id` per bulletin), and published. All other listed material
+remains un-imported; nothing outside `data/raw/` feeds any score.
 
-Real (non-synthetic) coverage after this import — 544 observations, 16
-survey dates, 5 years; the demo seed still fills UI gaps and every product
-mixing demo records is marked (banner + per-product DE EJEMPLO tag —
-formerly SINTÉTICA, relabeled to plain Spanish per §103):
+**The demo seed is retired (2026-09-13).** The published dataset is
+real-only: 1,575 observations, 49 survey dates, 9 years (2012–2018,
+2025–2026). Every product except mango classifies on real evidence alone
+(confianza alta for all but palta, which is honestly media at 3 years);
+mango remains "Datos insuficientes" with its literature-only estimated
+season — exactly the §104 display. `bun run seed:demo` still generates the
+clearly-marked synthetic seed for local UI work behind `ALLOW_DEMO_DATA`
+(§79), but no synthetic row ships, CI no longer sets the flag, and the
+build drops unreferenced synthetic sources from the public dataset.
 
 | Product | Real rows | Survey dates | Years |
 |---|---|---|---|
-| uva | 70 | 16 | 2014, 2016, 2017, 2018, 2026 |
-| sandía | 64 | 16 | 2014, 2016, 2017, 2018, 2026 |
-| tomate | 64 | 16 | 2014, 2016, 2017, 2018, 2026 |
-| guineo (incl. BANANO rows) | 52 | 16 | 2014, 2016, 2017, 2018, 2026 |
-| limón | 48 | 16 | 2014, 2016, 2017, 2018, 2026 |
-| durazno | 44 | 16 | 2014, 2016, 2017, 2018, 2026 |
-| frutilla | 32 | 16 | 2014, 2016, 2017, 2018, 2026 |
-| papaya | 32 | 16 | 2014, 2016, 2017, 2018, 2026 |
-| piña | 32 | 16 | 2014, 2016, 2017, 2018, 2026 |
-| mandarina | 28 | 14 | 2014, 2016, 2017, 2018, 2026 |
-| naranja | 28 | 16 | 2014, 2016, 2017, 2018, 2026 |
-| achachairú | 18 | 10 | 2014, 2017, 2018, 2026 |
-| yuca | 16 | 16 | 2014, 2016, 2017, 2018, 2026 |
-| palta | 16 | 6 | 2018, 2026 |
-| mango | 0 | — | (absent from every imported bulletin; keeps its literature-only estimated season) |
+| tomate | 196 | 49 | 2012–2018, 2025–2026 |
+| uva | 172 | 49 | 2012–2018, 2025–2026 |
+| sandía | 168 | 47 | 2012–2018, 2025–2026 |
+| guineo (incl. BANANO rows) | 164 | 49 | 2012–2018, 2025–2026 |
+| durazno | 153 | 44 | 2012–2018, 2025–2026 |
+| limón | 147 | 49 | 2012–2018, 2025–2026 |
+| frutilla | 98 | 49 | 2012–2018, 2025–2026 |
+| papaya | 98 | 49 | 2012–2018, 2025–2026 |
+| piña | 98 | 49 | 2012–2018, 2025–2026 |
+| naranja | 81 | 49 | 2012–2018, 2025–2026 |
+| mandarina | 60 | 29 | 2012–2014, 2016–2018, 2026 |
+| achachairú | 52 | 28 | 2013–2015, 2017–2018, 2025–2026 |
+| yuca | 49 | 49 | 2012–2018, 2025–2026 |
+| palta | 39 | 19 | 2018, 2025–2026 |
+| mango | 0 | — | absent from every imported bulletin; literature-only estimated season |
 
-Notable evidence-model effects: **limón** now classifies on real data
-alone (no demo records ever existed for it); **palta** has real
-observations but honestly stays "Datos insuficientes" (2 years, 6 dates);
-**achachairú**'s absence from the Jun-2014 and 2016 bulletins is seasonal
-signal handled by presence probability, never "proof of absence".
+Product absences from individual bulletins (achachairú outside its season,
+palta before 2018) are seasonal/coverage signal handled by presence
+probability — never "proof of absence" (§30).

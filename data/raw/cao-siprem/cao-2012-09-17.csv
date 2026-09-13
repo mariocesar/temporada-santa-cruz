@@ -1,0 +1,24 @@
+observed_at,source_id,report_id,market,product_raw,origin_raw,variety_raw,quality,availability,wholesale_price,wholesale_unit,retail_price,retail_unit
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,FRUTILLA,Santa Cruz,,Primera,A,12.0,Caja/1 Kg.,14.0,"Kg,"
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,FRUTILLA,Santa Cruz,,Segunda,A,10.0,Caja/1 Kg.,12.0,"Kg,"
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,GUINEO,,,Grande,N,40.0,Racimo,8.0,Docena
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,GUINEO,,,Pequeño,N,25.0,Racimo,5.0,Docena
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,LIMON,,De Licuar,Primera,E,80.0,100 Unidades,21.0,25 Unidades
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,LIMON,,Amarillo,Primera,N,68.0,100 Unidades,18.0,25 Unidades
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,LIMON,,Amarillo,Segunda,N,35.0,100 Unidades,10.0,25 Unidades
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,NARANJA,Santa Cruz,Criolla,Primera,N,35.0,100 Unidades,9.0,25 Unidades
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,NARANJA,Santa Cruz,,Primera,N,34.0,Bolsa 20 Kg.,1.8,Kg.
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,PAPAYA,,,Grande,N,700.0,100 Unidades,8.0,Unidad
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,PAPAYA,,,Mediana,N,400.0,100 Unidades,5.0,Unidad
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,PIÑA,Chapare,,Grande,A,600.0,100 Unidades,7.0,Unidad
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,PIÑA,Chapare,,Pequeño,A,150.0,100 Unidades,2.0,Unidad
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,BANANO,Chapare,,Primera,N,75.0,Caja/14 pengas,6.0,Docena
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,SANDIA,Santa Cruz,Japonesa,Grande,N,3700.0,100 Unidades,40.0,Unidad
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,SANDIA,Santa Cruz,Japonesa,Mediana,N,1800.0,100 Unidades,20.0,Unidad
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,SANDIA,Santa Cruz,Japonesa,Pequeño,N,800.0,100 Unidades,10.0,Unidad
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,UVA,Chile,Negra,Primera,E,160.0,Caja/10 Kg,22.0,"Kg,"
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,TOMATE,Santa Cruz,Manzana,Primera,N,25.0,Caja/20 Kg,2.5,Kg.
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,TOMATE,Santa Cruz,Manzana,Segunda,N,10.0,Caja/20 Kg,1.0,Kg.
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,TOMATE,Santa Cruz,Pera,Primera,N,25.0,Caja/20 Kg.,2.5,Kg.
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,TOMATE,Santa Cruz,Pera,Segunda,N,10.0,Caja/20 Kg,1.0,Kg.
+2012-09-17,cao-siprem,cao-2012-09-17,Abasto,YUCA Norteña,Santa Cruz,Blanca,Primera,N,25.0,@,3.5,3 Libras

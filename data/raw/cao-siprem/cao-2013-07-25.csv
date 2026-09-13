@@ -1,0 +1,47 @@
+observed_at,source_id,report_id,market,product_raw,origin_raw,variety_raw,quality,availability,wholesale_price,wholesale_unit,retail_price,retail_unit,row_seq
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,FRUTILLA,,,,,12.0,Caja/1 Kg.,14.0,"Kg,",1
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,FRUTILLA,,,,A,11.0,Caja/1 Kg.,13.0,"Kg,",1
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,FRUTILLA,,,,,10.0,Caja/1 Kg.,12.0,"Kg,",2
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,FRUTILLA,,,,A,9.0,Caja/1 Kg.,11.0,"Kg,",2
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,GUINEO,,,,,30.0,Racimo,6.0,Docena,1
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,GUINEO,,,,N,30.0,Racimo,6.0,Docena,1
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,GUINEO,,,,,25.0,Racimo,5.0,Docena,2
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,GUINEO,,,,N,25.0,Racimo,5.0,Docena,2
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,LIMON,,De Licuar,,,28.0,100 Unidades,8.0,25 Unidades,
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,LIMON,,De Licuar,,N,28.0,100 Unidades,8.0,25 Unidades,
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,LIMON,,Amarillo,,,30.0,100 Unidades,8.0,25 Unidades,1
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,LIMON,,Amarillo,,N,30.0,100 Unidades,8.0,25 Unidades,1
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,LIMON,,Amarillo,,,24.0,100 Unidades,6.0,25 Unidades,2
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,LIMON,,Amarillo,,N,24.0,100 Unidades,6.0,25 Unidades,2
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,MANDARINA,,Criolla,,,28.0,100 Unidades,8.0,25 Unidades,
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,MANDARINA,,Criolla,,E,28.0,100 Unidades,8.0,25 Unidades,
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,MANDARINA,,Japonesa,,,24.0,100 Unidades,7.0,25 Unidades,
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,MANDARINA,,Japonesa,,E,24.0,100 Unidades,7.0,25 Unidades,
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,MANDARINA,,Incor,,,40.0,100 Unidades,10.0,25 Unidades,
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,MANDARINA,,Incor,,N,30.0,100 Unidades,8.0,25 Unidades,
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,NARANJA,,Criolla,,,22.0,100 Unidades,7.0,25 Unidades,
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,NARANJA,,Criolla,,A,20.0,100 Unidades,6.0,25 Unidades,
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,NARANJA,,,,,30.0,Bolsa 20 Kg.,1.5,Kg.,
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,NARANJA,,,,N,30.0,Bolsa 20 Kg.,1.5,Kg.,
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,PAPAYA,,,,,400.0,100 Unidades,5.0,Unidad,1
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,PAPAYA,,,,A,400.0,100 Unidades,5.0,Unidad,1
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,PAPAYA,,,,,300.0,100 Unidades,4.0,Unidad,2
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,PAPAYA,,,,A,200.0,100 Unidades,3.0,Unidad,2
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,PIÑA,,,,,500.0,100 Unidades,6.0,Unidad,1
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,PIÑA,,,,N,500.0,100 Unidades,6.0,Unidad,1
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,PIÑA,,,,,300.0,100 Unidades,3.5,Unidad,2
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,PIÑA,,,,N,200.0,100 Unidades,3.0,Unidad,2
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,BANANO,,,,,35.0,Caja/14 pengas,4.0,Docena,
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,BANANO,,,,N,35.0,Caja/14 pengas,4.0,Docena,
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,UVA,,Rosada,,,130.0,Caja/10 Kg,20.0,"Kg,",
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,UVA,,Rosada,,E,130.0,Caja/10 Kg,20.0,"Kg,",
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,TOMATE,,Manzana,,,30.0,Caja/20 Kg,3.0,Kg.,1
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,TOMATE,,Manzana,,N,50.0,Caja/20 Kg,5.0,Kg.,1
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,TOMATE,,Manzana,,,10.0,Caja/20 Kg,1.5,Kg.,2
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,TOMATE,,Manzana,,N,15.0,Caja/20 Kg,1.5,Kg.,2
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,TOMATE,,Pera,,,30.0,Caja/20 Kg.,3.0,Kg.,1
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,TOMATE,,Pera,,N,35.0,Caja/20 Kg.,3.5,Kg.,1
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,TOMATE,,Pera,,,10.0,Caja/20 Kg,1.5,Kg.,2
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,TOMATE,,Pera,,N,15.0,Caja/20 Kg,1.5,Kg.,2
+2013-07-18,ibce-cao-mirror,cao-2013-07-25,Abasto,YUCA Norteña,,Blanca,,,25.0,@,4.0,3 Libras,
+2013-07-25,ibce-cao-mirror,cao-2013-07-25,Abasto,YUCA Norteña,,Blanca,,N,20.0,@,3.0,3 Libras,

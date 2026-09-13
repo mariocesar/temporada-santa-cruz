@@ -1,0 +1,39 @@
+observed_at,source_id,report_id,market,product_raw,origin_raw,variety_raw,quality,availability,wholesale_price,wholesale_unit,retail_price,retail_unit
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,ACHACHAIRÚ,Santa Cruz,,Primera,N,40.0,100 Unidades,11.0,25 Unidades
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,ACHACHAIRÚ,Santa Cruz,,Segunda,N,25.0,100 Unidades,6.0,25 Unidades
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,DURAZNO,Chile,Liso,Primera,N,230.0,Caja/ 22 Kg.,17.0,"Kg,"
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,DURAZNO,Argentina,Amarillo,Primera,N,140.0,Caja 17 Kg.,12.0,"Kg,"
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,DURAZNO,Argentina,Blanco,Primera,N,190.0,Caja 17 Kg.,15.0,"Kg,"
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,DURAZNO,Santa Cruz,De partir,Primera,N,170.0,Caja/ 17 Kg.,15.0,"Kg,"
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,DURAZNO,Santa Cruz,De partir,Segunda,N,130.0,Caja/ 17 Kg.,10.0,"Kg,"
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,DURAZNO,Santa Cruz,Amarillo,Primera,N,200.0,Caja/ 17 Kg.,18.0,"Kg,"
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,DURAZNO,Santa Cruz,Amarillo,Segunda,N,130.0,Caja/ 17 Kg.,10.0,"Kg,"
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,DURAZNO,Cochabamba,,Primera,N,260.0,Caja/2@,20.0,"Kg,"
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,FRUTILLA,Santa Cruz,,Primera,N,12.0,Caja/1 Kg.,14.0,"Kg,"
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,FRUTILLA,Santa Cruz,,Segunda,N,10.0,Caja/1 Kg.,12.0,"Kg,"
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,GUINEO,,,Grande,N,40.0,Racimo,8.0,Docena
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,GUINEO,,,Pequeño,N,25.0,Racimo,5.0,Docena
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,LIMON,,De Licuar,Primera,A,20.0,100 Unidades,6.0,25 Unidades
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,LIMON,,Amarillo,Primera,A,24.0,100 Unidades,6.0,25 Unidades
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,LIMON,,Amarillo,Segunda,A,12.0,100 Unidades,3.0,25 Unidades
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,NARANJA,Santa Cruz,Criolla,Primera,N,58.0,100 Unidades,15.0,25 Unidades
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,NARANJA,Santa Cruz,,Primera,N,55.0,Bolsa 20 Kg.,2.7,Kg.
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,PAPAYA,,,Grande,N,1100.0,100 Unidades,12.0,Unidad
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,PAPAYA,,,Mediana,N,600.0,100 Unidades,7.0,Unidad
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,PIÑA,Chapare,,Grande,E,1100.0,100 Unidades,12.0,Unidad
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,PIÑA,Chapare,,Pequeño,N,400.0,100 Unidades,5.0,Unidad
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,BANANO,Chapare,,Primera,N,50.0,Caja/14 pengas,5.0,Docena
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,SANDIA,Santa Cruz,Negra,Grande,N,2700.0,100 Unidades,30.0,Unidad
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,SANDIA,Santa Cruz,Negra,Pequeño,N,400.0,100 Unidades,5.0,Unidad
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,SANDIA,Santa Cruz,Japonesa,Grande,N,2700.0,100 Unidades,30.0,Unidad
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,SANDIA,Santa Cruz,Japonesa,Mediana,N,1300.0,100 Unidades,15.0,Unidad
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,SANDIA,Santa Cruz,Japonesa,Pequeño,N,400.0,100 Unidades,5.0,Unidad
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,UVA,Argentina,Blanca,Primera,N,180.0,Caja/17 Kg.,15.0,"Kg,"
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,UVA,Tarija,Blanca,Primera,A,150.0,Caja/20 Kg,8.0,"Kg,"
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,UVA,Tarija,Negra,Primera,A,150.0,Caja/20 Kg,8.0,"Kg,"
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,UVA,Tarija,Rosada,Primera,A,170.0,Caja/20 Kg,10.0,"Kg,"
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,TOMATE,Santa Cruz,Manzana,Primera,N,70.0,Caja/20 Kg,7.0,Kg.
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,TOMATE,Santa Cruz,Manzana,Segunda,N,35.0,Caja/20 Kg,3.5,Kg.
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,TOMATE,Santa Cruz,Pera,Primera,N,70.0,Caja/20 Kg.,7.0,Kg.
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,TOMATE,Santa Cruz,Pera,Segunda,N,35.0,Caja/20 Kg,3.5,Kg.
+2013-02-18,cao-siprem,cao-2013-02-18,Abasto,YUCA Norteña,Santa Cruz,Blanca,Primera,N,25.0,@,4.0,3 Libras

@@ -1,0 +1,75 @@
+observed_at,source_id,report_id,market,product_raw,origin_raw,variety_raw,quality,availability,wholesale_price,wholesale_unit,retail_price,retail_unit
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,ACHACHAIRÚ,Santa Cruz,,Primera,,35.0,100 Unidades,9.0,25 Unidades
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,ACHACHAIRÚ,Santa Cruz,,Primera,N,40.0,100 Unidades,11.0,25 Unidades
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,ACHACHAIRÚ,Santa Cruz,,Segunda,,20.0,100 Unidades,5.0,25 Unidades
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,ACHACHAIRÚ,Santa Cruz,,Segunda,N,25.0,100 Unidades,6.0,25 Unidades
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,DURAZNO,Chile,Liso,Primera,,200.0,Caja/ 22 Kg.,15.0,"Kg,"
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,DURAZNO,Chile,Liso,Primera,N,230.0,Caja/ 22 Kg.,17.0,"Kg,"
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,DURAZNO,Argentina,Amarillo,Primera,,190.0,Caja 17 Kg.,16.0,"Kg,"
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,DURAZNO,Argentina,Amarillo,Primera,N,200.0,Caja 17 Kg.,17.0,"Kg,"
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,DURAZNO,Argentina,Blanco,Primera,,220.0,Caja 17 Kg.,17.0,"Kg,"
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,DURAZNO,Argentina,Blanco,Primera,N,230.0,Caja 17 Kg.,18.0,"Kg,"
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,DURAZNO,Santa Cruz,De partir,Primera,,170.0,Caja/ 17 Kg.,15.0,"Kg,"
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,DURAZNO,Santa Cruz,De partir,Primera,N,170.0,Caja/ 17 Kg.,15.0,"Kg,"
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,DURAZNO,Santa Cruz,De partir,Segunda,,130.0,Caja/ 17 Kg.,10.0,"Kg,"
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,DURAZNO,Santa Cruz,De partir,Segunda,N,130.0,Caja/ 17 Kg.,10.0,"Kg,"
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,DURAZNO,Santa Cruz,Amarillo,Primera,,200.0,Caja/ 17 Kg.,18.0,"Kg,"
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,DURAZNO,Santa Cruz,Amarillo,Primera,N,200.0,Caja/ 17 Kg.,18.0,"Kg,"
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,DURAZNO,Santa Cruz,Amarillo,Segunda,,130.0,Caja/ 17 Kg.,10.0,"Kg,"
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,DURAZNO,Santa Cruz,Amarillo,Segunda,N,130.0,Caja/ 17 Kg.,10.0,"Kg,"
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,FRUTILLA,Santa Cruz,,Primera,,10.0,Caja/1 Kg.,12.0,"Kg,"
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,FRUTILLA,Santa Cruz,,Primera,N,11.0,Caja/1 Kg.,13.0,"Kg,"
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,FRUTILLA,Santa Cruz,,Segunda,,8.0,Caja/1 Kg.,10.0,"Kg,"
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,FRUTILLA,Santa Cruz,,Segunda,N,8.0,Caja/1 Kg.,10.0,"Kg,"
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,GUINEO,,,Grande,,40.0,Racimo,8.0,Docena
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,GUINEO,,,Grande,N,40.0,Racimo,8.0,Docena
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,GUINEO,,,Pequeño,,25.0,Racimo,5.0,Docena
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,GUINEO,,,Pequeño,N,25.0,Racimo,5.0,Docena
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,LIMON,,De Licuar,Primera,,24.0,100 Unidades,6.0,25 Unidades
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,LIMON,,De Licuar,Primera,A,20.0,100 Unidades,6.0,25 Unidades
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,LIMON,,Amarillo,Primera,,32.0,100 Unidades,8.0,25 Unidades
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,LIMON,,Amarillo,Primera,A,24.0,100 Unidades,6.0,25 Unidades
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,LIMON,,Amarillo,Segunda,,16.0,100 Unidades,4.0,25 Unidades
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,LIMON,,Amarillo,Segunda,A,12.0,100 Unidades,3.0,25 Unidades
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,NARANJA,Santa Cruz,Criolla,Primera,,54.0,100 Unidades,14.0,25 Unidades
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,NARANJA,Santa Cruz,Criolla,Primera,N,54.0,100 Unidades,14.0,25 Unidades
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,NARANJA,Santa Cruz,,Primera,,52.0,Bolsa 20 Kg.,2.5,Kg.
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,NARANJA,Santa Cruz,,Primera,N,52.0,Bolsa 20 Kg.,2.5,Kg.
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,PAPAYA,,,Grande,,1300.0,100 Unidades,14.0,Unidad
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,PAPAYA,,,Grande,N,1300.0,100 Unidades,14.0,Unidad
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,PAPAYA,,,Mediana,,700.0,100 Unidades,8.0,Unidad
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,PAPAYA,,,Mediana,N,700.0,100 Unidades,8.0,Unidad
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,PIÑA,Chapare,,Grande,,1100.0,100 Unidades,12.0,Unidad
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,PIÑA,Chapare,,Grande,E,1100.0,100 Unidades,12.0,Unidad
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,PIÑA,Chapare,,Pequeño,,400.0,100 Unidades,5.0,Unidad
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,PIÑA,Chapare,,Pequeño,N,400.0,100 Unidades,5.0,Unidad
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,BANANO,Chapare,,Primera,,50.0,Caja/14 pengas,5.0,Docena
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,BANANO,Chapare,,Primera,N,50.0,Caja/14 pengas,5.0,Docena
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,SANDIA,Santa Cruz,Negra,Grande,,2700.0,100 Unidades,30.0,Unidad
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,SANDIA,Santa Cruz,Negra,Grande,N,2700.0,100 Unidades,30.0,Unidad
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,SANDIA,Santa Cruz,Negra,Pequeño,,400.0,100 Unidades,5.0,Unidad
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,SANDIA,Santa Cruz,Negra,Pequeño,N,400.0,100 Unidades,5.0,Unidad
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,SANDIA,Santa Cruz,Japonesa,Grande,,2700.0,100 Unidades,30.0,Unidad
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,SANDIA,Santa Cruz,Japonesa,Grande,N,2700.0,100 Unidades,30.0,Unidad
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,SANDIA,Santa Cruz,Japonesa,Mediana,,1300.0,100 Unidades,15.0,Unidad
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,SANDIA,Santa Cruz,Japonesa,Mediana,N,1300.0,100 Unidades,15.0,Unidad
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,SANDIA,Santa Cruz,Japonesa,Pequeño,,400.0,100 Unidades,5.0,Unidad
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,SANDIA,Santa Cruz,Japonesa,Pequeño,N,400.0,100 Unidades,5.0,Unidad
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,UVA,Argentina,Blanca,Primera,,200.0,Caja/17 Kg.,17.0,"Kg,"
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,UVA,Argentina,Blanca,Primera,N,180.0,Caja/17 Kg.,15.0,"Kg,"
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,UVA,Tarija,Blanca,Primera,,150.0,Caja/20 Kg,8.0,"Kg,"
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,UVA,Tarija,Blanca,Primera,A,120.0,Caja/20 Kg,6.0,"Kg,"
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,UVA,Tarija,Negra,Primera,,150.0,Caja/20 Kg,8.0,"Kg,"
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,UVA,Tarija,Negra,Primera,A,150.0,Caja/20 Kg,8.0,"Kg,"
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,UVA,Tarija,Rosada,Primera,,160.0,Caja/20 Kg,10.0,"Kg,"
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,UVA,Tarija,Rosada,Primera,A,140.0,Caja/20 Kg,8.0,"Kg,"
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,TOMATE,Santa Cruz,Manzana,Primera,,60.0,Caja/20 Kg,6.0,Kg.
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,TOMATE,Santa Cruz,Manzana,Primera,N,65.0,Caja/20 Kg,6.5,Kg.
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,TOMATE,Santa Cruz,Manzana,Segunda,,25.0,Caja/20 Kg,2.5,Kg.
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,TOMATE,Santa Cruz,Manzana,Segunda,N,30.0,Caja/20 Kg,3.0,Kg.
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,TOMATE,Santa Cruz,Pera,Primera,,60.0,Caja/20 Kg.,6.0,Kg.
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,TOMATE,Santa Cruz,Pera,Primera,N,65.0,Caja/20 Kg.,6.5,Kg.
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,TOMATE,Santa Cruz,Pera,Segunda,,25.0,Caja/20 Kg,2.5,Kg.
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,TOMATE,Santa Cruz,Pera,Segunda,N,30.0,Caja/20 Kg,3.0,Kg.
+2013-02-07,cao-siprem,cao-2013-02-14,Abasto,YUCA Norteña,Santa Cruz,Blanca,Primera,,25.0,@,4.0,3 Libras
+2013-02-14,cao-siprem,cao-2013-02-14,Abasto,YUCA Norteña,Santa Cruz,Blanca,Primera,N,25.0,@,4.0,3 Libras

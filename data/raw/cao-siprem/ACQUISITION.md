@@ -69,3 +69,54 @@ immutable.
 - A missing bulletin for any week is NOT evidence a product was absent
   (§30) — coverage is 16 scattered survey dates across 2014–2026, and the
   report-coverage index reflects exactly that.
+
+## Batch 2 (2026-09-13) — Wayback/IBCE/agrodatos recovery, 21 bulletins
+
+Acquired the same day via the Wayback CDX sweep documented in
+`docs/DATA_SOURCES.md`. Same acquisition ethic: one polite GET per file
+(Wayback snapshot or live server), no credentials, no bulk crawling.
+Transcription: one `data-transcriber` agent per bulletin, then one
+adversarial `verifier` agent per bulletin re-deriving the expectation from
+the extracted text independently (workflow run `wf_a854b712-5ea`);
+20/21 transcriptions CONFIRMED on first verification, 1 (cao-2014-06-11)
+confirmed content-correct but flagged for unnecessary CSV quoting on two
+unit cells, fixed mechanically and re-checked. Nothing entered this
+directory unverified.
+
+| report_id | dates covered | retrieved from | source_id |
+|---|---|---|---|
+| cao-2012-09-13 | 2012-09-10, 2012-09-13 | Wayback 20121011070410 of http://cao.org.bo/archivos/descargas/Precios%20Mayorista%2013-09-2012.pdf | cao-siprem |
+| cao-2012-09-17 | 2012-09-17 (09-13 from cao-2012-09-13) | Wayback 20121011070131, same folder | cao-siprem |
+| cao-2012-12-10 | 2012-12-06, 2012-12-10 | Wayback 20130122124825, same folder | cao-siprem |
+| cao-2013-01-14 | 2013-01-10, 2013-01-14 | Wayback 20130122124829, same folder | cao-siprem |
+| cao-2013-02-14 | 2013-02-07, 2013-02-14 | Wayback 20130316104000, same folder | cao-siprem |
+| cao-2013-02-18 | 2013-02-18 (02-14 from cao-2013-02-14) | Wayback 20130316103925, same folder | cao-siprem |
+| cao-2013-05-06 | 2013-05-02, 2013-05-06 | Wayback 20130816231003, same folder | cao-siprem |
+| cao-2013-05-09 | 2013-05-09 (05-06 from cao-2013-05-06) | Wayback 20130816204615, same folder | cao-siprem |
+| cao-2013-07-25 | 2013-07-18, 2013-07-25 | Wayback 20130822143404 of http://www.ibce.org.bo/images/idt_documentos/Precios-CAO-2013-07-25.pdf (404 on the live server) | ibce-cao-mirror |
+| cao-2014-04-23 | 2014-04-21, 2014-04-23 | https://ibce.org.bo/images/idt_documentos/Precios-CAO-2014-04-23.pdf (live, unlisted) | ibce-cao-mirror |
+| cao-2014-06-11 | 2014-06-11 (06-09 already imported via cao-2014-06-09) | https://ibce.org.bo/images/idt_documentos/Precios-CAO-2014-06-11.pdf (live, unlisted) | ibce-cao-mirror |
+| cao-2015-02-11 | 2015-02-04, 2015-02-11 | https://ibce.org.bo/images/idt_documentos/Precios-CAO-2015-02-11.pdf (live, unlisted) | ibce-cao-mirror |
+| cao-2025-12-01 | 2025-11-28, 2025-12-01 | https://www.agrodatos.com.bo/_files/ugd/6c3b2e_54dc189712cd41d09b054d3a6071545c.pdf | cao-siprem |
+| cao-2025-12-03 | 2025-12-03 (12-01 from cao-2025-12-01) | https://www.agrodatos.com.bo/_files/ugd/6c3b2e_1b77e91a1c824800a0e09a4781d0d028.pdf | cao-siprem |
+| cao-2025-12-05 | 2025-12-05 (12-03 from cao-2025-12-03) | https://www.agrodatos.com.bo/_files/ugd/6c3b2e_3be9ba321e4c4a4c9d8618d9cf098f2b.pdf | cao-siprem |
+| cao-2025-12-10 | 2025-12-08, 2025-12-10 | https://www.agrodatos.com.bo/_files/ugd/6c3b2e_e982f6962b144a34a22837523538216e.pdf | cao-siprem |
+| cao-2025-12-12 | 2025-12-12 (12-10 from cao-2025-12-10) | https://www.agrodatos.com.bo/_files/ugd/6c3b2e_d0858fad1b264405a2c50811c33d820f.pdf | cao-siprem |
+| cao-2025-12-15 | 2025-12-15 (12-12 from cao-2025-12-12) | https://www.agrodatos.com.bo/_files/ugd/6c3b2e_a1df382f9b68423596b61dc6de23d617.pdf | cao-siprem |
+| cao-2026-01-21 | 2026-01-16, 2026-01-21 | https://www.agrodatos.com.bo/_files/ugd/6c3b2e_356a925baddb468780f98cb60a297944.pdf | cao-siprem |
+| cao-2026-01-26 | 2026-01-23, 2026-01-26 | https://www.agrodatos.com.bo/_files/ugd/6c3b2e_f55fb07f46b445838f582cd57da57c9c.pdf | cao-siprem |
+| cao-2026-01-28 | 2026-01-28 (01-26 from cao-2026-01-26) | https://www.agrodatos.com.bo/_files/ugd/6c3b2e_a29d931e120a44298bea0ffa13a33f2b.pdf | cao-siprem |
+
+Wayback snapshot URLs are `https://web.archive.org/web/<timestamp>id_/<original URL>`.
+All transcription decisions from the first batch apply unchanged, plus one
+new one:
+
+- **`row_seq` print-order discriminator.** The 2013-07-25 bulletin uses a
+  reduced layout with NO Origen and NO Calidad columns, yet still prints
+  quality-tiered duplicate lines (e.g. two "LIMON / Amarillo / 100
+  Unidades" lines at different prices). Members of such a group carry
+  `row_seq` 1, 2, … in print order — a structural provenance fact (the
+  line's position in the immutable PDF), not an invented cell value — and
+  the observation ID includes it only when present, so every other
+  observation ID in the dataset is unchanged. See `row_seq` in
+  `scripts/data/schemas.ts`.

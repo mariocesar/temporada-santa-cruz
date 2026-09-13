@@ -1,0 +1,32 @@
+observed_at,source_id,report_id,market,product_raw,origin_raw,variety_raw,quality,availability,wholesale_price,wholesale_unit,retail_price,retail_unit
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,DURAZNO,Santa Cruz,De partir,Primera,N,150.0,Caja/ 17 Kg.,12.0,"Kg,"
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,DURAZNO,Santa Cruz,De partir,Segunda,N,135.0,Caja/ 17 Kg.,10.0,"Kg,"
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,DURAZNO,Santa Cruz,Amarillo,Primera,N,150.0,Caja/ 17 Kg.,12.0,"Kg,"
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,DURAZNO,Santa Cruz,Amarillo,Segunda,N,135.0,Caja/ 17 Kg.,10.0,"Kg,"
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,FRUTILLA,Santa Cruz,,Primera,N,12.0,Caja/1 Kg.,15.0,"Kg,"
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,FRUTILLA,Santa Cruz,,Segunda,N,10.0,Caja/1 Kg.,13.0,"Kg,"
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,GUINEO,,,Grande,N,90.0,Racimo,12.0,Docena
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,GUINEO,,,Pequeño,N,60.0,Racimo,7.0,Docena
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,GUINEO,La Paz,,Primera,N,120.0,Caja 15/pengas,12.0,Docena
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,LIMON,,De Licuar,Primera,N,30.0,100 Unidades,10.0,25 Unidades
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,LIMON,,Amarillo,Primera,N,45.0,100 Unidades,13.0,25 Unidades
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,LIMON,,Amarillo,Segunda,N,35.0,100 Unidades,10.0,25 Unidades
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,NARANJA,Santa Cruz,Criolla,Primera,N,45.0,100 Unidades,15.0,25 Unidades
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,PALTA,Perú,,Primera,E,430.0,Caja/18 Kg.,30.0,Kg.
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,PAPAYA,,,Grande,N,850.0,100 Unidades,10.0,Unidad
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,PAPAYA,,,Mediana,N,600.0,100 Unidades,7.0,Unidad
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,PIÑA,Chapare,,Grande,N,850.0,100 Unidades,10.0,Unidad
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,PIÑA,Chapare,,Pequeño,N,300.0,100 Unidades,4.0,Unidad
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,BANANO,Chapare,,Primera,N,100.0,Caja/14 pengas,10.0,Docena
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,SANDIA,Santa Cruz,Hibrida,Grande,N,3000.0,100 Unidades,35.0,Unidad
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,SANDIA,Santa Cruz,Hibrida,Pequeño,N,1200.0,100 Unidades,15.0,Unidad
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,UVA,Saipina,Blanca,Primera,E,270.0,Caja/18 Kg,20.0,"Kg,"
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,UVA,Perú,Blanca,Primera,A,380.0,Caja/10 Kg.,50.0,"Kg,"
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,UVA,Brasil,Blanca,Primera,E,300.0,Caja/8Kg.,45.0,"Kg,"
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,UVA,Brasil,Negra,Primera,E,270.0,Caja/8Kg.,40.0,"Kg,"
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,UVA,Brasil,Rosada,Primera,E,300.0,Caja/8Kg.,45.0,"Kg,"
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,TOMATE,Santa Cruz,Manzana,Primera,E,120.0,Caja/20 Kg,12.0,Kg.
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,TOMATE,Santa Cruz,Manzana,Segunda,E,100.0,Caja/20 Kg,10.0,Kg.
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,TOMATE,Santa Cruz,Pera,Primera,N,60.0,Caja/20 Kg.,6.0,Kg.
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,TOMATE,Santa Cruz,Pera,Segunda,N,50.0,Caja/20 Kg,5.0,Kg.
+2025-12-03,cao-siprem,cao-2025-12-03,Abasto,YUCA Norteña,Santa Cruz,Blanca,Primera,N,50.0,@,10.0,3 Libras

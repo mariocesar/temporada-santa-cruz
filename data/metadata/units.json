@@ -129,7 +129,8 @@
     "aliases": [
       "caja/17 kg",
       "caja/ 17 kg.",
-      "caja/17 kg."
+      "caja/17 kg.",
+      "caja 17 kg."
     ],
     "knownWeightKg": 17,
     "conversionConfidence": 0.9
@@ -190,9 +191,21 @@
     "canonical": "caja/22 kg",
     "aliases": [
       "caja/22 kg",
-      "caja/22 kg."
+      "caja/22 kg.",
+      "caja/ 22 kg."
     ],
     "knownWeightKg": 22,
+    "conversionConfidence": 0.9
+  },
+  {
+    "id": "caja-2-arroba",
+    "canonical": "caja/2@",
+    "aliases": [
+      "caja/2@",
+      "caja/2 @",
+      "caja/2 arrobas"
+    ],
+    "knownWeightKg": 22.68,
     "conversionConfidence": 0.9
   },
   {

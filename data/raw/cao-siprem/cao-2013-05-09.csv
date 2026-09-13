@@ -1,0 +1,28 @@
+observed_at,source_id,report_id,market,product_raw,origin_raw,variety_raw,quality,availability,wholesale_price,wholesale_unit,retail_price,retail_unit
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,DURAZNO,Chile,Liso,Primera,E,230.0,Caja/ 22 Kg.,17.0,"Kg,"
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,FRUTILLA,Santa Cruz,,Primera,E,10.0,Caja/1 Kg.,12.0,"Kg,"
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,FRUTILLA,Santa Cruz,,Segunda,E,8.0,Caja/1 Kg.,10.0,"Kg,"
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,GUINEO,,,Grande,N,35.0,Racimo,7.0,Docena
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,GUINEO,,,Pequeño,N,25.0,Racimo,5.0,Docena
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,LIMON,,De Licuar,Primera,N,38.0,100 Unidades,10.0,25 Unidades
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,LIMON,,Amarillo,Primera,N,36.0,100 Unidades,10.0,25 Unidades
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,LIMON,,Amarillo,Segunda,N,31.0,100 Unidades,8.0,25 Unidades
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,MANDARINA,Santa Cruz,Criolla,Primera,N,30.0,100 Unidades,8.0,25 Unidades
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,MANDARINA,Santa Cruz,Japonesa,Primera,A,30.0,100 Unidades,8.0,25 Unidades
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,MANDARINA,Santa Cruz,Japonesa,Segunda,A,24.0,100 Unidades,6.0,25 Unidades
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,NARANJA,Santa Cruz,Criolla,Primera,A,23.0,100 Unidades,6.0,25 Unidades
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,NARANJA,Santa Cruz,,Primera,N,25.0,Bolsa 20 Kg.,1.2,Kg.
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,PAPAYA,,,Grande,N,400.0,100 Unidades,5.0,Unidad
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,PAPAYA,,,Mediana,N,240.0,100 Unidades,3.0,Unidad
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,PIÑA,Chapare,,Grande,A,400.0,100 Unidades,5.0,Unidad
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,PIÑA,Chapare,,Pequeño,N,250.0,100 Unidades,3.0,Unidad
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,BANANO,Chapare,,Primera,N,50.0,Caja/14 pengas,5.0,Docena
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,SANDIA,Santa Cruz,Japonesa,Grande,N,2700.0,100 Unidades,30.0,Unidad
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,SANDIA,Santa Cruz,Japonesa,Mediana,N,1300.0,100 Unidades,15.0,Unidad
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,SANDIA,Santa Cruz,Japonesa,Pequeño,N,400.0,100 Unidades,5.0,Unidad
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,UVA,Chile,Rosada,Primera,E,130.0,Caja/10 Kg,20.0,"Kg,"
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,TOMATE,Santa Cruz,Manzana,Primera,N,15.0,Caja/20 Kg,2.0,Kg.
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,TOMATE,Santa Cruz,Manzana,Segunda,N,8.0,Caja/20 Kg,1.0,Kg.
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,TOMATE,Santa Cruz,Pera,Primera,N,15.0,Caja/20 Kg.,2.0,Kg.
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,TOMATE,Santa Cruz,Pera,Segunda,N,8.0,Caja/20 Kg,1.0,Kg.
+2013-05-09,cao-siprem,cao-2013-05-09,Abasto,YUCA Norteña,Santa Cruz,Blanca,Primera,N,20.0,@,3.0,3 Libras
