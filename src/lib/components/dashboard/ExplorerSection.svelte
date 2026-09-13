@@ -1,5 +1,6 @@
 <script lang="ts">
   import { filterViews, sortViews, SORT_OPTIONS, type ProductView } from '../../data/views'
+  import { MONTH_NAMES_ES, monthOfWeekBin } from '../../domain/months'
   import type { DashboardState } from '../../stores/dashboard.svelte'
   import { CATEGORY_FILTERS, MODE_LABEL, type ViewMode } from '../../i18n/labels'
   import SegmentedControl from '../ui/SegmentedControl.svelte'
@@ -24,14 +25,86 @@
   const filtered = $derived(filterViews(views, dash.query, dash.category))
   const visible = $derived(sortViews(filtered, dash.sort, dash.mode, dash.referenceWeek))
 
+  /**
+   * Poster view: the whole year on one screen, the way the owner-vetted
+   * reference reads (docs/design-references/NOTES.md §1). It changes
+   * nothing about the encoding — same curves, same honesty devices — only
+   * how much room the cascade gets.
+   */
+  let poster = $state(false)
+  let viewportHeight = $state(900)
+
+  // Chrome above and below the cascade in poster view: masthead, control
+  // bar, both month axes, legend, and the page padding.
+  const POSTER_CHROME_PX = 390
+  const POSTER_ROW_GAP = 10
+
+  const posterRowHeight = $derived(
+    Math.max(
+      26,
+      Math.min(
+        64,
+        Math.floor((viewportHeight - POSTER_CHROME_PX) / Math.max(1, visible.length)) -
+          POSTER_ROW_GAP,
+      ),
+    ),
+  )
+
+  const referenceMonth = $derived(monthOfWeekBin(dash.referenceWeek))
+
+  // The page behind the poster must not scroll under it.
+  $effect(() => {
+    if (!poster) return
+    const previous = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previous
+    }
+  })
+
   function clearFilters() {
     dash.query = ''
     dash.category = 'todos'
   }
 </script>
 
-<section class="explorer" aria-labelledby="explorer-title">
-  <h2 id="explorer-title">Explorar todo el año</h2>
+<svelte:window
+  bind:innerHeight={viewportHeight}
+  onkeydown={(event) => {
+    if (poster && event.key === 'Escape') poster = false
+  }}
+/>
+
+<section class="explorer" class:poster aria-labelledby="explorer-title">
+  <div class="head">
+    <div>
+      {#if poster}
+        <p class="kicker">Santa Cruz de la Sierra · Bolivia</p>
+      {/if}
+      <h2 id="explorer-title">
+        {#if poster}
+          El año entero
+        {:else}
+          Explorar todo el año
+        {/if}
+      </h2>
+      {#if poster}
+        <p class="poster-note">
+          {MODE_LABEL[dash.mode]} · semana {dash.referenceWeek} ·
+          {MONTH_NAMES_ES[referenceMonth - 1]}
+        </p>
+      {/if}
+    </div>
+
+    <button
+      type="button"
+      class="poster-toggle"
+      aria-pressed={poster}
+      onclick={() => (poster = !poster)}
+    >
+      {poster ? 'Salir de la lámina' : 'Ver como lámina'}
+    </button>
+  </div>
 
   <div class="controls">
     <p class="search">
@@ -80,6 +153,8 @@
       mode={dash.mode}
       referenceWeek={dash.referenceWeek}
       selectedSlug={dash.selectedSlug}
+      rowHeight={poster ? posterRowHeight : 54}
+      rowGap={poster ? POSTER_ROW_GAP : 14}
       {onselect}
     />
   {/if}
@@ -90,9 +165,77 @@
     margin-bottom: var(--space-8);
   }
 
+  /* The poster takes the screen: one page, the whole year, no competing
+     chrome. Escape or the toggle returns to the dashboard. */
+  .explorer.poster {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    margin: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    background: var(--color-bg);
+    padding: var(--space-6) clamp(var(--space-4), 4vw, var(--space-8));
+    animation: poster-in 240ms ease both;
+  }
+
+  @keyframes poster-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  .head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
   h2 {
     font-size: 1.5rem;
-    margin: 0 0 var(--space-4);
+    margin: 0;
+  }
+
+  .explorer.poster h2 {
+    font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+    line-height: 1.05;
+    color: var(--color-display);
+  }
+
+  .kicker {
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.14em;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-1);
+  }
+
+  .poster-note {
+    margin: var(--space-1) 0 0;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+  }
+
+  .poster-toggle {
+    appearance: none;
+    flex: none;
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-chip);
+    padding: var(--space-1) var(--space-3);
+    cursor: pointer;
+    transition: border-color 160ms ease, color 160ms ease;
+  }
+
+  .poster-toggle:hover {
+    border-color: var(--color-accent);
   }
 
   .controls {
