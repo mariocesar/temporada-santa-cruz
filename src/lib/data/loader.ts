@@ -48,14 +48,22 @@ export interface Dataset {
   index: DatasetIndex
   products: Product[]
   summaries: ProductSeasonSummary[]
+  seasonality: WeeklySeasonality[]
+  sources: DataSource[]
 }
 
-/** Core dataset for the dashboard shell (weekly detail loads on demand). */
+/**
+ * Full dataset for the dashboard. The weekly file is the largest one but the
+ * annual timeline needs every product's series up front, and the pipeline
+ * keeps it application-ready and small (§50–51).
+ */
 export async function loadDataset(): Promise<Dataset> {
-  const [index, products, summaries] = await Promise.all([
+  const [index, products, summaries, seasonality, sources] = await Promise.all([
     loadDatasetIndex(),
     loadProducts(),
     loadSummaries(),
+    loadSeasonality(),
+    loadSources(),
   ])
-  return { index, products, summaries }
+  return { index, products, summaries, seasonality, sources }
 }
