@@ -24,6 +24,30 @@ Bolivia. Static Svelte 5 SPA deployed to GitHub Pages. UI text in Spanish
 the repo in a working state after every significant milestone; commit in
 logical units (PROJECT.md §83) and push when a phase completes.
 
+## Multi-agent orchestration
+
+Execution sessions should use Workflow/subagent orchestration where fan-out
+genuinely pays. The kickoff prompts in `docs/PROMPTS.md` carry the explicit
+opt-in the harness requires — keep that language when adapting them.
+
+- **Fan out for:** source reconnaissance sweeps (per source/year), bulk
+  report transcription (per report), adversarial verification of findings
+  and extractions, accessibility/review audits (per dimension), domain-math
+  edge-case verification.
+- **Stay single-agent for:** integrative work — domain modeling, UI
+  composition, design decisions. Parallel agents that must mutate files use
+  worktree isolation.
+- **Right-size models and effort** via the project agents in
+  `.claude/agents/`: `data-transcriber` (haiku, low) for mechanical
+  extraction; `source-scout` (sonnet, medium) for scoped recon;
+  `verifier` (inherit, high) for adversarial checks. Inline `agent()` calls
+  follow the same ladder: cheap/low for mechanical stages, inherit for
+  default work, high effort only for verify/judge stages.
+- **Nothing extracted enters `data/raw/` unverified:** every transcription
+  batch gets a verifier pass before the pipeline consumes it.
+- Scale orchestration to the phase, not the maximum: a handful of agents
+  with one verify pass is the norm; deep fan-out is for Phase 5 data work.
+
 ## Hard constraints
 
 - Stack is exactly Bun + Vite + Svelte 5 (runes) + TypeScript strict. No
