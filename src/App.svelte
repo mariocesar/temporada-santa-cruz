@@ -1,28 +1,52 @@
 <script lang="ts">
-  // Phase 1 shell: proves the pipeline's generated JSON loads in the app
-  // (raw → normalized → derived → public JSON → UI). The functional
-  // dashboard is Phase 2 (docs/PLAN.md).
   import { loadDataset, type Dataset } from './lib/data/loader'
-
-  const CONFIDENCE_TEXT: Record<string, string> = {
-    muy_baja: 'Confianza muy baja',
-    baja: 'Confianza baja',
-    media: 'Confianza media',
-    alta: 'Confianza alta',
-  }
+  import { buildProductViews, type ProductView } from './lib/data/views'
+  import { DashboardState, todayWeekBin } from './lib/stores/dashboard.svelte'
+  import { parseParams } from './lib/stores/urlState'
+  import AhoraSection from './lib/components/dashboard/AhoraSection.svelte'
+  import DemoBanner from './lib/components/dashboard/DemoBanner.svelte'
+  import ExplorerSection from './lib/components/dashboard/ExplorerSection.svelte'
+  import SiteHeader from './lib/components/dashboard/SiteHeader.svelte'
+  import MethodologySection from './lib/components/methodology/MethodologySection.svelte'
+  import SourcesSection from './lib/components/methodology/SourcesSection.svelte'
+  import ProductDetail from './lib/components/products/ProductDetail.svelte'
 
   let dataset = $state<Dataset | null>(null)
+  let views = $state<ProductView[]>([])
+  let dash = $state<DashboardState | null>(null)
   let error = $state<string | null>(null)
+
+  let slugs: ReadonlySet<string> = new Set()
 
   $effect(() => {
     loadDataset()
-      .then((d) => {
-        dataset = d
+      .then((loaded) => {
+        const built = buildProductViews(loaded.products, loaded.summaries, loaded.seasonality)
+        slugs = new Set(built.map((v) => v.product.slug))
+        dataset = loaded
+        views = built
+        dash = new DashboardState(location.search, slugs, todayWeekBin())
       })
       .catch((e: unknown) => {
         error = e instanceof Error ? e.message : String(e)
       })
   })
+
+  // Shareable state ↔ URL (§74). replaceState keeps the history clean; a
+  // reload or shared link restores the exact dashboard state.
+  $effect(() => {
+    if (!dash) return
+    const search = dash.searchString
+    if (search !== location.search) {
+      history.replaceState(null, '', `${location.pathname}${search}${location.hash}`)
+    }
+  })
+
+  const selectedView = $derived(
+    dash?.selectedSlug != null
+      ? (views.find((v) => v.product.slug === dash?.selectedSlug) ?? null)
+      : null,
+  )
 
   const dataUpdatedAt = $derived(
     dataset?.index.dataUpdatedAt
@@ -31,123 +55,123 @@
         )
       : null,
   )
+
+  function select(slug: string) {
+    if (dash) dash.selectedSlug = slug
+  }
+
+  function closeDetail() {
+    if (dash) dash.selectedSlug = null
+  }
 </script>
+
+<svelte:window
+  onpopstate={() => {
+    if (dash) dash.applyParams(parseParams(location.search, slugs))
+  }}
+/>
 
 <main>
   {#if dataset?.index.containsDemoData}
-    <p class="demo-banner" role="status">
-      DATOS DE DEMOSTRACIÓN — los valores mostrados son sintéticos y no
-      describen ningún mercado real.
-    </p>
+    <DemoBanner />
   {/if}
 
-  <header>
-    <h1>Temporada Santa Cruz</h1>
-    <p class="subtitle">
-      Cuándo comprar frutas y verduras en Santa Cruz — basado en oferta,
-      precios, procedencia y cosechas reales.
-    </p>
-  </header>
+  <SiteHeader {dataUpdatedAt} />
 
   {#if error}
-    <p class="status error">No se pudieron cargar los datos: {error}</p>
-  {:else if !dataset}
-    <p class="status">Cargando datos…</p>
-  {:else}
-    <section aria-label="Estado del conjunto de datos">
-      <p class="status">
-        {dataset.products.length} productos ·
-        {dataset.index.observationCount} observaciones ·
-        {#if dataUpdatedAt}datos actualizados hasta {dataUpdatedAt}{/if}
+    <section class="state-box" aria-live="assertive">
+      <h2>No se pudieron cargar los datos</h2>
+      <p>{error}</p>
+      <p class="muted">
+        Si el problema persiste, el conjunto de datos publicado puede estar
+        dañado o ausente. Intenta recargar la página.
       </p>
-      <ul class="products">
-        {#each dataset.summaries as summary (summary.productId)}
-          {@const product = dataset.products.find((p) => p.id === summary.productId)}
-          <li>
-            <span class="name">{product?.nameEs ?? summary.productId}</span>
-            {#if summary.insufficientEvidence}
-              <span class="badge insufficient">Datos insuficientes</span>
-            {:else}
-              <span class="badge">{CONFIDENCE_TEXT[summary.confidenceLabel]}</span>
-            {/if}
-          </li>
-        {/each}
-      </ul>
-      <p class="status">El panel interactivo llega en la siguiente fase.</p>
     </section>
+  {:else if !dataset || !dash}
+    <p class="loading" role="status">Cargando datos…</p>
+  {:else}
+    <AhoraSection {views} {dash} onselect={select} />
+    <ExplorerSection {views} {dash} onselect={select} />
+
+    {#if selectedView}
+      <ProductDetail
+        view={selectedView}
+        sources={dataset.sources}
+        referenceWeek={dash.referenceWeek}
+        onclose={closeDetail}
+      />
+    {/if}
   {/if}
+
+  <MethodologySection />
+  {#if dataset}
+    <SourcesSection sources={dataset.sources} />
+  {/if}
+
+  <footer>
+    <p>
+      Temporada Santa Cruz — código bajo licencia MIT, datos curados bajo
+      CC BY 4.0.
+      <a
+        href="https://github.com/mariocesar/temporada-santa-cruz"
+        target="_blank"
+        rel="noopener noreferrer">Código y datos en GitHub</a
+      >.
+    </p>
+    {#if dataUpdatedAt}
+      <p class="muted">Datos actualizados hasta: {dataUpdatedAt}.</p>
+    {/if}
+  </footer>
 </main>
 
 <style>
   main {
-    max-width: 42rem;
+    max-width: 72rem;
     margin: 0 auto;
-    padding: var(--space-8) var(--space-4);
+    padding: var(--space-6) var(--space-4) var(--space-8);
   }
 
-  h1 {
-    font-size: 2rem;
-    line-height: 1.2;
+  .loading {
+    color: var(--color-text-muted);
+    margin: var(--space-8) 0;
+  }
+
+  .state-box {
+    background: var(--color-surface);
+    border: 1px solid #ddb6ab;
+    border-radius: 0.5rem;
+    padding: var(--space-6);
+    margin: var(--space-6) 0;
+    max-width: 36rem;
+  }
+
+  .state-box h2 {
+    font-size: 1.125rem;
+    margin: 0 0 var(--space-2);
+    color: #8a2d1f;
+  }
+
+  .state-box p {
     margin: 0 0 var(--space-2);
   }
 
-  .subtitle {
-    color: var(--color-text-muted);
-    font-size: 1.125rem;
-    margin: 0;
-  }
-
-  .status {
-    margin-top: var(--space-6);
-    color: var(--color-text-muted);
-  }
-
-  .error {
-    color: #8a2d1f;
-  }
-
-  .demo-banner {
-    background: #fdeeca;
-    border: 1px solid #e5c574;
-    color: #6b4d05;
-    font-weight: 600;
+  footer {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-4);
     font-size: 0.875rem;
-    letter-spacing: 0.02em;
-    padding: var(--space-2) var(--space-3);
-    border-radius: 0.375rem;
-    margin: 0 0 var(--space-6);
+    color: var(--color-text-muted);
   }
 
-  .products {
-    list-style: none;
-    margin: var(--space-4) 0 0;
-    padding: 0;
-    display: grid;
-    gap: var(--space-2);
+  footer p {
+    margin: 0 0 var(--space-1);
   }
 
-  .products li {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-3);
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 0.375rem;
-    padding: var(--space-2) var(--space-3);
+  footer a {
+    color: var(--color-accent);
   }
 
-  .name {
-    font-weight: 600;
-  }
-
-  .badge {
+  .muted {
     color: var(--color-text-muted);
     font-size: 0.8125rem;
-  }
-
-  .badge.insufficient {
-    color: #8a2d1f;
-    font-weight: 600;
   }
 </style>

@@ -1,0 +1,140 @@
+<script lang="ts">
+  import type { DataSource } from '../../data/types'
+
+  interface Props {
+    sources: ReadonlyArray<DataSource>
+  }
+
+  let { sources }: Props = $props()
+
+  function originalName(source: DataSource): string | null {
+    if (source.kind !== 'mirror' || !source.mirrorOf) return null
+    return sources.find((s) => s.id === source.mirrorOf)?.name ?? source.mirrorOf
+  }
+</script>
+
+<section id="fuentes" class="sources-section" aria-labelledby="sources-title">
+  <h2 id="sources-title">Fuentes de datos</h2>
+  <p class="intro">
+    Cada valor derivado del panel es trazable a observaciones de estas fuentes.
+    Los espejos dan acceso a material original pero no cuentan como evidencia
+    independiente.
+  </p>
+
+  <ul class="cards">
+    {#each sources as source (source.id)}
+      <li class="card">
+        <h3>
+          {source.name}
+          {#if source.synthetic}
+            <span class="synthetic-tag">SINTÉTICA (DEMO)</span>
+          {/if}
+        </h3>
+        <p class="publisher">{source.publisher}</p>
+        {#if source.description}
+          <p class="description">{source.description}</p>
+        {/if}
+        {#if source.coverageStart || source.coverageEnd}
+          <p class="meta">
+            Cobertura: {source.coverageStart ?? '…'} – {source.coverageEnd ?? '…'}
+          </p>
+        {/if}
+        {#if originalName(source)}
+          <p class="meta">Espejo de: {originalName(source)}</p>
+        {/if}
+        {#if source.methodologyNotes}
+          <p class="meta">Uso en el modelo: {source.methodologyNotes}</p>
+        {/if}
+        {#if source.licenseNotes}
+          <p class="meta">Licencia y límites: {source.licenseNotes}</p>
+        {/if}
+        {#if source.url}
+          <p class="link">
+            <a href={source.url} target="_blank" rel="noopener noreferrer">
+              {source.url}
+            </a>
+          </p>
+        {/if}
+      </li>
+    {/each}
+  </ul>
+</section>
+
+<style>
+  .sources-section {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin: 0 0 var(--space-3);
+  }
+
+  .intro {
+    color: var(--color-text-muted);
+    max-width: 48rem;
+  }
+
+  .cards {
+    list-style: none;
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: var(--space-4);
+  }
+
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    padding: var(--space-4);
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin: 0 0 var(--space-1);
+  }
+
+  .synthetic-tag {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: #6b4d05;
+    background: #fdeeca;
+    border: 1px solid #e5c574;
+    border-radius: 999px;
+    padding: 0 var(--space-2);
+    margin-left: var(--space-1);
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .publisher {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin: 0 0 var(--space-2);
+  }
+
+  .description {
+    font-size: 0.9375rem;
+    margin: 0 0 var(--space-2);
+  }
+
+  .meta {
+    color: var(--color-text-muted);
+    font-size: 0.8125rem;
+    margin: 0 0 var(--space-1);
+  }
+
+  .link {
+    margin: var(--space-2) 0 0;
+    font-size: 0.8125rem;
+    overflow-wrap: anywhere;
+  }
+
+  .link a {
+    color: var(--color-accent);
+  }
+</style>
