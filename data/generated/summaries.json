@@ -995,5 +995,103 @@
       "demo-mayorista",
       "demo-minorista"
     ]
+  },
+  {
+    "productId": "palta",
+    "peakWeeks": [],
+    "marketSeasonRanges": [],
+    "localSeasonRanges": [],
+    "observationCount": 0,
+    "yearsCovered": 0,
+    "confidence": 0,
+    "confidenceLabel": "muy_baja",
+    "insufficientEvidence": true,
+    "evidence": {
+      "observations": 0,
+      "years": 0,
+      "independentSources": 0,
+      "originKnownRatio": null,
+      "yearConsistency": null,
+      "weekCoverage": 0.7308
+    },
+    "primaryOrigins": [],
+    "localShareOfKnown": null,
+    "priceComparable": false,
+    "containsSyntheticData": false,
+    "sourceIds": []
+  },
+  {
+    "productId": "mango",
+    "peakWeeks": [],
+    "marketSeasonRanges": [],
+    "localSeasonRanges": [],
+    "observationCount": 0,
+    "yearsCovered": 0,
+    "confidence": 0,
+    "confidenceLabel": "muy_baja",
+    "insufficientEvidence": true,
+    "evidence": {
+      "observations": 0,
+      "years": 0,
+      "independentSources": 0,
+      "originKnownRatio": null,
+      "yearConsistency": null,
+      "weekCoverage": 0.7308
+    },
+    "primaryOrigins": [],
+    "localShareOfKnown": null,
+    "priceComparable": false,
+    "containsSyntheticData": false,
+    "sourceIds": [],
+    "referenceSeason": {
+      "ranges": [
+        {
+          "startWeek": 44,
+          "endWeek": 5
+        }
+      ],
+      "basis": "literature",
+      "sourceIds": [
+        "libro-frutas-bolivia-2011"
+      ],
+      "note": "Ventana a nivel Bolivia (Yungas de La Paz, Santa Cruz, Beni y Pando); la bibliografía no da un calendario específico para Santa Cruz."
+    }
+  },
+  {
+    "productId": "limon",
+    "peakWeeks": [],
+    "marketSeasonRanges": [],
+    "localSeasonRanges": [],
+    "observationCount": 0,
+    "yearsCovered": 0,
+    "confidence": 0,
+    "confidenceLabel": "muy_baja",
+    "insufficientEvidence": true,
+    "evidence": {
+      "observations": 0,
+      "years": 0,
+      "independentSources": 0,
+      "originKnownRatio": null,
+      "yearConsistency": null,
+      "weekCoverage": 0.7308
+    },
+    "primaryOrigins": [],
+    "localShareOfKnown": null,
+    "priceComparable": false,
+    "containsSyntheticData": false,
+    "sourceIds": [],
+    "referenceSeason": {
+      "ranges": [
+        {
+          "startWeek": 1,
+          "endWeek": 18
+        }
+      ],
+      "basis": "literature",
+      "sourceIds": [
+        "ibce-perfil-limon-2010"
+      ],
+      "note": "Mayor oferta en el mercado Abasto de Santa Cruz de enero a abril (a veces mayo), según el perfil de mercado del IBCE (2010)."
+    }
   }
 ]

@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "productId": "limon",
+    "windows": [{ "startMonth": 1, "endMonth": 4 }],
+    "sourceIds": ["ibce-perfil-limon-2010"],
+    "note": "Mayor oferta en el mercado Abasto de Santa Cruz de enero a abril (a veces mayo), según el perfil de mercado del IBCE (2010).",
+    "citation": "IBCE, «Perfil de Mercado — Limón» (abril 2010), §5.5, p. 12: «para los meses de enero-abril (a veces mayo), los precios en el mercado del limón son bajos a causa de la mayor oferta de la misma, mientras que para los meses de junio – noviembre, el precio aumente debido a la escasez» (mercado Abasto, Santa Cruz; serie de precios atribuida a la Cámara Agropecuaria del Oriente)."
+  },
+  {
+    "productId": "mango",
+    "windows": [{ "startMonth": 11, "endMonth": 1 }],
+    "sourceIds": ["libro-frutas-bolivia-2011"],
+    "note": "Ventana a nivel Bolivia (Yungas de La Paz, Santa Cruz, Beni y Pando); la bibliografía no da un calendario específico para Santa Cruz.",
+    "citation": "De la Peña Soria, J. A. y Arteaga Zambrana, J. E., «Las Frutas en Bolivia», Editorial Riquezas SRL, La Paz (2011), ISBN 978-99974-880-5-3, entrada MANGO: «En Bolivia los cultivos de mangos se encuentran dispersos en toda la zona de los Yungas de La Paz, Santa Cruz, Beni y Pando. Las cosechas se realizan a partir de los meses de noviembre a enero.»"
+  }
+]

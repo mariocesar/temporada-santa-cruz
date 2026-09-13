@@ -141,5 +141,43 @@
       "mandioca"
     ],
     "category": "tuber"
+  },
+  {
+    "id": "palta",
+    "slug": "palta",
+    "nameEs": "Palta",
+    "scientificName": "Persea americana",
+    "aliases": [
+      "palta",
+      "aguacate"
+    ],
+    "category": "fruit",
+    "varieties": [
+      "Criolla",
+      "Hass"
+    ]
+  },
+  {
+    "id": "mango",
+    "slug": "mango",
+    "nameEs": "Mango",
+    "scientificName": "Mangifera indica",
+    "aliases": [
+      "mango"
+    ],
+    "category": "fruit"
+  },
+  {
+    "id": "limon",
+    "slug": "limon",
+    "nameEs": "Limón",
+    "scientificName": "Citrus aurantiifolia",
+    "aliases": [
+      "limón",
+      "limon",
+      "limón sutil",
+      "lima ácida"
+    ],
+    "category": "fruit"
   }
 ]

@@ -4,7 +4,11 @@
     "slug": "achachairu",
     "nameEs": "Achachairú",
     "scientificName": "Garcinia humilis",
-    "aliases": ["achachairú", "achachairu", "achacha"],
+    "aliases": [
+      "achachairú",
+      "achachairu",
+      "achacha"
+    ],
     "category": "fruit"
   },
   {
@@ -12,7 +16,10 @@
     "slug": "papaya",
     "nameEs": "Papaya",
     "scientificName": "Carica papaya",
-    "aliases": ["papaya", "lechosa"],
+    "aliases": [
+      "papaya",
+      "lechosa"
+    ],
     "category": "fruit"
   },
   {
@@ -20,7 +27,11 @@
     "slug": "pina",
     "nameEs": "Piña",
     "scientificName": "Ananas comosus",
-    "aliases": ["piña", "pina", "ananá"],
+    "aliases": [
+      "piña",
+      "pina",
+      "ananá"
+    ],
     "category": "fruit"
   },
   {
@@ -28,25 +39,38 @@
     "slug": "mandarina",
     "nameEs": "Mandarina",
     "scientificName": "Citrus reticulata",
-    "aliases": ["mandarina"],
+    "aliases": [
+      "mandarina"
+    ],
     "category": "fruit",
-    "varieties": ["Criolla", "Ponkan"]
+    "varieties": [
+      "Criolla",
+      "Ponkan"
+    ]
   },
   {
     "id": "naranja",
     "slug": "naranja",
     "nameEs": "Naranja",
     "scientificName": "Citrus sinensis",
-    "aliases": ["naranja"],
+    "aliases": [
+      "naranja"
+    ],
     "category": "fruit",
-    "varieties": ["Criolla", "Valencia"]
+    "varieties": [
+      "Criolla",
+      "Valencia"
+    ]
   },
   {
     "id": "sandia",
     "slug": "sandia",
     "nameEs": "Sandía",
     "scientificName": "Citrullus lanatus",
-    "aliases": ["sandía", "sandia"],
+    "aliases": [
+      "sandía",
+      "sandia"
+    ],
     "category": "fruit"
   },
   {
@@ -54,7 +78,10 @@
     "slug": "durazno",
     "nameEs": "Durazno",
     "scientificName": "Prunus persica",
-    "aliases": ["durazno", "melocotón"],
+    "aliases": [
+      "durazno",
+      "melocotón"
+    ],
     "category": "fruit"
   },
   {
@@ -62,7 +89,10 @@
     "slug": "frutilla",
     "nameEs": "Frutilla",
     "scientificName": "Fragaria × ananassa",
-    "aliases": ["frutilla", "fresa"],
+    "aliases": [
+      "frutilla",
+      "fresa"
+    ],
     "category": "fruit"
   },
   {
@@ -70,16 +100,25 @@
     "slug": "uva",
     "nameEs": "Uva",
     "scientificName": "Vitis vinifera",
-    "aliases": ["uva"],
+    "aliases": [
+      "uva"
+    ],
     "category": "fruit",
-    "varieties": ["Moscatel", "Negra criolla"]
+    "varieties": [
+      "Moscatel",
+      "Negra criolla"
+    ]
   },
   {
     "id": "guineo",
     "slug": "guineo",
     "nameEs": "Guineo",
     "scientificName": "Musa acuminata",
-    "aliases": ["guineo", "banano", "guineo de seda"],
+    "aliases": [
+      "guineo",
+      "banano",
+      "guineo de seda"
+    ],
     "category": "fruit"
   },
   {
@@ -87,7 +126,9 @@
     "slug": "tomate",
     "nameEs": "Tomate",
     "scientificName": "Solanum lycopersicum",
-    "aliases": ["tomate"],
+    "aliases": [
+      "tomate"
+    ],
     "category": "vegetable"
   },
   {
@@ -95,7 +136,48 @@
     "slug": "yuca",
     "nameEs": "Yuca",
     "scientificName": "Manihot esculenta",
-    "aliases": ["yuca", "mandioca"],
+    "aliases": [
+      "yuca",
+      "mandioca"
+    ],
     "category": "tuber"
+  },
+  {
+    "id": "palta",
+    "slug": "palta",
+    "nameEs": "Palta",
+    "scientificName": "Persea americana",
+    "aliases": [
+      "palta",
+      "aguacate"
+    ],
+    "category": "fruit",
+    "varieties": [
+      "Criolla",
+      "Hass"
+    ]
+  },
+  {
+    "id": "mango",
+    "slug": "mango",
+    "nameEs": "Mango",
+    "scientificName": "Mangifera indica",
+    "aliases": [
+      "mango"
+    ],
+    "category": "fruit"
+  },
+  {
+    "id": "limon",
+    "slug": "limon",
+    "nameEs": "Limón",
+    "scientificName": "Citrus aurantiifolia",
+    "aliases": [
+      "limón",
+      "limon",
+      "limón sutil",
+      "lima ácida"
+    ],
+    "category": "fruit"
   }
 ]

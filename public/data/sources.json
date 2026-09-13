@@ -55,5 +55,29 @@
     "licenseNotes": "Sin restricciones: datos inventados.",
     "kind": "original",
     "synthetic": true
+  },
+  {
+    "id": "ibce-perfil-limon-2010",
+    "name": "IBCE — Perfil de Mercado: Limón (2010)",
+    "publisher": "Instituto Boliviano de Comercio Exterior (IBCE)",
+    "sourceType": "literature",
+    "url": "https://ibce.org.bo/images/estudios_mercado/Perfil-del-Limon.pdf",
+    "description": "Perfil de mercado del limón en Bolivia (abril 2010). Documenta zonas de producción (incluidas las provincias Ichilo, El Carmen y La Guardia-El Torno en Santa Cruz) y la estacionalidad de la oferta en el mercado Abasto de Santa Cruz con una serie de precios atribuida a la CAO.",
+    "accessedAt": "2026-09-13",
+    "methodologyNotes": "Fuente bibliográfica (§104): alimenta ÚNICAMENTE la temporada estimada de referencia, nunca los puntajes observados ni la confianza. La ventana se lee de la estacionalidad de precios/oferta del mercado Abasto descrita en el documento (§5.5, p. 12).",
+    "licenseNotes": "PDF institucional de difusión pública en el sitio del IBCE; se cita con enlace al original y no se redistribuye.",
+    "kind": "original"
+  },
+  {
+    "id": "libro-frutas-bolivia-2011",
+    "name": "Las Frutas en Bolivia — Editorial Riquezas (2011)",
+    "publisher": "Editorial Riquezas SRL (La Paz, Bolivia)",
+    "sourceType": "literature",
+    "url": "https://riquezasdebolivia.com/wp-content/uploads/2020/11/Las-Frutas-en-Bolivia-2018-c.pdf",
+    "description": "Libro de la Colección Bolivia Agropecuaria (De la Peña Soria, J. A. y Arteaga Zambrana, J. E., MMXI/2011, ISBN 978-99974-880-5-3) con entradas por fruta; algunas incluyen meses de cosecha explícitos a nivel nacional.",
+    "accessedAt": "2026-09-13",
+    "methodologyNotes": "Fuente bibliográfica (§104): alimenta ÚNICAMENTE la temporada estimada de referencia. Las ventanas son a nivel Bolivia, no específicas de Santa Cruz; la nota de cada entrada de fenología lo aclara.",
+    "licenseNotes": "PDF publicado por la propia editorial en riquezasdebolivia.com; se cita con enlace al original y no se redistribuye.",
+    "kind": "original"
   }
 ]
