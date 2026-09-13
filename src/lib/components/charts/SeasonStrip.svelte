@@ -2,6 +2,7 @@
   import { classifySeason } from '../../domain/classify'
   import { WEEK_BINS } from '../../domain/methodology'
   import { MONTH_START_DAY } from '../../domain/months'
+  import type { SeasonRange } from '../../data/types'
 
   interface Props {
     /** Season score series encoded as cells (index = week bin − 1). */
@@ -12,6 +13,12 @@
      * without stacking two full encodings (§16).
      */
     secondary?: ReadonlyArray<number | null>
+    /**
+     * Estimated reference season from cited bibliography (§104), drawn as an
+     * outlined/hatched band — a texture channel, never a solid fill, so it
+     * can never be read as an observed season class.
+     */
+    reference?: ReadonlyArray<SeasonRange>
     /** Reference week to mark with a vertical line (1..52). */
     markerWeek?: number | null
     /**
@@ -29,6 +36,7 @@
   let {
     primary,
     secondary,
+    reference = [],
     markerWeek = null,
     insufficient = false,
     height = 24,
@@ -40,6 +48,50 @@
   // rects stretch with the container; no text lives inside the SVG.
   const WIDTH = 364
   const UNDERLINE_HEIGHT = 4
+  const REFERENCE_INSET = 1.5
+  const HATCH_SPACING = 7
+
+  interface Segment {
+    x: number
+    w: number
+  }
+
+  // A cyclic range crossing the year boundary is ONE range drawn as two
+  // segments — December and January are adjacent (§104).
+  function linearSegments(range: SeasonRange): Segment[] {
+    const x = (range.startWeek - 1) * 7
+    if (range.startWeek <= range.endWeek) {
+      return [{ x, w: (range.endWeek - range.startWeek + 1) * 7 }]
+    }
+    return [
+      { x, w: (WEEK_BINS - range.startWeek + 1) * 7 },
+      { x: 0, w: range.endWeek * 7 },
+    ]
+  }
+
+  const referenceSegments = $derived(reference.flatMap(linearSegments))
+
+  interface HatchLine {
+    x1: number
+    y1: number
+    x2: number
+    y2: number
+  }
+
+  // Diagonal hatch clipped to a segment, computed in viewBox units so no
+  // SVG <pattern> ids are needed (patterns are document-global and this
+  // component renders many times per page). Lines: x(y) = a + (yBot − y).
+  function hatchLines(seg: Segment, yTop: number, yBot: number): HatchLine[] {
+    const bandH = yBot - yTop
+    const lines: HatchLine[] = []
+    for (let a = seg.x - bandH + HATCH_SPACING; a < seg.x + seg.w; a += HATCH_SPACING) {
+      const yLow = Math.max(yTop, yBot - (seg.x + seg.w - a))
+      const yHigh = Math.min(yBot, yBot - (seg.x - a))
+      if (yLow >= yHigh) continue
+      lines.push({ x1: a + (yBot - yHigh), y1: yHigh, x2: a + (yBot - yLow), y2: yLow })
+    }
+    return lines
+  }
 
   const cells = $derived(
     insufficient
@@ -106,6 +158,21 @@
 
   {#each MONTH_START_DAY.slice(1) as day (day)}
     <line class="month-line" x1={day} y1="0" x2={day} y2={height} />
+  {/each}
+
+  {#each referenceSegments as seg, segIndex (segIndex)}
+    <g aria-hidden="true">
+      <rect
+        class="reference-outline"
+        x={seg.x}
+        y={REFERENCE_INSET}
+        width={seg.w}
+        height={height - 2 * REFERENCE_INSET}
+      />
+      {#each hatchLines(seg, REFERENCE_INSET, height - REFERENCE_INSET) as hatch, i (i)}
+        <line class="reference-hatch" x1={hatch.x1} y1={hatch.y1} x2={hatch.x2} y2={hatch.y2} />
+      {/each}
+    </g>
   {/each}
 
   {#each noDataRuns as run (run.start)}
@@ -187,6 +254,21 @@
     stroke: var(--color-border);
     stroke-width: 2;
     stroke-dasharray: 4 5;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .reference-outline {
+    fill: none;
+    stroke: var(--season-reference);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .reference-hatch {
+    stroke: var(--season-reference);
+    stroke-width: 1;
+    opacity: 0.55;
     vector-effect: non-scaling-stroke;
   }
 

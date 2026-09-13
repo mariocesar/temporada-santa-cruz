@@ -29,6 +29,9 @@
 
   const referenceMonth = $derived(monthOfWeekBin(dash.referenceWeek))
 
+  // Estimate-only products never appear in these groups: insufficient
+  // evidence keeps stateAt at 'sin_datos' (§104) — a bibliography estimate
+  // is a year-scale approximation, never a current-week claim.
   const grouped = $derived(
     GROUPS.map((group) => ({
       ...group,
@@ -39,9 +42,11 @@
   const outCount = $derived(
     views.filter((v) => stateAt(v, dash.mode, dash.referenceWeek) === 'fuera').length,
   )
-  const noDataCount = $derived(
-    views.filter((v) => stateAt(v, dash.mode, dash.referenceWeek) === 'sin_datos').length,
+  const noDataViews = $derived(
+    views.filter((v) => stateAt(v, dash.mode, dash.referenceWeek) === 'sin_datos'),
   )
+  const noDataCount = $derived(noDataViews.length)
+  const estimatedCount = $derived(noDataViews.filter((v) => v.summary.referenceSeason).length)
   const anyInSeason = $derived(grouped.some((g) => g.items.length > 0))
 
   function seasonMonths(view: ProductView): string {
@@ -153,7 +158,8 @@
         {outCount} {outCount === 1 ? 'producto' : 'productos'} fuera de temporada en esta semana{noDataCount > 0 ? ' · ' : ''}
       {/if}
       {#if noDataCount > 0}
-        {noDataCount} sin datos suficientes
+        {noDataCount} sin datos suficientes{#if estimatedCount > 0}
+          &nbsp;(≈ {estimatedCount} con temporada estimada según bibliografía, ver la línea de tiempo){/if}
       {/if}
     </p>
   {/if}

@@ -2,6 +2,7 @@
   import { rangesFromMask } from '../../domain/cyclic'
   import { WEEK_BINS } from '../../domain/methodology'
   import { MONTH_NAMES_ES, formatRangesAsMonths, monthOfWeekBin } from '../../domain/months'
+  import { formatReferenceRanges, REFERENCE_SEASON_ARIA_ES } from '../../domain/referenceSeason'
   import { stateAt, type ProductView } from '../../data/views'
   import { CONFIDENCE_TEXT, SEASON_STATE_LABEL, type ViewMode } from '../../i18n/labels'
   import ConfidenceChip from '../ui/ConfidenceChip.svelte'
@@ -47,8 +48,11 @@
   /** Text equivalent for one row (§11): the chart must not be color-only. */
   function describeRow(view: ProductView): string {
     const s = view.summary
+    const estimate = s.referenceSeason
+      ? ` Temporada estimada según bibliografía: ${formatReferenceRanges(s.referenceSeason.ranges)} — no proviene de observaciones de mercado.`
+      : ''
     if (s.insufficientEvidence) {
-      return `${view.product.nameEs}: datos insuficientes para clasificar la temporada.`
+      return `${view.product.nameEs}: datos insuficientes para clasificar la temporada.${estimate}`
     }
     const parts: string[] = []
     if (s.marketSeasonRanges.length > 0) {
@@ -64,7 +68,7 @@
       parts.push(`sin datos en ${noDataWeeks} ${noDataWeeks === 1 ? 'semana' : 'semanas'}`)
     }
     parts.push(`confianza ${CONFIDENCE_TEXT[s.confidenceLabel].toLowerCase()}`)
-    return `${view.product.nameEs} — ${parts.join('; ')}.`
+    return `${view.product.nameEs} — ${parts.join('; ')}.${estimate}`
   }
 
   function handleHover(view: ProductView) {
@@ -74,6 +78,8 @@
   }
 
   const hoverWeekly = $derived(hover ? hover.view.weekly[hover.week - 1] : null)
+
+  const anyReferenceSeason = $derived(views.some((v) => v.summary.referenceSeason))
 
   // Keep the tooltip inside the viewport: flip to the left of the cursor on
   // the right half of the screen.
@@ -105,6 +111,7 @@
           <SeasonStrip
             primary={primarySeries(view)}
             secondary={secondarySeries(view)}
+            reference={view.summary.referenceSeason?.ranges ?? []}
             markerWeek={referenceWeek}
             insufficient={view.summary.insufficientEvidence}
             label={describeRow(view)}
@@ -135,6 +142,11 @@
         </p>
         <p class="tooltip-row">
           Confianza: {CONFIDENCE_TEXT[hover.view.summary.confidenceLabel]}
+        </p>
+      {/if}
+      {#if hover.view.summary.referenceSeason}
+        <p class="tooltip-row muted">
+          ≈ Estimada (bibliografía): {formatReferenceRanges(hover.view.summary.referenceSeason.ranges)}
         </p>
       {/if}
       {#if hoverWeekly && hoverWeekly.observations > 0}
@@ -189,6 +201,19 @@
       </dt>
       <dd>Sin datos esa semana (los productos con evidencia insuficiente no se clasifican)</dd>
     </div>
+    {#if anyReferenceSeason}
+      <div class="legend-item">
+        <dt>
+          <svg viewBox="0 0 42 12" aria-hidden="true">
+            <rect x="1" y="1" width="40" height="10" class="lg-reference-outline" />
+            <line x1="8" y1="11" x2="18" y2="1" class="lg-reference-hatch" />
+            <line x1="18" y1="11" x2="28" y2="1" class="lg-reference-hatch" />
+            <line x1="28" y1="11" x2="38" y2="1" class="lg-reference-hatch" />
+          </svg>
+        </dt>
+        <dd>≈ {REFERENCE_SEASON_ARIA_ES}</dd>
+      </div>
+    {/if}
   </dl>
 </div>
 
@@ -350,5 +375,18 @@
     stroke: var(--color-border);
     stroke-width: 2;
     stroke-dasharray: 4 5;
+  }
+
+  .lg-reference-outline {
+    fill: none;
+    stroke: var(--season-reference);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+  }
+
+  .lg-reference-hatch {
+    stroke: var(--season-reference);
+    stroke-width: 1;
+    opacity: 0.55;
   }
 </style>

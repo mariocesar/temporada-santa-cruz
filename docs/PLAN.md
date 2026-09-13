@@ -4,10 +4,11 @@ This is the working plan for building Temporada Santa Cruz. The full product
 specification lives in [PROJECT.md](../PROJECT.md); this document sequences it
 into executable phases with exit criteria. Update it as phases complete.
 
-**Status: Phases 0–2 complete; Phase 3 (functional dashboard) core built
-2026-09-13 — its reference-season integration points (timeline hatched
-band, detail-panel citation, "Ahora" exclusion/sorting) are now unblocked
-and are the next task.**
+**Status: Phases 0–3 complete (2026-09-13). Phase 3's reference-season
+integration (timeline hatched band, detail-panel citation, "Ahora"
+exclusion and default sorting) landed and was re-verified at all four
+breakpoints. Next: Phase 4 (polish) — read
+`docs/design-references/NOTES.md` before starting.**
 
 Note: the dashboard was built by a session already in flight when the
 2026-09-13 renumbering inserted Phase 2; its checkboxes below reflect that.
@@ -133,7 +134,7 @@ Exit criteria met: estimate-only products render the estimated badge plus
 fields; every window traces to a real, dated, retrievable citation;
 `check`, `test`, and `data` are green.
 
-## Phase 3 — Functional dashboard (§85) — core built 2026-09-13
+## Phase 3 — Functional dashboard (§85) ✅ (done 2026-09-13)
 
 - [x] Data loader consuming `public/data/*.json` (products, summaries,
       seasonality, sources) with freshness metadata (§47).
@@ -159,18 +160,31 @@ fields; every window traces to a real, dated, retrievable citation;
       multi-agent review workflow (correctness + market/local distinction +
       URL state; 14 verifier-confirmed findings fixed).
 
-Pending — unblocked now that Phase 2 is done (reference seasons, §104):
+Reference-season integration (§104), landed 2026-09-13:
 
-- [ ] Timeline "estimada (referencia)" bucket — outlined/hatched band
-      (texture channel, never a sixth solid fill).
-- [ ] Reference-season citation in the product detail panel.
-- [ ] Estimate-only products: excluded from "Ahora" current-week claims
-      (state stays `sin_datos`; no `SeasonState` extension), default-sorted
-      after observed products.
+- [x] Timeline "estimada (referencia)" bucket — outlined/hatched band drawn
+      from `referenceSeason.ranges` only (dashed outline + diagonal hatch in
+      a neutral `--season-reference` channel; no solid fill; cyclic ranges
+      split into two segments across the year edge). Conditional legend
+      entry, row text equivalents, and tooltip line carry the "no proviene
+      de observaciones de mercado" language.
+- [x] Reference-season citation in the product detail panel: the badge/note
+      block (both branches, via one snippet) now lists each cited source —
+      linked name, publisher, and "consultada el …" access date — resolved
+      from `referenceSeason.sourceIds`; estimate-only products get an honest
+      "Sin observaciones de mercado registradas" sources section.
+- [x] Estimate-only products: excluded from "Ahora" current-week claims
+      (state stays `sin_datos`; no `SeasonState` extension), and the
+      default "Nombre" sort partitions insufficient-evidence products after
+      observed ones (an estimate never raises prominence — regression test
+      added). The "Ahora" rest line counts them: "(≈ N con temporada
+      estimada según bibliografía)".
 
-Exit: every §88 UI behavior works with the seed dataset on desktop and mobile
-widths (390 / 768 / 1280 / 1600 px) — met for the core; re-verify after the
-reference-season integration lands.
+Exit criteria met: every §88 UI behavior works with the seed dataset;
+re-verified after the reference-season integration in a real browser at
+390 / 768 / 1280 / 1600 px (hatched bands on mango — Nov→Jan wraparound —
+and limón; palta stays estimate-free), plus a two-verifier adversarial pass
+over the band geometry and the exclusion/sorting invariants.
 
 ## Phase 4 — Polish (§86)
 

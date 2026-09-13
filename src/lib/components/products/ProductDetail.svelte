@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DataSource } from '../../data/types'
+  import type { DataSource, ReferenceSeason } from '../../data/types'
   import {
     confidenceExplanation,
     localShareOfKnown,
@@ -55,6 +55,14 @@
       .filter((s): s is DataSource => s !== undefined),
   )
 
+  // Cited bibliography behind the reference season (§104) — disjoint from
+  // the observation sources above; the citation must stay retrievable.
+  const referenceSources = $derived(
+    (summary.referenceSeason?.sourceIds ?? [])
+      .map((id) => sources.find((s) => s.id === id))
+      .filter((s): s is DataSource => s !== undefined),
+  )
+
   // Relative-price sparkline (§54): only when units are comparable, and it
   // plots the derived price SIGNAL (1 = precios bajos para el año), never
   // nominal Bs values across years.
@@ -99,6 +107,30 @@
     ].filter((s): s is { label: string; value: string } => s.value !== null),
   )
 </script>
+
+{#snippet referenceBlock(rs: ReferenceSeason)}
+  <!-- The estimate accompanies the evidence display, never replaces it, and
+       always carries its retrievable citation (§104). -->
+  <div class="reference">
+    <ReferenceSeasonBadge referenceSeason={rs} />
+    {#if rs.note}
+      <p class="reference-note">{rs.note}</p>
+    {/if}
+    <ul class="reference-sources">
+      {#each referenceSources as source (source.id)}
+        <li>
+          Según
+          {#if source.url}
+            <a href={source.url} target="_blank" rel="noopener noreferrer">{source.name}</a>
+          {:else}
+            {source.name}
+          {/if}
+          ({source.publisher}{#if source.accessedAt}; consultada el {fmtDate(source.accessedAt, longDate)}{/if}).
+        </li>
+      {/each}
+    </ul>
+  </div>
+{/snippet}
 
 <svelte:window
   onkeydown={(event) => {
@@ -161,12 +193,7 @@
       </p>
       <!-- The estimate accompanies "Datos insuficientes", never replaces it (§104). -->
       {#if summary.referenceSeason}
-        <p class="reference">
-          <ReferenceSeasonBadge referenceSeason={summary.referenceSeason} />
-          {#if summary.referenceSeason.note}
-            <span class="reference-note">{summary.referenceSeason.note}</span>
-          {/if}
-        </p>
+        {@render referenceBlock(summary.referenceSeason)}
       {/if}
     </section>
   {:else}
@@ -185,12 +212,7 @@
         {/if}
       </p>
       {#if summary.referenceSeason}
-        <p class="reference">
-          <ReferenceSeasonBadge referenceSeason={summary.referenceSeason} />
-          {#if summary.referenceSeason.note}
-            <span class="reference-note">{summary.referenceSeason.note}</span>
-          {/if}
-        </p>
+        {@render referenceBlock(summary.referenceSeason)}
       {/if}
     </section>
 
@@ -308,24 +330,34 @@
 
   <section aria-labelledby="detail-sources">
     <h3 id="detail-sources">Fuentes de estos datos</h3>
-    <ul class="sources">
-      {#each productSources as source (source.id)}
-        <li>
-          {#if source.url}
-            <a href={source.url} target="_blank" rel="noopener noreferrer">{source.name}</a>
-          {:else}
-            {source.name}
-          {/if}
-          {#if source.synthetic}
-            <span class="synthetic-tag">SINTÉTICA</span>
-          {/if}
-        </li>
-      {/each}
-    </ul>
-    <p class="note">
-      Ver la sección <a href="#fuentes" onclick={onclose}>Fuentes</a> para el
-      detalle de cada una.
-    </p>
+    {#if productSources.length > 0}
+      <ul class="sources">
+        {#each productSources as source (source.id)}
+          <li>
+            {#if source.url}
+              <a href={source.url} target="_blank" rel="noopener noreferrer">{source.name}</a>
+            {:else}
+              {source.name}
+            {/if}
+            {#if source.synthetic}
+              <span class="synthetic-tag">SINTÉTICA</span>
+            {/if}
+          </li>
+        {/each}
+      </ul>
+      <p class="note">
+        Ver la sección <a href="#fuentes" onclick={onclose}>Fuentes</a> para el
+        detalle de cada una.
+      </p>
+    {:else}
+      <p class="note">
+        Sin observaciones de mercado registradas para este producto.
+        {#if summary.referenceSeason}
+          La temporada estimada proviene únicamente de la bibliografía citada
+          arriba.
+        {/if}
+      </p>
+    {/if}
   </section>
 </div>
 
@@ -416,10 +448,21 @@
   }
 
   .reference-note {
-    display: block;
-    margin-top: var(--space-1);
+    margin: var(--space-1) 0 0;
     font-size: 0.8125rem;
     color: var(--color-text-muted);
+  }
+
+  .reference-sources {
+    list-style: none;
+    margin: var(--space-1) 0 0;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .reference-sources a {
+    color: var(--color-accent);
   }
 
   section {

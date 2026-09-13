@@ -226,6 +226,35 @@ describe('sortViews', () => {
       'u',
     ])
   })
+
+  it('default-sorts estimate-only products after observed ones (§104)', () => {
+    const referenceSeason = {
+      ranges: [{ startWeek: 44, endWeek: 5 }],
+      basis: 'literature' as const,
+      sourceIds: ['libro'],
+    }
+    const mixed = buildProductViews(
+      [
+        product({ id: 'mango', nameEs: 'Mango' }),
+        product({ id: 'uva', nameEs: 'Uva' }),
+        product({ id: 'palta', nameEs: 'Palta' }),
+      ],
+      [
+        // Estimate-only: alphabetically first, but insufficient + estimated.
+        summary({ productId: 'mango', insufficientEvidence: true, referenceSeason }),
+        summary({ productId: 'uva' }),
+        // Insufficient without an estimate: the estimate must not reorder
+        // mango ahead of palta — it never raises prominence.
+        summary({ productId: 'palta', insufficientEvidence: true }),
+      ],
+      fullYear('uva', 0.5),
+    )
+    expect(sortViews(mixed, 'nombre', 'mercado', 1).map((v) => v.product.id)).toEqual([
+      'uva',
+      'mango',
+      'palta',
+    ])
+  })
 })
 
 describe('localShareOfKnown', () => {

@@ -144,7 +144,16 @@ export function sortViews(
   const sorted = [...views]
   switch (sort) {
     case 'nombre':
-      return sorted.sort(byName)
+      // Default order (§104): classifiable products come first; products
+      // with insufficient evidence — including estimate-only ones, whose
+      // bibliography estimate must never raise their prominence — sort
+      // after them, alphabetically within each group.
+      return sorted.sort((a, b) => {
+        if (a.summary.insufficientEvidence !== b.summary.insufficientEvidence) {
+          return a.summary.insufficientEvidence ? 1 : -1
+        }
+        return byName(a, b)
+      })
     case 'confianza':
       return sorted.sort((a, b) => {
         if (a.summary.insufficientEvidence !== b.summary.insufficientEvidence) {
