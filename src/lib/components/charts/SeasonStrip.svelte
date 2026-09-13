@@ -31,6 +31,17 @@
     height?: number
     /** Accessible summary of the strip (charts need text equivalents, §11). */
     label: string
+    /**
+     * Stagger for the entrance, in ms. Rows rising in sequence is what
+     * makes the cascade read as a cascade (docs/design-references NOTES §4).
+     */
+    revealDelay?: number
+    /**
+     * Changing this value replays the entrance — the mode toggle uses it so
+     * swapping Mercado ↔ Producción cruceña re-grows the curves instead of
+     * snapping between two unrelated shapes.
+     */
+    revealKey?: unknown
     onhoverweek?: (week: number | null, clientX: number, clientY: number) => void
   }
 
@@ -43,17 +54,26 @@
     hue = 'var(--season-reference)',
     height = 44,
     label,
+    revealDelay = 0,
+    revealKey = 0,
     onhoverweek,
   }: Props = $props()
 
   // Day units: 52 weeks × 7 = 364 wide. preserveAspectRatio="none" lets the
   // paths stretch with the container; no text lives inside the SVG.
   const WIDTH = 364
-  const TOP_PAD = 5
   const REFERENCE_INSET = 1.5
   const HATCH_SPACING = 7
 
+  // Headroom scales with the row: a curve that touches the top edge reads
+  // as clipped rather than as a peak, and every score near 1.0 flattens
+  // into the same slab.
+  const TOP_PAD = $derived(Math.max(5, height * 0.2))
   const baseline = $derived(height - 1)
+
+  // Gradients are document-global; each instance needs its own id.
+  const uid = $props.id()
+  const gradientId = $derived(`ridge-fill-${uid}`)
 
   interface Point {
     x: number
@@ -130,17 +150,48 @@
     return `M ${startX},${first.y}${curveBody(points)}`
   }
 
-  /** Closed area under the curve, down to the baseline. */
+  /**
+   * Closed area under the curve. Where a run ends because the evidence
+   * ends, the fill returns to the baseline on a short ramp rather than a
+   * vertical cliff: a wall reads as "the season dropped to zero that
+   * week", which is a claim the data never made. The ramp is a drawing
+   * convention at the edge of evidence — the dashed no-evidence baseline
+   * underneath and the row's text equivalent state what is actually known.
+   */
+  const MAX_EDGE_RAMP = 10.5
+
+  function edgeRamp(y: number): number {
+    return Math.min(MAX_EDGE_RAMP, Math.max(2, (baseline - y) * 0.35))
+  }
+
   function areaPath(points: ReadonlyArray<Point>): string {
     const first = points[0]!
     const end = points[points.length - 1]!
-    const startX = points.length === 1 ? first.x - 2 : first.x
-    const endX = points.length === 1 ? first.x + 2 : end.x
-    return `M ${startX},${baseline} L ${startX},${first.y}${curveBody(points)} L ${endX},${baseline} Z`
+    const startX = first.x - edgeRamp(first.y)
+    const endX = end.x + edgeRamp(end.y)
+    return `M ${startX},${baseline} L ${first.x},${first.y}${curveBody(points)} L ${endX},${baseline} Z`
   }
 
-  const primaryRuns = $derived(insufficient ? [] : runsOf(primary))
-  const secondaryRuns = $derived(insufficient || !secondary ? [] : runsOf(secondary))
+  /**
+   * A run of one or two weeks has no shape to speak of: filling it as an
+   * area paints a flat-topped bar, which reads as a plateau that the
+   * evidence never claimed. Those weeks are drawn as what they are —
+   * isolated observations, a stem and a dot at the week's own height.
+   */
+  const MIN_AREA_POINTS = 3
+
+  function splitRuns(series: ReadonlyArray<number | null>) {
+    const runs = runsOf(series)
+    return {
+      areas: runs.filter((points) => points.length >= MIN_AREA_POINTS),
+      marks: runs.filter((points) => points.length < MIN_AREA_POINTS).flat(),
+    }
+  }
+
+  const primaryRuns = $derived(insufficient ? { areas: [], marks: [] } : splitRuns(primary))
+  const secondaryRuns = $derived(
+    insufficient || !secondary ? { areas: [], marks: [] } : splitRuns(secondary),
+  )
 
   // Weeks with NO evidence (null score) get an explicit dashed baseline —
   // a silent flat baseline would read as "fuera de temporada", and missing
@@ -229,6 +280,24 @@
   onpointermove={onhoverweek ? handleMove : undefined}
   onpointerleave={onhoverweek ? handleLeave : undefined}
 >
+  <defs>
+    <!-- Dense at the baseline, airy at the crest: the fill itself carries
+         the sense of volume, so a long plateau still reads as a season
+         rather than as a colored slab. -->
+    <linearGradient
+      id={gradientId}
+      x1="0"
+      y1={TOP_PAD}
+      x2="0"
+      y2={baseline}
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop offset="0" stop-color="var(--ridge-hue)" stop-opacity="0.16" />
+      <stop offset="0.5" stop-color="var(--ridge-hue)" stop-opacity="0.34" />
+      <stop offset="1" stop-color="var(--ridge-hue)" stop-opacity="0.58" />
+    </linearGradient>
+  </defs>
+
   <rect class="hit" x="0" y="0" width={WIDTH} height={height} />
 
   {#each MONTH_START_DAY.slice(1) as day (day)}
@@ -262,14 +331,28 @@
     />
   {/each}
 
-  {#each secondaryRuns as points, i (i)}
-    <path class="silhouette" d={areaPath(points)} />
-  {/each}
+  <!-- Only the curves animate. The dashed no-evidence baseline and the
+       §104 hatch band are honesty devices and are painted immediately. -->
+  {#key revealKey}
+    <g class="plot" style="--reveal-delay: {revealDelay}ms">
+      {#each secondaryRuns.areas as points, i (i)}
+        <path class="silhouette" d={areaPath(points)} />
+      {/each}
+      {#each secondaryRuns.marks as point, i (i)}
+        <line class="mark-stem secondary" x1={point.x} y1={baseline} x2={point.x} y2={point.y} />
+        <circle class="mark-dot secondary" cx={point.x} cy={point.y} r="2.4" />
+      {/each}
 
-  {#each primaryRuns as points, i (i)}
-    <path class="ridge" d={areaPath(points)} />
-    <path class="ridge-line" d={curveThrough(points)} />
-  {/each}
+      {#each primaryRuns.areas as points, i (i)}
+        <path class="ridge" d={areaPath(points)} fill="url(#{gradientId})" />
+        <path class="ridge-line" d={curveThrough(points)} />
+      {/each}
+      {#each primaryRuns.marks as point, i (i)}
+        <line class="mark-stem" x1={point.x} y1={baseline} x2={point.x} y2={point.y} />
+        <circle class="mark-dot" cx={point.x} cy={point.y} r="2.4" />
+      {/each}
+    </g>
+  {/key}
 
   {#if markerWeek !== null}
     <line
@@ -308,21 +391,60 @@
     vector-effect: non-scaling-stroke;
   }
 
-  .ridge {
-    fill: var(--ridge-hue);
-    fill-opacity: 0.78;
+  /* Curves grow up out of the baseline, staggered down the cascade. The
+     resting state IS the finished state, so the reduced-motion override in
+     app.css lands on a fully drawn chart. */
+  .plot {
+    animation: ridge-rise 620ms cubic-bezier(0.22, 0.7, 0.28, 1) both;
+    animation-delay: var(--reveal-delay, 0ms);
+    transform-box: fill-box;
+    transform-origin: bottom;
   }
 
+  @keyframes ridge-rise {
+    from {
+      transform: scaleY(0.06);
+      opacity: 0;
+    }
+    to {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+  }
+
+  /* The crest carries the season's shape; the wash underneath only gives
+     it weight. A heavy fill turns a year-round product into a slab. */
   .ridge-line {
     fill: none;
     stroke: var(--ridge-hue);
-    stroke-width: 1.5;
+    stroke-width: 1.75;
+    stroke-linejoin: round;
     vector-effect: non-scaling-stroke;
   }
 
+  .mark-stem {
+    stroke: var(--ridge-hue);
+    stroke-opacity: 0.55;
+    stroke-width: 1.25;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .mark-dot {
+    fill: var(--ridge-hue);
+    stroke: none;
+  }
+
+  .mark-stem.secondary {
+    stroke-opacity: 0.3;
+  }
+
+  .mark-dot.secondary {
+    fill: color-mix(in oklab, var(--ridge-hue) 45%, var(--color-bg));
+  }
+
   .silhouette {
-    fill: color-mix(in oklab, var(--ridge-hue) 20%, var(--color-bg));
-    stroke: color-mix(in oklab, var(--ridge-hue) 38%, var(--color-bg));
+    fill: color-mix(in oklab, var(--ridge-hue) 14%, var(--color-bg));
+    stroke: color-mix(in oklab, var(--ridge-hue) 34%, var(--color-bg));
     stroke-width: 1;
     vector-effect: non-scaling-stroke;
   }

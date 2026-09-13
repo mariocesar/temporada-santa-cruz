@@ -7,6 +7,7 @@
   import { CONFIDENCE_TEXT, MODE_LABEL, SEASON_STATE_LABEL, type ViewMode } from '../../i18n/labels'
   import { productHue } from '../../ui/palette'
   import ConfidenceChip from '../ui/ConfidenceChip.svelte'
+  import ProductGlyph from '../ui/ProductGlyph.svelte'
   import MonthAxis from './MonthAxis.svelte'
   import SeasonStrip from './SeasonStrip.svelte'
 
@@ -15,10 +16,22 @@
     mode: ViewMode
     referenceWeek: number
     selectedSlug: string | null
+    /** Strip height per row; the poster view sizes rows to the viewport. */
+    rowHeight?: number
+    /** Vertical breathing room between rows, in px. */
+    rowGap?: number
     onselect: (slug: string) => void
   }
 
-  let { views, mode, referenceWeek, selectedSlug, onselect }: Props = $props()
+  let {
+    views,
+    mode,
+    referenceWeek,
+    selectedSlug,
+    rowHeight = 54,
+    rowGap = 14,
+    onselect,
+  }: Props = $props()
 
   interface Hover {
     view: ProductView
@@ -28,6 +41,16 @@
   }
 
   let hover = $state<Hover | null>(null)
+
+  /**
+   * The row under the pointer or keyboard focus. Bringing one row forward
+   * (and easing the others back) is what lets a reader follow a single
+   * product across a dense cascade; it changes no encoding.
+   */
+  let focusedId = $state<string | null>(null)
+
+  /** Rows rise in sequence, so the cascade arrives as a cascade. */
+  const ROW_STAGGER_MS = 55
 
   function primarySeries(view: ProductView): ReadonlyArray<number | null> {
     return mode === 'local' ? view.localSeries : view.marketSeries
@@ -75,6 +98,7 @@
   function handleHover(view: ProductView) {
     return (week: number | null, x: number, y: number) => {
       hover = week === null ? null : { view, week, x, y }
+      focusedId = week === null ? null : view.product.id
     }
   }
 
@@ -94,23 +118,39 @@
 
 <div class="timeline">
   <div class="scroller">
-    <div class="grid">
+    <div class="grid" style="--row-gap: {rowGap}px">
       <div class="corner" aria-hidden="true"></div>
       <div class="axis-cell"><MonthAxis /></div>
 
-      {#each views as view (view.product.id)}
+      {#each views as view, rowIndex (view.product.id)}
         <button
           type="button"
           class="name"
           class:selected={view.product.slug === selectedSlug}
+          class:dimmed={focusedId !== null && focusedId !== view.product.id}
           onclick={() => onselect(view.product.slug)}
+          onpointerenter={() => (focusedId = view.product.id)}
+          onpointerleave={() => (focusedId = null)}
+          onfocus={() => (focusedId = view.product.id)}
+          onblur={() => (focusedId = null)}
         >
           <span class="name-chip" style="--hue: {productHue(view.product)}">
+            <ProductGlyph
+              productId={view.product.id}
+              hue={productHue(view.product)}
+              size={18}
+              stroke={1.15}
+              wash={0.14}
+            />
             {view.product.nameEs}
           </span>
           <ConfidenceChip summary={view.summary} />
         </button>
-        <div class="strip-cell" class:selected={view.product.slug === selectedSlug}>
+        <div
+          class="strip-cell"
+          class:selected={view.product.slug === selectedSlug}
+          class:dimmed={focusedId !== null && focusedId !== view.product.id}
+        >
           <SeasonStrip
             primary={primarySeries(view)}
             secondary={secondarySeries(view)}
@@ -118,8 +158,10 @@
             markerWeek={referenceWeek}
             insufficient={view.summary.insufficientEvidence}
             hue={productHue(view.product)}
-            height={44}
+            height={rowHeight}
             label={describeRow(view)}
+            revealDelay={rowIndex * ROW_STAGGER_MS}
+            revealKey={mode}
             onhoverweek={handleHover(view)}
           />
         </div>
@@ -243,9 +285,9 @@
 
   .grid {
     display: grid;
-    grid-template-columns: minmax(11rem, max-content) minmax(30rem, 1fr);
+    grid-template-columns: minmax(12rem, max-content) minmax(30rem, 1fr);
     align-items: end;
-    row-gap: 5px;
+    row-gap: var(--row-gap, 14px);
     min-width: 42rem;
   }
 
@@ -281,16 +323,20 @@
   }
 
   /* Name chips (NOTES §5): the label lives with the data, tinted by the
-     product's hue. */
+     product's hue and carrying the product's own drawing. */
   .name-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
     font-weight: 600;
     font-size: 0.9375rem;
     line-height: 1.35;
-    padding: 0 var(--space-2);
+    padding: 1px var(--space-2) 1px var(--space-1);
     border-radius: var(--radius-chip);
     border: 1px solid color-mix(in oklab, var(--hue) 55%, var(--color-bg));
     background: color-mix(in oklab, var(--hue) 10%, var(--color-bg));
     white-space: nowrap;
+    transition: border-color 160ms ease, background-color 160ms ease;
   }
 
   .name:hover .name-chip {
@@ -304,6 +350,18 @@
 
   .strip-cell {
     padding-left: var(--space-2);
+  }
+
+  /* Following one product through a dense cascade: the hovered row keeps
+     full strength, the rest ease back. Nothing about the encoding changes. */
+  .name,
+  .strip-cell {
+    transition: opacity 180ms ease;
+  }
+
+  .name.dimmed,
+  .strip-cell.dimmed {
+    opacity: 0.42;
   }
 
   .strip-cell.selected :global(svg) {
