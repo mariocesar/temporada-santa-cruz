@@ -2757,3 +2757,44 @@ During execution, the agent may research and fetch legitimately accessible publi
 ## Initialization scope
 
 Initialization delivered the working Svelte 5 + Vite + Bun scaffold, this decisions record, and the phased execution plan in `docs/PLAN.md`. Full execution (data pipeline, dashboard, polish, deployment) follows that plan in a later session.
+
+## Reference seasons (confirmed 2026-09-13)
+
+Decisions confirmed with the project owner while planning the reference-season feature (specified in §104):
+
+- **Scope**: a curated set of ~6–8 products beyond the observed catalog — palta and mango plus candidates such as limón, maracuyá, chirimoya, coco, and cayú; the exact list is decided during execution based on which products have citable literature.
+- **Display-only**: reference seasons are rendered as "Temporada estimada (bibliografía)" and are NEVER blended into market/local scores, `harvestScore` (reserved for the INE census prior, §34), confidence, evidence, or `insufficientEvidence`.
+- **Data acquisition expanded**: in addition to CAO/SIPREM, SIIP, and INE (above), the agent may research and fetch legitimately accessible public agronomy literature (MDRyT / Gobernación de Santa Cruz harvest calendars, INIAF, FAO, academic publications) to build phenology entries, recording each item as a cited source with publisher, URL, and access date. Citations must never be fabricated; a product without a verifiable source simply stays at "Datos insuficientes".
+
+---
+
+# 104. Reference seasons (estimación bibliográfica)
+
+A display-only layer that gives products without market observations an approximate season inferred from species phenology and harvest-calendar literature, without weakening the observed-data model. This section is the design of record for Phase 2 of `docs/PLAN.md`; the owner decisions behind it are in §103.
+
+## Invariants
+
+- Reference data never enters `marketScore`, `localScore`, `harvestScore`, `confidence`, `evidence`, or `insufficientEvidence`. §101's warning stands: this layer exists precisely so estimates never masquerade as observations.
+- Reference data never passes through the cyclic smoothing kernel — it is windows → ranges only, no per-week scores, so the smoothed-score validation path is untouched.
+- Every reference range traces to source IDs in the source registry. Estimate-only products keep `insufficientEvidence: true` and confidence 0 — that is correct, not a gap.
+- `SeasonClass` / `SeasonState` are not extended: estimate-only products remain `sin_datos` for current-week claims.
+
+## Data model
+
+- Source registry gains a required `sourceType: 'market' | 'census' | 'literature'` taxonomy. Existing entries are retro-typed (INE census → `census`, formalizing its "prior only" prose flag in the registry). Literature sources must carry `url` and `accessedAt` so citations are retrievable and dated.
+- New curated registry `data/metadata/phenology.json`: per-product entries with cyclic season windows (calendar months 1–12 or ISO-week bins 1–52; start > end wraps the year boundary), cited `sourceIds`, an optional Spanish display note, and free-form citation detail. Validated strictly; cross-checks reject unknown products/sources, market-typed sources, and synthetic sources.
+- Month windows project onto the 52-bin week grid through an explicit month→week-span table in the methodology-constants module (week 53 is never authorable; the grid is the folded 52-bin calendar). Windows are merged into canonical cyclic ranges by the existing circular-mask machinery.
+- Derived output: `ProductSeasonSummary` gains an optional `referenceSeason { ranges, basis: 'literature' | 'census' | 'mixed', sourceIds, note? }`. The summary's existing `sourceIds` remains observation-sources-only. The dataset index gains `containsEstimatedSeasons` and `schemaVersion` bumps to 2.
+
+## UI language
+
+- Label: "Temporada estimada (bibliografía)", prefixed "≈", ranges formatted as approximate months ("aprox. oct – feb"; full year → "todo el año (estimado)").
+- The estimate renders in addition to — never instead of — the evidence badge; estimate-only products still show "Datos insuficientes".
+- Timeline encoding: an "estimada (referencia)" bucket drawn as an outlined/hatched band (a texture/border channel), never a sixth solid fill competing with observed classes.
+- Estimate-only products are excluded from "Ahora" current-week claims and default-sorted after observed products.
+- Accessible description: "Temporada estimada según bibliografía — no proviene de observaciones de mercado."
+
+## Guardrails
+
+- Anti-conflation regression test: deriving with and without a phenology entry on identical observations must produce deep-equal output except for the `referenceSeason` field.
+- Citation integrity: never fabricate bibliography. The registry ships empty rather than launch with invented sources; validation enforces retrievable, dated literature citations.

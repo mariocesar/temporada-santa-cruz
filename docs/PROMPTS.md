@@ -43,9 +43,25 @@ points the session at `docs/PLAN.md` and `PROJECT.md`, so these stay short.
 > inputs) and fix what it refutes. Commit logically, keep checks green,
 > update PLAN.md, push.
 
-## Phase 2 — Functional dashboard
+## Phase 2 — Reference seasons from phenology bibliography
 
-> Continue Temporada Santa Cruz: execute Phase 2 of docs/PLAN.md (functional
+> Continue Temporada Santa Cruz: execute Phase 2 of docs/PLAN.md (reference
+> seasons; design in PROJECT.md §104, decisions in §103). Use multi-agent
+> workflows for the research: fan out `source-scout` per candidate product
+> (palta, mango, limón, maracuyá, chirimoya, coco, cayú) to find citable
+> public agronomy sources for Santa Cruz harvest windows, then a `verifier`
+> pass over every citation→window transcription before anything enters
+> data/metadata/phenology.json — never fabricate a citation; a product
+> without a verifiable source stays at "Datos insuficientes". Then integrate
+> single-agent: sourceType taxonomy, referenceSeason domain module +
+> registry + validation + derive/build wiring, catalog additions, shell
+> badge, and the anti-conflation regression test. Display-only — nothing
+> blends into observed scores or confidence. Commit logically, keep checks
+> green, update PLAN.md, push.
+
+## Phase 3 — Functional dashboard
+
+> Continue Temporada Santa Cruz: execute Phase 3 of docs/PLAN.md (functional
 > dashboard). Build "Ahora" with the Mercado/Producción cruceña toggle,
 > search and category filters, the annual SVG timeline (Svelte-rendered,
 > encoding season + local + confidence), the product detail panel with
@@ -55,9 +71,9 @@ points the session at `docs/PLAN.md` and `PROJECT.md`, so these stay short.
 > URL-state behavior), verifying findings with the `verifier` subagent before
 > fixing them. Commit logically, keep checks green, update PLAN.md, push.
 
-## Phase 3 — Polish
+## Phase 4 — Polish
 
-> Continue Temporada Santa Cruz: execute Phase 3 of docs/PLAN.md (polish).
+> Continue Temporada Santa Cruz: execute Phase 4 of docs/PLAN.md (polish).
 > Before any design work, read docs/design-references/NOTES.md (owner-vetted
 > references: ridgeline month layout, produce-derived palette, botanical
 > illustration language) and ask me for any additional screenshots; derive
@@ -72,18 +88,18 @@ points the session at `docs/PLAN.md` and `PROJECT.md`, so these stay short.
 > confirmed findings. Commit logically, keep checks green, update PLAN.md,
 > push.
 
-## Phase 4 — Productionize and deploy
+## Phase 5 — Productionize and deploy
 
-> Continue Temporada Santa Cruz: execute Phase 4 of docs/PLAN.md. Create the
+> Continue Temporada Santa Cruz: execute Phase 5 of docs/PLAN.md. Create the
 > GitHub Pages deploy workflow (Bun, frozen lockfile, check + test + data
 > validation + build, official Pages actions, VITE_BASE_PATH derived from the
 > repo name), configure Pages via gh (source: GitHub Actions), deploy, and
 > verify asset paths and reload behavior at the live URL. Meet the full §88
 > definition of done. Update PLAN.md, push.
 
-## Phase 5 — First real-data milestone
+## Phase 6 — First real-data milestone
 
-> Continue Temporada Santa Cruz: execute Phase 5 of docs/PLAN.md. Research
+> Continue Temporada Santa Cruz: execute Phase 6 of docs/PLAN.md. Research
 > and fetch legitimately accessible CAO/SIPREM, SIIP, and INE materials
 > (authorized in PROJECT.md §103). Orchestrate this with multi-agent
 > workflows: fan out `source-scout` per source/year for the inventory sweep,

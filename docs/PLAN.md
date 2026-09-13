@@ -4,7 +4,7 @@ This is the working plan for building Temporada Santa Cruz. The full product
 specification lives in [PROJECT.md](../PROJECT.md); this document sequences it
 into executable phases with exit criteria. Update it as phases complete.
 
-**Status: Phase 1 complete; Phase 2 (functional dashboard) is next.**
+**Status: Phase 1 complete; Phase 2 (reference seasons) is next.**
 
 Confirmed decisions (2026-09-13) are recorded in PROJECT.md §103.
 
@@ -61,7 +61,57 @@ Exit criteria met: all data commands run, tests pass, generated JSON is
 loadable from the app, demo records are impossible to mistake for facts
 (synthetic flags, DEMO source names, banner, and double build guard).
 
-## Phase 2 — Functional dashboard (§85)
+## Phase 2 — Reference seasons from phenology bibliography (§104)
+
+Goal: products without market observations (palta, mango, …) show a
+clearly-marked, display-only estimated season traced to cited literature;
+nothing enters the observed scoring path. Design and owner decisions are
+recorded in PROJECT.md §103–§104.
+
+- [ ] `sourceType` taxonomy (`market | census | literature`) on
+      `sourceSchema` (`scripts/data/schemas.ts`) and `DataSource`
+      (`src/lib/data/types.ts`); retro-type all five existing
+      `sources.json` entries (INE → `census`, formalizing its "prior only"
+      prose flag); validation rule: literature sources require `url` and
+      `accessedAt`.
+- [ ] `MONTH_WEEK_SPANS` month→week-bin table in `methodology.ts`; new pure
+      module `src/lib/domain/referenceSeason.ts`: month window → week range
+      (incl. Oct–Feb wraparound), windows → canonical merged ranges reusing
+      `rangesFromMask` (`cyclic.ts`), basis derived from cited source types
+      (throws on `market`).
+- [ ] Curated registry `data/metadata/phenology.json` (productId, cyclic
+      month/week windows, sourceIds, note, citation) with a strict zod
+      schema, loaded via `loadRegistries()`; new `phenologyErrors()`
+      cross-check wired into `validate.ts` (unknown product/source,
+      market-typed or synthetic sources rejected).
+- [ ] Derive publishes an optional display-only `referenceSeason`
+      (ranges + basis + sourceIds) on `ProductSeasonSummary` — no per-week
+      scores, no smoothing, no `assertDerived` changes;
+      `summary.sourceIds` stays observation-only. `build.ts` adds
+      `containsEstimatedSeasons` to the index and bumps `schemaVersion`
+      to 2.
+- [ ] Research and cite public agronomy literature (§103 permission); add
+      the curated ~6–8 products to `products.json` (palta *Persea
+      americana* with alias "aguacate", mango *Mangifera indica*, others as
+      citable); phenology entries only for products with verified sources —
+      never fabricate citations.
+- [ ] Minimal shell proof in `App.svelte`: "≈ Temporada estimada
+      (bibliografía): aprox. oct – feb" badge alongside (never replacing)
+      "Datos insuficientes"; dataset footnote when
+      `containsEstimatedSeasons`.
+- [ ] Tests: month-span invariants, wraparound + week-53 fold, range
+      merging, `phenologyErrors`, derive integration, and the
+      anti-conflation regression (derive with vs without a phenology entry
+      is deep-equal except `referenceSeason`).
+- [ ] Multi-agent verification pass: `verifier` over citation→window
+      transcriptions and cyclic edge cases.
+
+Exit: estimate-only products render the estimated badge plus "Datos
+insuficientes" in the shell; observed outputs are identical except the new
+fields; every window traces to a real, dated, retrievable citation;
+`check`, `test`, and `data` stay green.
+
+## Phase 3 — Functional dashboard (§85)
 
 1. Data loader consuming `public/data/*.json` with freshness metadata (§47).
 2. Dashboard state module (`src/lib/stores/dashboard.svelte.ts`) + URL search
@@ -70,21 +120,29 @@ loadable from the app, demo records are impossible to mistake for facts
    Entrando / Saliendo), Mercado ↔ Producción cruceña toggle (§13, §40).
 4. Search (names + aliases) and category filters (§14).
 5. Annual timeline: SVG rendered by Svelte, months over ISO weeks, encoding
-   for availability/season/peak + market vs local + confidence (§15–16).
+   for availability/season/peak + market vs local + confidence (§15–16),
+   plus the "estimada (referencia)" bucket for reference seasons — an
+   outlined/hatched band (texture channel, never a sixth solid fill, §104).
 6. Product detail panel: identity, summary, timeline, observations,
-   origin, price behavior, evidence, confidence explanation (§17).
+   origin, price behavior, evidence, confidence explanation (§17), and the
+   reference-season citation when present (§104).
 7. Methodology + sources sections (§18, §56–57).
 8. Empty/error states (§78), month-explorer navigation (§75–76).
+9. Estimate-only products (no observations): excluded from "Ahora"
+   current-week claims (state stays `sin_datos`; no `SeasonState`
+   extension), default-sorted after observed products (§104).
 
 Exit: every §88 UI behavior works with the seed dataset on desktop and mobile
 widths (390 / 768 / 1280 / 1600 px).
 
-## Phase 3 — Polish (§86)
+## Phase 4 — Polish (§86)
 
 Typography and design system, spacing, responsive charts, accessibility pass
 (WCAG AA, §11), reduced motion, touch equivalents for tooltips (§72–73),
 README, CONTRIBUTING, `docs/METHODOLOGY.md`, `docs/DATA_SOURCES.md`,
-`docs/DATA_CONTRIBUTION.md` (§62–63, §94).
+`docs/DATA_CONTRIBUTION.md` (§62–63, §94). `docs/METHODOLOGY.md` must also
+explain "Temporada estimada según bibliografía" in plain Spanish: what it
+is, why it is not evidence, and how market observations supersede it (§104).
 
 **Visual direction input:** owner-provided design references live in
 `docs/design-references/NOTES.md` — read them before beginning design-system
@@ -92,7 +150,7 @@ work, and ask the owner for any additional screenshots they want to add.
 References refine, not override, the §9 direction (editorial, agricultural,
 warm; not SaaS), and the §1 "not a clone" constraint stands.
 
-## Phase 4 — Productionize and deploy (§87)
+## Phase 5 — Productionize and deploy (§87)
 
 A minimal deploy workflow already exists from Phase 0. Complete it:
 
@@ -104,7 +162,7 @@ A minimal deploy workflow already exists from Phase 0. Complete it:
 
 Exit: §88 definition of done, deployed.
 
-## Phase 5 — First real-data milestone (§101)
+## Phase 6 — First real-data milestone (§101)
 
 Per the confirmed data-sourcing decision, research and fetch legitimately
 accessible CAO/SIPREM, SIIP, and INE materials directly:
