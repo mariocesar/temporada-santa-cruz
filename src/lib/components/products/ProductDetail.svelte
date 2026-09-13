@@ -51,6 +51,30 @@
   const localShare = $derived(localShareOfKnown(summary))
   const signals = $derived(signalContributions(view))
 
+  /**
+   * Display percentages for the origin bars via largest-remainder
+   * rounding: independent Math.round can add up past the list's true
+   * total (62.5 % + 37.5 % → "63 % + 38 %"), which reads as broken math
+   * under the "porcentajes sobre…" caption. The target is the rounded
+   * sum of the SHOWN shares — a display-truncated list keeps summing to
+   * less than 100 rather than being inflated to it.
+   */
+  const originPercents = $derived.by(() => {
+    const shares = summary.primaryOrigins.map((o) => o.share * 100)
+    const target = Math.round(shares.reduce((a, b) => a + b, 0))
+    const floors = shares.map(Math.floor)
+    let leftover = target - floors.reduce((a, b) => a + b, 0)
+    const order = shares
+      .map((value, i) => ({ i, frac: value - Math.floor(value) }))
+      .sort((a, b) => b.frac - a.frac || a.i - b.i)
+    for (const { i } of order) {
+      if (leftover <= 0) break
+      floors[i]! += 1
+      leftover -= 1
+    }
+    return new Map(summary.primaryOrigins.map((o, i) => [o.originId, floors[i]!]))
+  })
+
   const productSources = $derived(
     summary.sourceIds
       .map((id) => sources.find((s) => s.id === id))
@@ -284,9 +308,9 @@
               {#if origin.isLocal}<span class="local-tag">Santa Cruz</span>{/if}
             </span>
             <span class="origin-bar" aria-hidden="true">
-              <span class="origin-fill" style="width: {Math.round(origin.share * 100)}%"></span>
+              <span class="origin-fill" style="width: {originPercents.get(origin.originId)}%"></span>
             </span>
-            <span class="origin-share">{Math.round(origin.share * 100)} %</span>
+            <span class="origin-share">{originPercents.get(origin.originId)} %</span>
           </li>
         {/each}
       </ul>
