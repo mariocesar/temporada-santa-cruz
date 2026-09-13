@@ -5,7 +5,13 @@
     "country": "Bolivia",
     "department": "Santa Cruz",
     "level": "department",
-    "aliases": ["santa cruz", "sta. cruz", "sta cruz", "scz", "dpto. santa cruz"]
+    "aliases": [
+      "santa cruz",
+      "sta. cruz",
+      "sta cruz",
+      "scz",
+      "dpto. santa cruz"
+    ]
   },
   {
     "id": "bo-sc-valles",
@@ -14,7 +20,11 @@
     "department": "Santa Cruz",
     "region": "Valles Cruceños",
     "level": "region",
-    "aliases": ["valles cruceños", "valles crucenos", "valles"]
+    "aliases": [
+      "valles cruceños",
+      "valles crucenos",
+      "valles"
+    ]
   },
   {
     "id": "bo-sc-norte",
@@ -23,7 +33,10 @@
     "department": "Santa Cruz",
     "region": "Norte Integrado",
     "level": "region",
-    "aliases": ["norte integrado", "norte cruceño"]
+    "aliases": [
+      "norte integrado",
+      "norte cruceño"
+    ]
   },
   {
     "id": "bo-sc-comarapa",
@@ -34,7 +47,9 @@
     "municipality": "Comarapa",
     "region": "Valles Cruceños",
     "level": "municipality",
-    "aliases": ["comarapa"]
+    "aliases": [
+      "comarapa"
+    ]
   },
   {
     "id": "bo-sc-mairana",
@@ -45,7 +60,9 @@
     "municipality": "Mairana",
     "region": "Valles Cruceños",
     "level": "municipality",
-    "aliases": ["mairana"]
+    "aliases": [
+      "mairana"
+    ]
   },
   {
     "id": "bo-cochabamba",
@@ -53,7 +70,11 @@
     "country": "Bolivia",
     "department": "Cochabamba",
     "level": "department",
-    "aliases": ["cochabamba", "cbba", "cbba."]
+    "aliases": [
+      "cochabamba",
+      "cbba",
+      "cbba."
+    ]
   },
   {
     "id": "bo-tarija",
@@ -61,7 +82,9 @@
     "country": "Bolivia",
     "department": "Tarija",
     "level": "department",
-    "aliases": ["tarija"]
+    "aliases": [
+      "tarija"
+    ]
   },
   {
     "id": "bo-la-paz",
@@ -69,7 +92,9 @@
     "country": "Bolivia",
     "department": "La Paz",
     "level": "department",
-    "aliases": ["la paz"]
+    "aliases": [
+      "la paz"
+    ]
   },
   {
     "id": "bo-beni",
@@ -77,7 +102,9 @@
     "country": "Bolivia",
     "department": "Beni",
     "level": "department",
-    "aliases": ["beni"]
+    "aliases": [
+      "beni"
+    ]
   },
   {
     "id": "bo-chuquisaca",
@@ -85,27 +112,71 @@
     "country": "Bolivia",
     "department": "Chuquisaca",
     "level": "department",
-    "aliases": ["chuquisaca", "sucre"]
+    "aliases": [
+      "chuquisaca",
+      "sucre"
+    ]
   },
   {
     "id": "ar",
     "label": "Argentina",
     "country": "Argentina",
     "level": "country",
-    "aliases": ["argentina"]
+    "aliases": [
+      "argentina"
+    ]
   },
   {
     "id": "pe",
     "label": "Perú",
     "country": "Perú",
     "level": "country",
-    "aliases": ["perú", "peru"]
+    "aliases": [
+      "perú",
+      "peru"
+    ]
   },
   {
     "id": "cl",
     "label": "Chile",
     "country": "Chile",
     "level": "country",
-    "aliases": ["chile"]
+    "aliases": [
+      "chile"
+    ]
+  },
+  {
+    "id": "bo-cbba-chapare",
+    "label": "Chapare",
+    "country": "Bolivia",
+    "department": "Cochabamba",
+    "region": "Chapare",
+    "level": "region",
+    "aliases": [
+      "chapare",
+      "el chapare"
+    ]
+  },
+  {
+    "id": "bo-sc-saipina",
+    "label": "Saipina",
+    "country": "Bolivia",
+    "department": "Santa Cruz",
+    "province": "Manuel María Caballero",
+    "municipality": "Saipina",
+    "level": "municipality",
+    "aliases": [
+      "saipina"
+    ]
+  },
+  {
+    "id": "br",
+    "label": "Brasil",
+    "country": "Brasil",
+    "level": "country",
+    "aliases": [
+      "brasil",
+      "brazil"
+    ]
   }
 ]

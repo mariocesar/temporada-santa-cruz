@@ -2,69 +2,233 @@
   {
     "id": "kg",
     "canonical": "kg",
-    "aliases": ["kg", "kilo", "kilogramo", "kgs"],
+    "aliases": [
+      "kg",
+      "kilo",
+      "kilogramo",
+      "kgs",
+      "kg.",
+      "kg,"
+    ],
     "knownWeightKg": 1,
     "conversionConfidence": 1
   },
   {
     "id": "lb",
     "canonical": "lb",
-    "aliases": ["lb", "libra", "libras"],
+    "aliases": [
+      "lb",
+      "libra",
+      "libras"
+    ],
     "knownWeightKg": 0.4536,
     "conversionConfidence": 1
   },
   {
     "id": "arroba",
     "canonical": "arroba",
-    "aliases": ["arroba", "@", "arrobas"],
+    "aliases": [
+      "arroba",
+      "@",
+      "arrobas"
+    ],
     "knownWeightKg": 11.34,
     "conversionConfidence": 0.9
   },
   {
     "id": "quintal",
     "canonical": "quintal",
-    "aliases": ["quintal", "qq", "quintales"],
+    "aliases": [
+      "quintal",
+      "qq",
+      "quintales"
+    ],
     "knownWeightKg": 45.36,
     "conversionConfidence": 0.9
   },
   {
     "id": "caja",
     "canonical": "caja",
-    "aliases": ["caja", "cajas", "cajón", "cajon"]
+    "aliases": [
+      "caja",
+      "cajas",
+      "cajón",
+      "cajon"
+    ]
   },
   {
     "id": "bolsa",
     "canonical": "bolsa",
-    "aliases": ["bolsa", "bolsas", "saco", "sacos"]
+    "aliases": [
+      "bolsa",
+      "bolsas",
+      "saco",
+      "sacos"
+    ]
   },
   {
     "id": "docena",
     "canonical": "docena",
-    "aliases": ["docena", "doc", "docenas"]
+    "aliases": [
+      "docena",
+      "doc",
+      "docenas"
+    ]
   },
   {
     "id": "unidad",
     "canonical": "unidad",
-    "aliases": ["unidad", "und", "u", "unidades", "por unidad"]
+    "aliases": [
+      "unidad",
+      "und",
+      "u",
+      "unidades",
+      "por unidad"
+    ]
   },
   {
     "id": "ciento",
     "canonical": "100 unidades",
-    "aliases": ["ciento", "100 unidades", "cien unidades", "100 u"]
+    "aliases": [
+      "ciento",
+      "100 unidades",
+      "cien unidades",
+      "100 u"
+    ]
   },
   {
     "id": "veinticinco-unidades",
     "canonical": "25 unidades",
-    "aliases": ["25 unidades", "25 u"]
+    "aliases": [
+      "25 unidades",
+      "25 u"
+    ]
   },
   {
     "id": "racimo",
     "canonical": "racimo",
-    "aliases": ["racimo", "racimos", "chipa"]
+    "aliases": [
+      "racimo",
+      "racimos",
+      "chipa"
+    ]
   },
   {
     "id": "amarro",
     "canonical": "amarro",
-    "aliases": ["amarro", "amarros", "atado", "atados"]
+    "aliases": [
+      "amarro",
+      "amarros",
+      "atado",
+      "atados"
+    ]
+  },
+  {
+    "id": "caja-17kg",
+    "canonical": "caja/17 kg",
+    "aliases": [
+      "caja/17 kg",
+      "caja/ 17 kg.",
+      "caja/17 kg."
+    ],
+    "knownWeightKg": 17,
+    "conversionConfidence": 0.9
+  },
+  {
+    "id": "caja-20kg",
+    "canonical": "caja/20 kg",
+    "aliases": [
+      "caja/20 kg",
+      "caja/20 kg."
+    ],
+    "knownWeightKg": 20,
+    "conversionConfidence": 0.9
+  },
+  {
+    "id": "caja-1kg",
+    "canonical": "caja/1 kg",
+    "aliases": [
+      "caja/1 kg",
+      "caja/1 kg."
+    ],
+    "knownWeightKg": 1,
+    "conversionConfidence": 0.9
+  },
+  {
+    "id": "caja-8kg",
+    "canonical": "caja/8 kg",
+    "aliases": [
+      "caja/8 kg",
+      "caja/8kg.",
+      "caja/8 kg."
+    ],
+    "knownWeightKg": 8,
+    "conversionConfidence": 0.9
+  },
+  {
+    "id": "caja-10kg",
+    "canonical": "caja/10 kg",
+    "aliases": [
+      "caja/10 kg",
+      "caja/10 kg."
+    ],
+    "knownWeightKg": 10,
+    "conversionConfidence": 0.9
+  },
+  {
+    "id": "caja-18kg",
+    "canonical": "caja/18 kg",
+    "aliases": [
+      "caja/18 kg",
+      "caja/18 kg."
+    ],
+    "knownWeightKg": 18,
+    "conversionConfidence": 0.9
+  },
+  {
+    "id": "caja-22kg",
+    "canonical": "caja/22 kg",
+    "aliases": [
+      "caja/22 kg",
+      "caja/22 kg."
+    ],
+    "knownWeightKg": 22,
+    "conversionConfidence": 0.9
+  },
+  {
+    "id": "bolsa-20kg",
+    "canonical": "bolsa 20 kg.",
+    "aliases": [
+      "bolsa 20 kg.",
+      "bolsa/20 kg",
+      "bolsa/20 kg."
+    ],
+    "knownWeightKg": 20,
+    "conversionConfidence": 0.9
+  },
+  {
+    "id": "tres-libras",
+    "canonical": "3 libras",
+    "aliases": [
+      "3 libras",
+      "3 lb"
+    ],
+    "knownWeightKg": 1.3608,
+    "conversionConfidence": 1
+  },
+  {
+    "id": "caja-14-pengas",
+    "canonical": "caja/14 pengas",
+    "aliases": [
+      "caja/14 pengas"
+    ]
+  },
+  {
+    "id": "caja-15-pengas",
+    "canonical": "caja/15 pengas",
+    "aliases": [
+      "caja/15 pengas",
+      "caja 15/pengas"
+    ]
   }
 ]

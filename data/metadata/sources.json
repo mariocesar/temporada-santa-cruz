@@ -6,9 +6,10 @@
     "sourceType": "market",
     "url": "https://www.cao.org.bo/",
     "description": "Reportes periódicos de precios mayoristas y minoristas de frutas y verduras en mercados de Santa Cruz, con clasificación de oferta (Escasa/Normal/Abundante), procedencia, variedad y calidad. Fuente primaria del proyecto.",
-    "methodologyNotes": "La clasificación de oferta alimenta la señal de disponibilidad; la procedencia alimenta la señal local. Los reportes históricos pueden existir como PDF o espejos; los espejos se registran como fuentes 'mirror' y no cuentan como evidencia independiente.",
-    "licenseNotes": "Material del publicador bajo sus propios términos; se documenta la adquisición por reporte y no se redistribuye material restringido.",
-    "kind": "original"
+    "methodologyNotes": "La clasificación de oferta (E=Escasa, N=Normal, A=Abundante) alimenta la señal de disponibilidad; la procedencia alimenta la señal local. Cada boletín compara dos fechas de relevamiento; la OFERTA corresponde a la fecha del boletín. Distribución libre actual vía agrodatos.com.bo (sitio de contenidos de la propia CAO: mismos contactos y «Elaboración: CAO - Planificación»); el sistema interactivo SIPREM es un servicio por suscripción y no se elude. Los espejos (IBCE) se registran como fuentes 'mirror' y no cuentan como evidencia independiente.",
+    "licenseNotes": "Los boletines llevan la nota: «El presente boletín es una publicación de la Cámara Agropecuaria del Oriente y su contenido puede ser reproducido de manera total o parcial, citando la fuente.» Se reproduce citando a la CAO; la adquisición por reporte está documentada en data/raw/cao-siprem/ACQUISITION.md.",
+    "kind": "original",
+    "accessedAt": "2026-09-13"
   },
   {
     "id": "siip",
@@ -79,5 +80,18 @@
     "methodologyNotes": "Fuente bibliográfica (§104): alimenta ÚNICAMENTE la temporada estimada de referencia. Las ventanas son a nivel Bolivia, no específicas de Santa Cruz; la nota de cada entrada de fenología lo aclara.",
     "licenseNotes": "PDF publicado por la propia editorial en riquezasdebolivia.com; se cita con enlace al original y no se redistribuye.",
     "kind": "original"
+  },
+  {
+    "id": "ibce-cao-mirror",
+    "name": "IBCE — espejo de boletines de precios CAO",
+    "publisher": "Instituto Boliviano de Comercio Exterior (IBCE)",
+    "sourceType": "market",
+    "url": "https://ibce.org.bo/",
+    "description": "PDFs de boletines de precios mayoristas/minoristas del mercado Abasto elaborados por la CAO (Sistema de Información de Producción, Precios y Mercados) y republicados por el IBCE en ibce.org.bo/images/idt_documentos/. Espejo de acceso, no evidencia independiente (PROJECT.md §66–67).",
+    "accessedAt": "2026-09-13",
+    "methodologyNotes": "Cada PDF cubre dos fechas de relevamiento (columnas comparativas); la clasificación de OFERTA (E/N/A) corresponde a la fecha del boletín. La adquisición por reporte está documentada en data/raw/cao-siprem/ACQUISITION.md.",
+    "licenseNotes": "Los boletines llevan la nota de la CAO: «El presente boletín es una publicación de la Cámara Agropecuaria del Oriente y su contenido puede ser reproducido de manera total o parcial, citando la fuente.» Se reproduce citando a la CAO.",
+    "kind": "mirror",
+    "mirrorOf": "cao-siprem"
   }
 ]
