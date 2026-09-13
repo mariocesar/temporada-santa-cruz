@@ -4,7 +4,7 @@
   import type { DashboardState } from '../../stores/dashboard.svelte'
   import { CATEGORY_FILTERS, MODE_LABEL, type ViewMode } from '../../i18n/labels'
   import { productHue } from '../../ui/palette'
-  import ProductGlyph from '../ui/ProductGlyph.svelte'
+  import ProductArt from '../ui/ProductArt.svelte'
   import SegmentedControl from '../ui/SegmentedControl.svelte'
   import Timeline from '../charts/Timeline.svelte'
 
@@ -194,12 +194,10 @@
         <div class="margin-art left" aria-hidden="true">
           {#each leftArt as view, i (view.product.id)}
             <span class="plate" style="--rot: {i % 2 === 0 ? -3 : 2}deg">
-              <ProductGlyph
+              <ProductArt
                 productId={view.product.id}
                 hue={productHue(view.product)}
                 size={104}
-                stroke={1.5}
-                wash={0.12}
               />
             </span>
           {/each}
@@ -221,12 +219,10 @@
         <div class="margin-art right" aria-hidden="true">
           {#each rightArt as view, i (view.product.id)}
             <span class="plate" style="--rot: {i % 2 === 0 ? 2.5 : -2}deg">
-              <ProductGlyph
+              <ProductArt
                 productId={view.product.id}
                 hue={productHue(view.product)}
                 size={104}
-                stroke={1.5}
-                wash={0.12}
               />
             </span>
           {/each}

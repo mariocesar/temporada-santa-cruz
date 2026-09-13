@@ -276,12 +276,32 @@ look, desktop first, glyphs not to be over-polished):
       the demo banner became a centered ribbon (same words, same warning
       voice); "Ahora", methodology and sources follow below the poster.
       Encoding and honesty devices untouched.
+- [x] Tier 1 historical plates (owner go-ahead, 2026-09-13): 12 of 15
+      products now carry genuine public-domain plates in the lámina's
+      gutters — 7 USDA Pomological Watercolors (durazno, limón «Cameron»
+      C. aurantiifolia exact, piña, sandía, mandarina, naranja, uva),
+      2 Köhler's Medizinal-Pflanzen 1897 (papaya, yuca), Fitch/Curtis's
+      1850 (mango), Dietrich Flora medica c. 1831 (palta, «Persea
+      gratissima» = P. americana per WFO), Blanco Flora de Filipinas
+      1883 (tomate, plate itself captioned Solanum lycopersicum).
+      Workflow: 4 source-scout fan-out → 2 adversarial verifiers over
+      every species line, artist/date, licence template, synonymy and
+      direct file. Registry entries carry full provenance; files in
+      public/illustrations (~520 px); new ProductArt.svelte renders a
+      plate when curated, the ink glyph otherwise. Honest holds keeping
+      glyphs: frutilla (USDA catalogues strawberries at genus level and
+      the 1891 «Alabama» sheet is a faint pencil sketch), guineo (Blanco
+      plate is M. × paradisiaca with only a secondary acuminata
+      annotation), achachairú (no PD plate found; BHL bot-blocked —
+      lead recorded). Sources section blurb now states the
+      historical/original mix.
 
 Remaining for Phase 4 exit (deferred by owner directive — demo first):
 full WCAG AA audit (multi-agent, per dimension), touch-tooltip review,
 a mobile presentation pass, README/CONTRIBUTING/METHODOLOGY/DATA_SOURCES/
-DATA_CONTRIBUTION docs, and Tier 1 public-domain illustration sourcing for
-owner picks. The owner still owes the reference screenshot drop
+DATA_CONTRIBUTION docs, and Tier 1 plates for the three held products
+(frutilla / guineo / achachairú — BHL via API key is the open lead).
+The owner still owes the reference screenshot drop
 (`sf-farmers-market-seasons.png`).
 
 ## Phase 5 — Productionize and deploy (§87) ✅ (done 2026-09-13)

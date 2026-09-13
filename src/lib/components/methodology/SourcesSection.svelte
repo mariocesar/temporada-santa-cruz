@@ -11,7 +11,10 @@
   // Artwork gets the same provenance treatment as data
   // (docs/design-references/NOTES.md, illustration policy §4).
   const credits = artCredits()
-  const artCount = renderableIllustrations().length
+  const renderable = renderableIllustrations()
+  const artCount = renderable.length
+  const historicalCount = renderable.filter((e) => e.kind === 'historical').length
+  const originalCount = artCount - historicalCount
 
   function originalName(source: DataSource): string | null {
     if (source.kind !== 'mirror' || !source.mirrorOf) return null
@@ -69,12 +72,15 @@
     <div class="art-credits">
       <h3 class="art-title">Ilustraciones</h3>
       <p>
-        Las {artCount} ilustraciones botánicas del panel son dibujos vectoriales
-        originales, no láminas históricas. Son decorativas: no codifican
-        temporada, confianza ni evidencia.
+        De las {artCount} ilustraciones botánicas del panel,
+        {historicalCount}
+        {historicalCount === 1 ? 'es una lámina histórica' : 'son láminas históricas'}
+        de dominio público y {originalCount}
+        {originalCount === 1 ? 'es un dibujo vectorial original' : 'son dibujos vectoriales originales'}.
+        Son decorativas: no codifican temporada, confianza ni evidencia.
       </p>
       <ul>
-        {#each credits as credit (credit.artist + credit.year)}
+        {#each credits as credit (`${credit.artist}|${credit.year}|${credit.license}|${credit.sourceUrl ?? ''}`)}
           <li>
             {credit.artist}, {credit.year} — {credit.license} ({credit.count}
             {credit.count === 1 ? 'lámina' : 'láminas'})
