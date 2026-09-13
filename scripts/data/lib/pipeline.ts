@@ -129,6 +129,7 @@ export function normalizeObservations(
       originRaw: row.origin_raw,
       varietyRaw: row.variety_raw,
       quality: row.quality,
+      ...(row.row_seq !== '' ? { rowSeq: row.row_seq } : {}),
     })
 
     const obs: MarketObservation = {
@@ -144,6 +145,7 @@ export function normalizeObservations(
       ...(row.origin_raw.trim() !== '' ? { originRaw: row.origin_raw } : {}),
       ...(row.variety_raw.trim() !== '' ? { variety: row.variety_raw, varietyRaw: row.variety_raw } : {}),
       ...(row.quality.trim() !== '' ? { quality: row.quality } : {}),
+      ...(row.row_seq !== '' ? { rowSeq: row.row_seq } : {}),
       availability,
       ...(row.availability.trim() !== '' ? { availabilityRaw: row.availability } : {}),
       ...(wholesalePrice !== undefined ? { wholesalePrice } : {}),

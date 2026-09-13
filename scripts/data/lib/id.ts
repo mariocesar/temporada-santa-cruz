@@ -19,12 +19,20 @@ export interface ObservationIdentity {
   originRaw: string
   varietyRaw: string
   quality: string
+  /**
+   * Print-order discriminator for reports whose printed dimensions do not
+   * disambiguate tiered lines (see `row_seq` in schemas.ts). Appended to
+   * the key ONLY when non-empty so that every pre-existing observation ID
+   * stays stable. Unambiguous: text fields cannot contain the separator,
+   * so a 9-field key can never collide with an 8-field one.
+   */
+  rowSeq?: string
 }
 
 const SEP = "\u001f" // unit separator: cannot appear in CSV text fields
 
 export function observationId(identity: ObservationIdentity): string {
-  const key = [
+  const fields = [
     identity.originalSourceId,
     identity.reportId,
     identity.observedAt,
@@ -33,6 +41,8 @@ export function observationId(identity: ObservationIdentity): string {
     identity.originRaw,
     identity.varietyRaw,
     identity.quality,
-  ].join(SEP)
+  ]
+  if (identity.rowSeq) fields.push(identity.rowSeq)
+  const key = fields.join(SEP)
   return 'obs_' + createHash('sha256').update(key, 'utf8').digest('hex').slice(0, 16)
 }

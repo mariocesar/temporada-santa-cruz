@@ -79,6 +79,7 @@ function row(overrides: Partial<RawCsvRow>): RawCsvRow {
     wholesale_unit: '',
     retail_price: '',
     retail_unit: '',
+    row_seq: '',
     ...overrides,
   }
 }

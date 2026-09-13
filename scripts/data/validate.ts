@@ -12,7 +12,7 @@ import {
   originsFileSchema,
   phenologyFileSchema,
   productsFileSchema,
-  RAW_CSV_COLUMNS,
+  RAW_CSV_HEADERS,
   rawCsvRowSchema,
   sourcesFileSchema,
   unitsFileSchema,
@@ -91,9 +91,9 @@ for (const file of csvFiles) {
     errors.push(`${rel}: ${e instanceof Error ? e.message : e}`)
     continue
   }
-  if (header.join(',') !== RAW_CSV_COLUMNS.join(',')) {
+  if (!RAW_CSV_HEADERS.includes(header.join(','))) {
     errors.push(
-      `${rel}: header mismatch\n  expected: ${RAW_CSV_COLUMNS.join(',')}\n  found:    ${header.join(',')}`,
+      `${rel}: header mismatch\n  expected: ${RAW_CSV_HEADERS.join('\n        or: ')}\n  found:    ${header.join(',')}`,
     )
     continue
   }

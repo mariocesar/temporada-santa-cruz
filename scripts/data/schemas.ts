@@ -42,11 +42,32 @@ export const rawCsvRowSchema = z.strictObject({
   wholesale_unit: textCell,
   retail_price: priceCell,
   retail_unit: textCell,
+  /**
+   * Print-order discriminator, used ONLY when a report prints several lines
+   * that are identical in every identity dimension (some CAO layouts omit
+   * the Origen/Calidad columns yet still print quality-tiered lines, e.g.
+   * cao-2013-07-25). Members of such a group get 1, 2, … in print order;
+   * every other row leaves it empty. Optional trailing CSV column — files
+   * without it are untouched and their observation IDs are unchanged.
+   */
+  row_seq: z
+    .string()
+    .regex(/^\d*$/, 'expected empty or a positive integer')
+    .default(''),
 })
 
 export type RawCsvRow = z.infer<typeof rawCsvRowSchema>
 
-export const RAW_CSV_COLUMNS = Object.keys(rawCsvRowSchema.shape) as Array<keyof RawCsvRow>
+/** The base contributor contract (§64) — `row_seq` is an optional extra. */
+export const RAW_CSV_COLUMNS = (Object.keys(rawCsvRowSchema.shape) as Array<keyof RawCsvRow>).filter(
+  (c) => c !== 'row_seq',
+)
+
+/** Accepted raw CSV headers: the base contract, or base plus `row_seq`. */
+export const RAW_CSV_HEADERS: readonly string[] = [
+  RAW_CSV_COLUMNS.join(','),
+  [...RAW_CSV_COLUMNS, 'row_seq'].join(','),
+]
 
 // ---------------------------------------------------------------------------
 // Registry schemas

@@ -8,7 +8,7 @@ import { parseCsvRecords } from './lib/csv'
 import { fail, listCsvFiles, ok, PATHS, readText, ROOT, writeJson } from './lib/io'
 import { normalizeObservations, type LocatedRow } from './lib/pipeline'
 import { loadRegistries } from './lib/registry'
-import { RAW_CSV_COLUMNS, rawCsvRowSchema } from './schemas'
+import { RAW_CSV_HEADERS, rawCsvRowSchema } from './schemas'
 
 const registries = loadRegistries()
 const rows: LocatedRow[] = []
@@ -16,7 +16,7 @@ const rows: LocatedRow[] = []
 for (const file of listCsvFiles(PATHS.raw)) {
   const rel = path.relative(ROOT, file)
   const { header, records } = parseCsvRecords(readText(file))
-  if (header.join(',') !== RAW_CSV_COLUMNS.join(',')) {
+  if (!RAW_CSV_HEADERS.includes(header.join(','))) {
     fail(`${rel}: unexpected CSV header — run \`bun run data:validate\` for details`)
   }
   records.forEach((record, i) => {

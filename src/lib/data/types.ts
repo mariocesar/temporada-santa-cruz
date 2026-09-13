@@ -152,6 +152,12 @@ export interface MarketObservation {
   varietyRaw?: string
 
   quality?: string
+  /**
+   * Print-order discriminator for report lines that are identical in every
+   * other identity dimension (layouts that omit Origen/Calidad yet print
+   * quality-tiered lines). Part of the observation ID when present.
+   */
+  rowSeq?: string
 
   availability: AvailabilityLevel
   availabilityRaw?: string

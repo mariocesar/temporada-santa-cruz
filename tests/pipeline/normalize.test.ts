@@ -44,6 +44,7 @@ function row(overrides: Partial<RawCsvRow>): RawCsvRow {
     wholesale_unit: 'kg',
     retail_price: '',
     retail_unit: '',
+    row_seq: '',
     ...overrides,
   }
 }
@@ -68,6 +69,29 @@ describe('observationId', () => {
     expect(observationId(base)).not.toBe(observationId({ ...base, reportId: 'cao-2024-16' }))
     expect(observationId(base)).not.toBe(observationId({ ...base, productRaw: 'Piña' }))
     expect(observationId(base)).toMatch(/^obs_[0-9a-f]{16}$/)
+  })
+
+  it('ignores an empty rowSeq (pre-existing IDs stay stable) but separates tiers by it', () => {
+    const base = {
+      originalSourceId: 'cao',
+      reportId: 'cao-2013-07-25',
+      observedAt: '2013-07-25',
+      market: 'Abasto',
+      productRaw: 'LIMON',
+      originRaw: '',
+      varietyRaw: 'Amarillo',
+      quality: '',
+    }
+    // Absent and empty rowSeq are the same identity — the key gains a field
+    // only when a discriminator is actually present.
+    expect(observationId(base)).toBe(observationId({ ...base, rowSeq: '' }))
+    // Tiered lines that print identically become distinct observations.
+    const tier1 = observationId({ ...base, rowSeq: '1' })
+    const tier2 = observationId({ ...base, rowSeq: '2' })
+    expect(tier1).not.toBe(observationId(base))
+    expect(tier1).not.toBe(tier2)
+    // The discriminator cannot be confused with a quality value.
+    expect(tier1).not.toBe(observationId({ ...base, quality: '1' }))
   })
 
   it('does not collide when field contents shift between fields', () => {
@@ -126,6 +150,23 @@ describe('normalizeObservations', () => {
     expect(observations).toHaveLength(1)
     expect(errors).toHaveLength(1)
     expect(errors[0]).toMatch(/exact duplicate/)
+  })
+
+  it('keeps tiered lines apart via row_seq and carries it on the observation', () => {
+    const { observations, errors } = normalizeObservations(
+      located([
+        row({ wholesale_price: '30.0', row_seq: '1' }),
+        row({ wholesale_price: '24.0', row_seq: '2' }),
+      ]),
+      registries,
+    )
+    expect(errors).toEqual([])
+    expect(observations).toHaveLength(2)
+    expect(observations[0]!.id).not.toBe(observations[1]!.id)
+    expect(observations.map((o) => o.rowSeq).sort()).toEqual(['1', '2'])
+    // Rows without a discriminator do not carry the field at all.
+    const { observations: plain } = normalizeObservations(located([row({})]), registries)
+    expect('rowSeq' in plain[0]!).toBe(false)
   })
 
   it('collapses a mirror of the same report into one observation (§66–67)', () => {

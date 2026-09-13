@@ -19,6 +19,12 @@ Rules:
 - **`source_id`** must exist in `data/metadata/sources.json`. Mirrors get
   their own `mirror` entry pointing at the original via `mirrorOf`; the
   pipeline collapses mirrored rows automatically.
+- **`row_seq`** (optional trailing column) disambiguates report lines that
+  are identical in every identity dimension — some layouts omit the
+  Origen/Calidad columns yet print quality-tiered lines. Members of such a
+  group get 1, 2, … in print order; all other rows leave it empty, and
+  files without the column are untouched (their observation IDs are
+  unchanged). See `rawCsvRowSchema` in `scripts/data/schemas.ts`.
 - Output lands under `data/raw/<source>/` and must pass
   `bun run data:validate`.
 - PDF extraction is offline work. Manual transcription to CSV is a fully
