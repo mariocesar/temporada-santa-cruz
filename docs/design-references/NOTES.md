@@ -63,12 +63,30 @@ PROJECT.md's "not a clone" constraint (§1) stands: adopt the visual
 - Mobile: the cascade must survive horizontal scrolling with sticky product
   chips (§72).
 
-### Illustration sourcing
+### Illustration policy (owner decision, 2026-09-13)
 
-The reference's watercolors are from the **USDA Pomological Watercolor
-Collection** (public domain, usdawatercolors.nal.usda.gov) — legitimate to
-use directly. It covers papaya, pineapple, citrus, grapes, peaches, etc.,
-but almost certainly not achachairú or other Bolivian-specific produce.
-Rule: use genuine public-domain artwork where it exists; create original
-artwork in a coherent style for the rest; omit gracefully otherwise.
-Never present a wrong-species illustration for a product.
+The owner is explicitly worried that generated imagery would read as
+AI slop and clash with the authentic-vintage language of the reference.
+Policy:
+
+1. **Never generate faux-vintage/painterly artwork** — not even as
+   placeholders. Fake "historical" art contradicts the project's
+   transparency ethos and is the most recognizable slop style.
+2. **Tier 1 — genuine public-domain historical art**, searched by
+   `scientificName`: USDA Pomological Watercolor Collection
+   (usdawatercolors.nal.usda.gov; covers papaya, piña, cítricos, uva,
+   durazno, frutilla, sandía…), Biodiversity Heritage Library, and
+   Flora Brasiliensis (Martius — strong on South American flora, incl.
+   Garcinia) for Bolivian species. Sourcing candidates per product is a
+   good `source-scout` fan-out task in Phase 3; the owner picks.
+3. **Tier 2 — original flat SVG glyphs** as the coherent fallback:
+   hand-coded vector botanical iconography that is honest about being
+   modern. Also usable as UI accents (chips, category icons). Graceful
+   omission remains valid — the layout must never require an image per
+   product.
+4. **Illustration registry** so the owner can search and replace art at
+   any time: each image records file, source, artist, year, license,
+   provenance URL, and `kind: 'historical' | 'original'`. The UI reads the
+   registry (swap = drop file + edit one entry); art credits surface in
+   the sources section — provenance for artwork, same as for data.
+5. Never present a wrong-species illustration for a product.
