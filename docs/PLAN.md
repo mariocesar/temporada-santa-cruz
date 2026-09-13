@@ -5,10 +5,11 @@ specification lives in [PROJECT.md](../PROJECT.md); this document sequences it
 into executable phases with exit criteria. Update it as phases complete.
 
 **Status: Phases 0–3 complete (2026-09-13). Phase 4's brand/design-system
-layer landed the same day (owner directive: demo state first) — see the
-Phase 4 checklist for what visual work is done and what polish remains
-(WCAG audit, reduced-motion/touch review, documentation set,
-illustrations).**
+layer and the demo "delight" pass landed the same day (owner directive:
+demo state first, then "focus on the visual story and look", desktop
+first) — see the Phase 4 checklist. What remains for Phase 4 exit is the
+deferred audit/docs work: full WCAG AA audit, touch-tooltip review, the
+documentation set, and Tier 1 historical illustration sourcing.**
 
 Note: the dashboard was built by a session already in flight when the
 2026-09-13 renumbering inserted Phase 2; its checkboxes below reflect that.
@@ -222,11 +223,49 @@ Done (demo-state directive, 2026-09-13):
 - [x] Verified in a real browser at 390 / 768 / 1280 px (+1600 px layout
       unchanged from 1280), both modes; `check`, `test`, `build` green.
 
-Remaining for Phase 4 exit: full WCAG AA audit (multi-agent, per
-dimension), reduced-motion & touch-tooltip review, README/CONTRIBUTING/
-METHODOLOGY/DATA_SOURCES/DATA_CONTRIBUTION docs, and the illustration
-track (Tier 1 public-domain sourcing fan-out for owner picks; registry).
-The owner still owes the reference screenshot drop
+Demo "delight" pass (owner directive, 2026-09-13: MVP, visual story and
+look, desktop first, glyphs not to be over-polished):
+
+- [x] Illustration system, Tier 2 of the NOTES.md policy. Owner picked
+      single-stroke **ink line art** (seed-catalogue engraving) over solid
+      silhouettes and two-tone. 15 original glyphs on a shared 48×48 grid
+      (`src/lib/ui/illustrations/glyphs.ts`), a `ProductGlyph.svelte` that
+      keeps hairlines hairlines at any size, and
+      `illustrations/registry.ts` carrying artist/year/licence/species per
+      entry so any piece can be swapped by editing one line — and so Tier 1
+      historical plates drop in later without a code change. Art credits
+      surface in the sources section (policy §4). Iterated against a dev
+      contact sheet (`scripts/dev/glyph-sheet.ts`) until the set read as a
+      set: papaya and palta halved, limón a cut wheel, sandía a wedge.
+- [x] Ridgelines read as volume, not slabs: headroom scales with the row
+      (no more saturating at the ceiling), a vertical gradient makes the
+      fill dense at the baseline and airy at the crest, and runs that end
+      at a data gap return to the baseline on a short ramp instead of a
+      vertical cliff — a cliff read as "the season dropped to zero that
+      week", a claim the data never made. Runs of one or two weeks now draw
+      as a stem and a dot: an isolated observation is a point, not a
+      plateau.
+- [x] Motion: curves rise out of the baseline staggered down the cascade
+      and replay when the Mercado ↔ Producción toggle swaps concepts; Ahora
+      cards stagger in; the detail panel slides. Every resting state IS the
+      finished state, honesty devices never animate, and reduced motion
+      zeroes delay as well as duration.
+- [x] Poster/full-screen mode for the annual timeline ("Ver como lámina"),
+      per the owner's reference: the whole year on one page, rows sized to
+      the viewport so all 15 products fit, Escape to exit. Encoding
+      untouched.
+- [x] Almanac masthead: kicker, serif display title, and botanical
+      marginalia that are the products at their peak in the reference week
+      — the cover art turns over with the year, restating "Ahora" rather
+      than adding a claim.
+- [x] Desktop presentation pass: "Pico de temporada" as a feature row, the
+      three core concepts as cards rather than fine print.
+
+Remaining for Phase 4 exit (deferred by owner directive — demo first):
+full WCAG AA audit (multi-agent, per dimension), touch-tooltip review,
+a mobile presentation pass, README/CONTRIBUTING/METHODOLOGY/DATA_SOURCES/
+DATA_CONTRIBUTION docs, and Tier 1 public-domain illustration sourcing for
+owner picks. The owner still owes the reference screenshot drop
 (`sf-farmers-market-seasons.png`).
 
 ## Phase 5 — Productionize and deploy (§87)
