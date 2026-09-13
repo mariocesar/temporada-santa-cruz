@@ -4,6 +4,7 @@
   import type { DashboardState } from '../../stores/dashboard.svelte'
   import { CATEGORY_FILTERS, MODE_LABEL, type ViewMode } from '../../i18n/labels'
   import { productHue } from '../../ui/palette'
+  import { illustrationFor } from '../../ui/illustrations/registry'
   import ProductArt from '../ui/ProductArt.svelte'
   import SegmentedControl from '../ui/SegmentedControl.svelte'
   import Timeline from '../charts/Timeline.svelte'
@@ -53,9 +54,22 @@
 
   // Marginal drawings flank the cascade in its side gutters, pasted onto
   // the page like plates in an almanac: left column takes the even picks,
-  // right column the odd ones.
-  const MAX_MARGIN_ART = 4
-  const marginArt = $derived(featured.slice(0, MAX_MARGIN_ART))
+  // right column the odd ones. Historical plates ONLY (owner directive
+  // 2026-09-13) — the ink glyphs keep working in chips and panels but
+  // never stand in as marginalia. Products at their peak lead (the art
+  // keeps restating "Ahora"), the rest of the curated plates fill the
+  // margins of the poster.
+  const MAX_MARGIN_ART = 6
+
+  function hasPlate(view: ProductView): boolean {
+    return illustrationFor(view.product.id)?.kind === 'historical'
+  }
+
+  const marginArt = $derived.by(() => {
+    const lead = featured.filter(hasPlate)
+    const rest = views.filter((v) => hasPlate(v) && !lead.includes(v))
+    return [...lead, ...rest].slice(0, MAX_MARGIN_ART)
+  })
   const leftArt = $derived(marginArt.filter((_, i) => i % 2 === 0))
   const rightArt = $derived(marginArt.filter((_, i) => i % 2 === 1))
 
@@ -197,7 +211,7 @@
               <ProductArt
                 productId={view.product.id}
                 hue={productHue(view.product)}
-                size={104}
+                size={i % 2 === 0 ? 122 : 100}
               />
             </span>
           {/each}
@@ -222,7 +236,7 @@
               <ProductArt
                 productId={view.product.id}
                 hue={productHue(view.product)}
-                size={104}
+                size={i % 2 === 0 ? 100 : 122}
               />
             </span>
           {/each}
@@ -393,7 +407,7 @@
 
   @media (min-width: 78rem) {
     .stage.with-art {
-      grid-template-columns: 7.5rem minmax(0, 1fr) 7.5rem;
+      grid-template-columns: 8.5rem minmax(0, 1fr) 8.5rem;
       column-gap: var(--space-4);
     }
   }
@@ -408,10 +422,13 @@
       flex-direction: column;
       justify-content: space-around;
       align-items: center;
-      padding-block: var(--space-8);
+      row-gap: var(--space-6);
+      padding-block: var(--space-6);
     }
   }
 
+  /* The right column starts lower, so the two columns read as pasted by
+     hand rather than mirrored. */
   .margin-art.right {
     padding-top: var(--space-8);
   }
