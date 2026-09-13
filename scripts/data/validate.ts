@@ -7,9 +7,10 @@ import path from 'node:path'
 import { parseCsvRecords } from './lib/csv'
 import { fail, listCsvFiles, ok, PATHS, readText, ROOT } from './lib/io'
 import { normalizeObservations, type LocatedRow } from './lib/pipeline'
-import { loadRegistries, originalSourceOf } from './lib/registry'
+import { loadRegistries, originalSourceOf, phenologyErrors } from './lib/registry'
 import {
   originsFileSchema,
+  phenologyFileSchema,
   productsFileSchema,
   RAW_CSV_COLUMNS,
   rawCsvRowSchema,
@@ -26,6 +27,7 @@ const registryFiles = [
   ['origins.json', originsFileSchema],
   ['units.json', unitsFileSchema],
   ['sources.json', sourcesFileSchema],
+  ['phenology.json', phenologyFileSchema],
 ] as const
 
 for (const [name, schema] of registryFiles) {
@@ -67,6 +69,8 @@ if (registries) {
       errors.push(`source ${source.id} looks like demo data but is not flagged synthetic`)
     }
   }
+  // Reference-season registry cross-checks (§104).
+  errors.push(...phenologyErrors(registries))
 }
 
 // --- Raw CSVs -------------------------------------------------------------

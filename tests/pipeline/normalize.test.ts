@@ -22,9 +22,9 @@ const units: UnitDef[] = [
   { id: 'kg', canonical: 'kg', aliases: ['kg'], knownWeightKg: 1, conversionConfidence: 1 },
 ]
 const sources: DataSource[] = [
-  { id: 'cao', name: 'CAO', publisher: 'CAO', kind: 'original' },
-  { id: 'cao-espejo', name: 'Espejo CAO', publisher: 'Otro', kind: 'mirror', mirrorOf: 'cao' },
-  { id: 'demo', name: 'DEMO fuente', publisher: 'Demo', kind: 'original', synthetic: true },
+  { id: 'cao', name: 'CAO', publisher: 'CAO', sourceType: 'market', kind: 'original' },
+  { id: 'cao-espejo', name: 'Espejo CAO', publisher: 'Otro', sourceType: 'market', kind: 'mirror', mirrorOf: 'cao' },
+  { id: 'demo', name: 'DEMO fuente', publisher: 'Demo', sourceType: 'market', kind: 'original', synthetic: true },
 ]
 
 const registries = buildRegistries(products, origins, units, sources)

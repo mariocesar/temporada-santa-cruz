@@ -4,11 +4,12 @@
   "observationCount": 1247,
   "sourceCount": 2,
   "containsDemoData": true,
+  "containsEstimatedSeasons": false,
   "files": {
     "products": "products.json",
     "seasonality": "seasonality.json",
     "summaries": "summaries.json",
     "sources": "sources.json"
   },
-  "schemaVersion": 1
+  "schemaVersion": 2
 }

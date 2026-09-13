@@ -21,6 +21,30 @@ import type { AvailabilityLevel, ConfidenceLabel } from '../data/types'
  */
 export const WEEK_BINS = 52
 
+/**
+ * Explicit month → week-bin span table on the folded 52-bin grid (§104).
+ * Used to project bibliography month windows (reference seasons) onto the
+ * weekly grid; week 53 is never authorable. Spans are inclusive and derived
+ * from the non-leap day-of-year month starts (months.ts): a boundary week
+ * that straddles two months appears in BOTH spans (e.g. bin 5 ends enero and
+ * starts febrero), so month windows always cover every week they touch.
+ * Index 0 = enero.
+ */
+export const MONTH_WEEK_SPANS: ReadonlyArray<{ startWeek: number; endWeek: number }> = [
+  { startWeek: 1, endWeek: 5 }, // enero
+  { startWeek: 5, endWeek: 9 }, // febrero
+  { startWeek: 9, endWeek: 13 }, // marzo
+  { startWeek: 13, endWeek: 18 }, // abril
+  { startWeek: 18, endWeek: 22 }, // mayo
+  { startWeek: 22, endWeek: 26 }, // junio
+  { startWeek: 26, endWeek: 31 }, // julio
+  { startWeek: 31, endWeek: 35 }, // agosto
+  { startWeek: 35, endWeek: 39 }, // septiembre
+  { startWeek: 40, endWeek: 44 }, // octubre
+  { startWeek: 44, endWeek: 48 }, // noviembre
+  { startWeek: 48, endWeek: 52 }, // diciembre
+]
+
 // ---------------------------------------------------------------------------
 // Availability mapping (§29)
 // ---------------------------------------------------------------------------

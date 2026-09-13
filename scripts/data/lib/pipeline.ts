@@ -10,6 +10,7 @@ import type {
   MarketObservation,
   Origin,
   ProductSeasonSummary,
+  ReferenceSeason,
   WeeklySeasonality,
 } from '../../../src/lib/data/types'
 import { availabilitySignal } from '../../../src/lib/domain/availability'
@@ -27,7 +28,9 @@ import {
   type ComparablePrice,
 } from '../../../src/lib/domain/prices'
 import { localSeasonScore, marketSeasonScore } from '../../../src/lib/domain/scores'
+import { referenceBasis, referenceRanges } from '../../../src/lib/domain/referenceSeason'
 import { observationId } from './id'
+import type { PhenologyEntry } from '../schemas'
 import {
   foldKey,
   normalizeAvailability,
@@ -236,6 +239,7 @@ export function deriveDataset(
   const weekCoverage = coverage.filter((years) => years.size > 0).length / WEEK_BINS
 
   const originById = new Map(registries.origins.map((o) => [o.id, o]))
+  const phenologyByProduct = new Map(registries.phenology.map((e) => [e.productId, e]))
   const seasonality: WeeklySeasonality[] = []
   const summaries: ProductSeasonSummary[] = []
 
@@ -367,6 +371,12 @@ export function deriveDataset(
 
     const dates = productObs.map((o) => o.observedAt).sort()
 
+    // Display-only reference season (§104): projected windows + cited
+    // sources, attached AFTER all observed fields are computed so it can
+    // never feed scores, evidence, confidence, or insufficientEvidence.
+    const phenology = phenologyByProduct.get(product.id)
+    const referenceSeason = phenology ? referenceSeasonOf(phenology, registries) : undefined
+
     summaries.push({
       productId: product.id,
       peakWeeks: sufficient ? peakWeeks : [],
@@ -389,11 +399,34 @@ export function deriveDataset(
       priceComparable: relativePrices(comparable).length > 0,
       containsSyntheticData: productObs.some((o) => o.synthetic),
       sourceIds: productSourceIds,
+      ...(referenceSeason ? { referenceSeason } : {}),
     })
   }
 
   assertDerived(seasonality)
   return { seasonality, summaries }
+}
+
+/**
+ * Assemble the published reference season for one phenology entry (§104).
+ * The registry is pre-validated (phenologyErrors), but the source-type
+ * invariant is re-enforced here: referenceBasis throws on market sources.
+ */
+function referenceSeasonOf(entry: PhenologyEntry, registries: Registries): ReferenceSeason {
+  const sourceTypes = entry.sourceIds.map((id) => {
+    const source = registries.sourceById.get(id)
+    if (!source) throw new Error(`phenology entry ${entry.productId} cites unknown source ${id}`)
+    if (source.synthetic) {
+      throw new Error(`phenology entry ${entry.productId} cites synthetic source ${id}`)
+    }
+    return source.sourceType
+  })
+  return {
+    ranges: referenceRanges(entry.windows),
+    basis: referenceBasis(sourceTypes),
+    sourceIds: [...new Set(entry.sourceIds)].sort(),
+    ...(entry.note ? { note: entry.note } : {}),
+  }
 }
 
 /**

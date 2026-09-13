@@ -82,23 +82,68 @@ export const unitDefSchema = z.strictObject({
   conversionConfidence: z.number().min(0).max(1).optional(),
 })
 
-export const sourceSchema = z.strictObject({
-  id: z.string().min(1),
-  name: z.string().min(1),
-  publisher: z.string().min(1),
-  url: z.url().optional(),
-  description: z.string().optional(),
-  coverageStart: isoDateSchema.optional(),
-  coverageEnd: isoDateSchema.optional(),
-  accessedAt: isoDateSchema.optional(),
-  methodologyNotes: z.string().optional(),
-  licenseNotes: z.string().optional(),
-  kind: z.enum(['original', 'mirror']),
-  mirrorOf: z.string().min(1).optional(),
-  synthetic: z.boolean().optional(),
+export const sourceSchema = z
+  .strictObject({
+    id: z.string().min(1),
+    name: z.string().min(1),
+    publisher: z.string().min(1),
+    /** Evidence taxonomy (§104): market | census | literature. */
+    sourceType: z.enum(['market', 'census', 'literature']),
+    url: z.url().optional(),
+    description: z.string().optional(),
+    coverageStart: isoDateSchema.optional(),
+    coverageEnd: isoDateSchema.optional(),
+    accessedAt: isoDateSchema.optional(),
+    methodologyNotes: z.string().optional(),
+    licenseNotes: z.string().optional(),
+    kind: z.enum(['original', 'mirror']),
+    mirrorOf: z.string().min(1).optional(),
+    synthetic: z.boolean().optional(),
+  })
+  // Literature citations must be retrievable and dated (§104).
+  .superRefine((source, ctx) => {
+    if (source.sourceType !== 'literature') return
+    if (!source.url) {
+      ctx.addIssue({ code: 'custom', path: ['url'], message: 'literature sources require url' })
+    }
+    if (!source.accessedAt) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['accessedAt'],
+        message: 'literature sources require accessedAt',
+      })
+    }
+  })
+
+// ---------------------------------------------------------------------------
+// Phenology registry (reference seasons, §104)
+// ---------------------------------------------------------------------------
+
+const phenologyMonth = z.number().int().min(1).max(12)
+/** Week bins only — week 53 is never authorable (folded 52-bin grid). */
+const phenologyWeek = z.number().int().min(1).max(52)
+
+/** Cyclic window: months 1–12 or week bins 1–52; start > end wraps. */
+export const phenologyWindowSchema = z.union([
+  z.strictObject({ startMonth: phenologyMonth, endMonth: phenologyMonth }),
+  z.strictObject({ startWeek: phenologyWeek, endWeek: phenologyWeek }),
+])
+
+export const phenologyEntrySchema = z.strictObject({
+  productId: z.string().min(1),
+  windows: z.array(phenologyWindowSchema).min(1),
+  /** Cited sources; cross-checked against the source registry (§104). */
+  sourceIds: z.array(z.string().min(1)).min(1),
+  /** Optional Spanish display note (e.g. region caveat). */
+  note: z.string().min(1).optional(),
+  /** Free-form citation detail: document, section/page, window read. */
+  citation: z.string().min(1),
 })
+
+export type PhenologyEntry = z.infer<typeof phenologyEntrySchema>
 
 export const productsFileSchema = z.array(productSchema)
 export const originsFileSchema = z.array(originSchema)
 export const unitsFileSchema = z.array(unitDefSchema)
 export const sourcesFileSchema = z.array(sourceSchema)
+export const phenologyFileSchema = z.array(phenologyEntrySchema)

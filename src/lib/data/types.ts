@@ -75,10 +75,21 @@ export interface OriginSummary {
 
 export type SourceKind = 'original' | 'mirror'
 
+/**
+ * What kind of evidence a source provides (§104):
+ *
+ *   market     — market price/availability reports; feeds observed scores
+ *   census     — agricultural census; harvest-calendar PRIOR only (§34)
+ *   literature — phenology/harvest-calendar bibliography; display-only
+ *                reference seasons, never part of observed scoring
+ */
+export type SourceType = 'market' | 'census' | 'literature'
+
 export interface DataSource {
   id: string
   name: string
   publisher: string
+  sourceType: SourceType
   url?: string
   description?: string
   coverageStart?: string
@@ -221,6 +232,28 @@ export interface SeasonRange {
 }
 
 // ---------------------------------------------------------------------------
+// Reference seasons (estimación bibliográfica, PROJECT.md §104)
+// ---------------------------------------------------------------------------
+
+/** Which cited source types back a reference season. Never 'market'. */
+export type ReferenceSeasonBasis = 'literature' | 'census' | 'mixed'
+
+/**
+ * Display-only estimated season from cited phenology/harvest-calendar
+ * bibliography. NEVER blended into scores, confidence, evidence, or
+ * `insufficientEvidence` — an estimate-only product correctly keeps
+ * "Datos insuficientes" alongside this (§104).
+ */
+export interface ReferenceSeason {
+  ranges: SeasonRange[]
+  basis: ReferenceSeasonBasis
+  /** Cited literature/census sources — disjoint from observation sourceIds. */
+  sourceIds: string[]
+  /** Optional Spanish display note (e.g. region caveat). */
+  note?: string
+}
+
+// ---------------------------------------------------------------------------
 // Product summaries (PROJECT.md §52)
 // ---------------------------------------------------------------------------
 
@@ -263,7 +296,11 @@ export interface ProductSeasonSummary {
 
   /** True if ANY contributing observation is synthetic (§45). */
   containsSyntheticData: boolean
+  /** Original-evidence sources of the OBSERVATIONS only — reference-season
+   * citations live in `referenceSeason.sourceIds`, never here (§104). */
   sourceIds: string[]
+  /** Display-only estimated season from cited bibliography (§104). */
+  referenceSeason?: ReferenceSeason
 }
 
 export interface EvidenceSummary {
@@ -296,6 +333,11 @@ export interface DatasetIndex {
    * demo-data banner whenever this is set (§79).
    */
   containsDemoData: boolean
+  /**
+   * True when any published summary carries a bibliography-estimated
+   * reference season; the UI adds the estimated-seasons footnote (§104).
+   */
+  containsEstimatedSeasons: boolean
   files: {
     products: string
     seasonality: string

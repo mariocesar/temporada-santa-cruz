@@ -13,6 +13,7 @@ import type {
   Origin,
   Product,
 } from '../../../src/lib/data/types'
+import type { PhenologyEntry } from '../schemas'
 import { PATHS, readJson } from './io'
 
 export interface UnitDef {
@@ -28,6 +29,8 @@ export interface Registries {
   origins: Origin[]
   units: UnitDef[]
   sources: DataSource[]
+  /** Curated reference-season windows (§104); display-only downstream. */
+  phenology: PhenologyEntry[]
   productByAlias: Map<string, Product>
   originByAlias: Map<string, Origin>
   unitByAlias: Map<string, UnitDef>
@@ -69,12 +72,14 @@ export function buildRegistries(
   origins: Origin[],
   units: UnitDef[],
   sources: DataSource[],
+  phenology: PhenologyEntry[] = [],
 ): Registries {
   return {
     products,
     origins,
     units,
     sources,
+    phenology,
     productByAlias: buildAliasMap(products, (p) => [p.nameEs, ...p.aliases], 'product'),
     originByAlias: buildAliasMap(origins, (o) => [o.label, ...(o.aliases ?? [])], 'origin'),
     unitByAlias: buildAliasMap(units, (u) => [u.canonical, ...u.aliases], 'unit'),
@@ -88,7 +93,45 @@ export function loadRegistries(): Registries {
     readJson<Origin[]>(path.join(PATHS.metadata, 'origins.json')),
     readJson<UnitDef[]>(path.join(PATHS.metadata, 'units.json')),
     readJson<DataSource[]>(path.join(PATHS.metadata, 'sources.json')),
+    readJson<PhenologyEntry[]>(path.join(PATHS.metadata, 'phenology.json')),
   )
+}
+
+/**
+ * Cross-checks for the phenology registry (§104): every entry must point at
+ * a known product and cite known, non-market, non-synthetic sources; one
+ * entry per product. Window shapes/bounds are the zod schema's job.
+ */
+export function phenologyErrors(registries: Registries): string[] {
+  const errors: string[] = []
+  const productIds = new Set(registries.products.map((p) => p.id))
+  const seen = new Set<string>()
+  for (const entry of registries.phenology) {
+    const where = `phenology.json: ${entry.productId}`
+    if (!productIds.has(entry.productId)) {
+      errors.push(`${where}: unknown product (add it to data/metadata/products.json)`)
+    }
+    if (seen.has(entry.productId)) {
+      errors.push(`${where}: duplicate entry for product`)
+    }
+    seen.add(entry.productId)
+    for (const sourceId of entry.sourceIds) {
+      const source = registries.sourceById.get(sourceId)
+      if (!source) {
+        errors.push(`${where}: unknown source ${JSON.stringify(sourceId)}`)
+        continue
+      }
+      if (source.sourceType === 'market') {
+        errors.push(
+          `${where}: market source ${sourceId} cannot back a reference season (§104)`,
+        )
+      }
+      if (source.synthetic) {
+        errors.push(`${where}: synthetic source ${sourceId} cannot back a reference season`)
+      }
+    }
+  }
+  return errors
 }
 
 /** Availability raw spellings → canonical level; null = unrecognized. */

@@ -36,6 +36,7 @@ const seasonality = readJson<WeeklySeasonality[]>(path.join(PATHS.generated, 'se
 const summaries = readJson<ProductSeasonSummary[]>(path.join(PATHS.generated, 'summaries.json'))
 
 const containsDemoData = observations.some((o) => o.synthetic)
+const containsEstimatedSeasons = summaries.some((s) => s.referenceSeason !== undefined)
 
 if (containsDemoData && process.env.ALLOW_DEMO_DATA !== 'true') {
   fail(
@@ -55,13 +56,16 @@ const index: DatasetIndex = {
   observationCount: observations.length,
   sourceCount: new Set(observations.map((o) => o.originalSourceId)).size,
   containsDemoData,
+  containsEstimatedSeasons,
   files: {
     products: 'products.json',
     seasonality: 'seasonality.json',
     summaries: 'summaries.json',
     sources: 'sources.json',
   },
-  schemaVersion: 1,
+  // v2: sourceType taxonomy, optional referenceSeason on summaries, and
+  // containsEstimatedSeasons on this index (§104).
+  schemaVersion: 2,
 }
 
 writeJson(path.join(PATHS.publicData, 'products.json'), registries.products)
